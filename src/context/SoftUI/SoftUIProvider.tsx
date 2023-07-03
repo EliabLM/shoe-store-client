@@ -13,7 +13,6 @@ const INITIAL_STATE: UIState = {
   transparentNavbar: true,
   fixedNavbar: true,
   openConfigurator: false,
-  layout: 'dashboard',
 };
 
 export const SoftUIProvider = ({ children }: Props) => {

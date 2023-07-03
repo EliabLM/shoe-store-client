@@ -1,4 +1,3 @@
-type layout = 'dashboard' | 'landing';
 type sidenavColor = 'info' | 'white';
 
 interface UIState {
@@ -8,5 +7,4 @@ interface UIState {
   transparentNavbar: boolean;
   fixedNavbar: boolean;
   openConfigurator: boolean;
-  layout: layout;
 }

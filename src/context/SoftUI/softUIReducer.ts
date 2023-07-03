@@ -4,8 +4,7 @@ export type UIActions =
   | { type: 'SIDENAV_COLOR'; payload: sidenavColor }
   | { type: 'TRANSPARENT_NAVBAR'; payload: boolean }
   | { type: 'FIXED_NAVBAR'; payload: boolean }
-  | { type: 'OPEN_CONFIGURATOR'; payload: boolean }
-  | { type: 'LAYOUT'; payload: layout };
+  | { type: 'OPEN_CONFIGURATOR'; payload: boolean };
 
 export const softUIReducer = (state: UIState, action: UIActions): UIState => {
   switch (action.type) {
@@ -25,9 +24,6 @@ export const softUIReducer = (state: UIState, action: UIActions): UIState => {
     }
     case 'OPEN_CONFIGURATOR': {
       return { ...state, openConfigurator: action.payload };
-    }
-    case 'LAYOUT': {
-      return { ...state, layout: action.payload };
     }
     default:
       return state;

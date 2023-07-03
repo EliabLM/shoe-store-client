@@ -23,8 +23,6 @@ export const useSoftUI = () => {
   const setOpenConfigurator = (payload: boolean) =>
     dispatch({ type: 'OPEN_CONFIGURATOR', payload });
 
-  const setLayout = (payload: layout) => dispatch({ type: 'LAYOUT', payload });
-
   return {
     ...state,
     setMiniSidenav,
@@ -33,6 +31,5 @@ export const useSoftUI = () => {
     setTransparentNavbar,
     setFixedNavbar,
     setOpenConfigurator,
-    setLayout,
   };
 };
