@@ -104,4 +104,19 @@ export const typography = {
   overline: {
     fontFamily: baseProperties.fontFamily,
   },
+
+  size: {
+    xxs: baseProperties.fontSizeXXS,
+    xs: baseProperties.fontSizeXS,
+    sm: baseProperties.fontSizeSM,
+    md: baseProperties.fontSizeMD,
+    lg: baseProperties.fontSizeLG,
+    xl: baseProperties.fontSizeXL,
+  },
+
+  lineHeight: {
+    sm: 1.25,
+    md: 1.5,
+    lg: 2,
+  },
 };

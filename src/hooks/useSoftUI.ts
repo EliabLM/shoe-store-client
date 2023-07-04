@@ -6,7 +6,7 @@ export const useSoftUI = () => {
 
   // Context module functions
   const setMiniSidenav = (payload: boolean) =>
-    dispatch({ type: 'FIXED_NAVBAR', payload });
+    dispatch({ type: 'MINI_SIDENAV', payload });
 
   const setTransparentSidenav = (payload: boolean) =>
     dispatch({ type: 'TRANSPARENT_SIDENAV', payload });

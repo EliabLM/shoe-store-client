@@ -1,5 +1,3 @@
-import { PaletteOptions } from '@mui/material';
-
 export const colors = {
   background: {
     default: '#f8f9fa',
@@ -9,6 +7,10 @@ export const colors = {
   //   main: '#67748e',
   //   focus: '#67748e',
   // },
+
+  text: {
+    primary: '#67748e',
+  },
 
   transparent: {
     main: 'transparent',

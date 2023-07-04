@@ -1,12 +1,16 @@
+'use client';
+
 import { Box } from '@mui/material';
 import { pxToRem } from '@/assets/theme/functions/pxToRem';
 import { useSoftUI } from '@/hooks/useSoftUI';
 
+import DashboardNavbar from './components/DashboardNavbar/DashboardNavbar';
+
 interface Props {
-  children: JSX.Element | JSX.Element[];
+  children: React.ReactNode;
 }
 
-export function DashboardLayout({ children }: Props) {
+function DashboardLayout({ children }: Props) {
   const { miniSidenav } = useSoftUI();
 
   return (
@@ -23,7 +27,10 @@ export function DashboardLayout({ children }: Props) {
         },
       })}
     >
+      <DashboardNavbar />
       {children}
     </Box>
   );
 }
+
+export default DashboardLayout;
