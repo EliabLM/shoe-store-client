@@ -1,6 +1,13 @@
-export const colors = {
+import { ColorsRoot } from '../interfaces/colors';
+
+export const colors: ColorsRoot = {
+  default: {
+    main: '#f8f9fa',
+  },
+
   background: {
     default: '#f8f9fa',
+    main: '#f8f9fa',
   },
 
   // text: {
@@ -10,6 +17,7 @@ export const colors = {
 
   text: {
     primary: '#67748e',
+    main: '#67748e',
   },
 
   transparent: {

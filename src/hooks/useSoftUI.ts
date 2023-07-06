@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { SoftUIContext } from '@/context/SoftUI/SoftUIContext';
+import { SidenavColor } from '@/interfaces/interfaces';
 
 export const useSoftUI = () => {
   const { state, dispatch } = useContext(SoftUIContext);
@@ -11,7 +12,7 @@ export const useSoftUI = () => {
   const setTransparentSidenav = (payload: boolean) =>
     dispatch({ type: 'TRANSPARENT_SIDENAV', payload });
 
-  const setSidenavColor = (payload: sidenavColor) =>
+  const setSidenavColor = (payload: SidenavColor) =>
     dispatch({ type: 'SIDENAV_COLOR', payload });
 
   const setTransparentNavbar = (payload: boolean) =>

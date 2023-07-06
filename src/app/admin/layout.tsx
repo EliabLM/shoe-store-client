@@ -5,13 +5,15 @@ import { pxToRem } from '@/assets/theme/functions/pxToRem';
 import { useSoftUI } from '@/hooks/useSoftUI';
 
 import DashboardNavbar from './components/DashboardNavbar/DashboardNavbar';
+import Sidenav from './components/Sidenav/Sidenav';
+import routes from '@/routes/routes';
 
 interface Props {
   children: React.ReactNode;
 }
 
 function DashboardLayout({ children }: Props) {
-  const { miniSidenav } = useSoftUI();
+  const { miniSidenav, sidenavColor } = useSoftUI();
 
   return (
     <Box
@@ -27,6 +29,11 @@ function DashboardLayout({ children }: Props) {
         },
       })}
     >
+      <Sidenav
+        color={sidenavColor}
+        brandName='Shoe Store App'
+        routes={routes}
+      />
       <DashboardNavbar />
       {children}
     </Box>

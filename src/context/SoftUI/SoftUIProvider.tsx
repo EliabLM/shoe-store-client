@@ -1,6 +1,7 @@
 import { useMemo, useReducer } from 'react';
 import { SoftUIContext } from './SoftUIContext';
 import { softUIReducer } from './softUIReducer';
+import { UIState } from '@/interfaces/interfaces';
 
 interface Props {
   children: JSX.Element | JSX.Element[];

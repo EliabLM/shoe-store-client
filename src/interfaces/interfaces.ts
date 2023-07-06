@@ -1,10 +1,26 @@
-type sidenavColor = 'info' | 'white';
+import { SvgIconProps } from '@mui/material';
 
-interface UIState {
+export type SidenavColor = 'info' | 'white';
+
+export interface UIState {
   miniSidenav: boolean;
   transparentSidenav: boolean;
-  sidenavColor: sidenavColor;
+  sidenavColor: SidenavColor;
   transparentNavbar: boolean;
   fixedNavbar: boolean;
   openConfigurator: boolean;
+}
+
+export interface CustomIconProps extends Omit<SvgIconProps, 'color'> {
+  color?:
+    | 'primary'
+    | 'secondary'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'error'
+    | 'dark'
+    | 'light'
+    | 'white';
+  size?: string;
 }

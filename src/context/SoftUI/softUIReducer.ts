@@ -1,7 +1,9 @@
+import { SidenavColor, UIState } from '@/interfaces/interfaces';
+
 export type UIActions =
   | { type: 'MINI_SIDENAV'; payload: boolean }
   | { type: 'TRANSPARENT_SIDENAV'; payload: boolean }
-  | { type: 'SIDENAV_COLOR'; payload: sidenavColor }
+  | { type: 'SIDENAV_COLOR'; payload: SidenavColor }
   | { type: 'TRANSPARENT_NAVBAR'; payload: boolean }
   | { type: 'FIXED_NAVBAR'; payload: boolean }
   | { type: 'OPEN_CONFIGURATOR'; payload: boolean };
