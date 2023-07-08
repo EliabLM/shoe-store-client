@@ -135,9 +135,9 @@ export default function App() {
       )}
 
       <Routes>
+        <Route exact path={'/'} element={<SignIn />} key={'sign-in'} />
         {getRoutes(routes)}
-        <Route exact path={'/auth/sign-in'} element={<SignIn />} key={'sign-in'} />
-        <Route path="*" element={<Navigate to="/auth/sign-in" />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </ThemeProvider>
   );

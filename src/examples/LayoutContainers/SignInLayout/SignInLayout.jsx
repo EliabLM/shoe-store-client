@@ -12,7 +12,7 @@ import SoftTypography from 'components/SoftTypography';
 import PageLayout from 'examples/LayoutContainers/PageLayout';
 
 // Authentication layout components
-import Footer from 'layouts/authentication/components/Footer';
+import SignInFooter from 'examples/Footer/SignInFooter';
 
 function SignInLayout({ title, description, children }) {
   return (
@@ -48,7 +48,7 @@ function SignInLayout({ title, description, children }) {
           </Grid>
         </Grid>
       </SoftBox>
-      <Footer />
+      <SignInFooter />
     </PageLayout>
   );
 }
