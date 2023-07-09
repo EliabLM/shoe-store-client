@@ -41,7 +41,7 @@ import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from 'contex
 
 // Images
 import brand from 'assets/images/logo-ct.png';
-import SignIn from 'pages/auth/SignIn/SignIn';
+import SignIn from 'pages/auth/SignIn';
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();

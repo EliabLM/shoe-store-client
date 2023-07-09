@@ -2,13 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-// react-router-dom components
-// import { Link } from 'react-router-dom';
-
 // @mui material components
 import Card from '@mui/material/Card';
 import CircularProgress from '@mui/material/CircularProgress';
-// import Switch from '@mui/material/Switch';
 
 // Soft UI Dashboard PRO React components
 import SoftBox from 'components/SoftBox';
@@ -17,13 +13,16 @@ import SoftButton from 'components/SoftButton';
 import CustomSoftInput from 'components/CustomSoftInput/CustomSoftInput';
 
 // Authentication layout components
-// import Socials from 'layouts/authentication/components/Socials';
 import SignInLayout from 'examples/LayoutContainers/SignInLayout/SignInLayout';
 
 // Utils
 import { sleep } from 'utils/sleep';
 
+// Hooks
+import { useAuth } from 'hooks/useAuth';
+
 function SignIn() {
+  const { setUser } = useAuth();
   const navigate = useNavigate();
   //   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,6 +46,17 @@ function SignIn() {
 
       await sleep(2);
       console.log('🚀 ~ onSubmit ~ data:', data);
+
+      const user = {
+        nombre: 'Eliab López',
+        email: 'eliablopez@hotmail.com',
+        rol: 'superadmin',
+        local: 'LOCAL1',
+        activo: true,
+      };
+
+      setUser({ user });
+
       navigate('/dashboards/default');
     } catch (error) {
       console.error({ error });
