@@ -36,11 +36,8 @@ Coded by www.creative-tim.com
 */
 
 // Soft UI Dashboard PRO React layouts
-import Default from 'layouts/dashboards/default';
 import Automotive from 'layouts/dashboards/automotive';
 import SmartHome from 'layouts/dashboards/smart-home';
-import VRDefault from 'layouts/dashboards/virtual-reality/vr-default';
-import VRInfo from 'layouts/dashboards/virtual-reality/vr-info';
 import CRM from 'layouts/dashboards/crm';
 import ProfileOverview from 'layouts/pages/profile/profile-overview';
 import Teams from 'layouts/pages/profile/teams';
@@ -96,6 +93,11 @@ import Office from 'examples/Icons/Office';
 import SettingsIcon from 'examples/Icons/Settings';
 import Basket from 'examples/Icons/Basket';
 import Document from 'examples/Icons/Document';
+import GroupIcon from '@mui/icons-material/Group';
+
+// Pages
+import Sales from 'pages/Dashboards/Sales/Sales';
+import UsersList from 'pages/Modules/Users/UsersList';
 
 const routes = [
   {
@@ -105,45 +107,46 @@ const routes = [
     icon: <Shop size="12px" />,
     collapse: [
       {
-        name: 'Default',
-        key: 'default',
-        route: '/dashboards/default',
-        component: <Default />,
+        name: 'Ventas',
+        key: 'ventas',
+        route: '/dashboards/ventas',
+        component: <Sales />,
       },
       {
-        name: 'Automotive',
-        key: 'automotive',
-        route: '/dashboards/automotive',
+        name: 'Inventarios',
+        key: 'inventarios',
+        route: '/dashboards/inventarios',
         component: <Automotive />,
       },
       {
-        name: 'Smart Home',
-        key: 'smart-home',
-        route: '/dashboards/smart-home',
+        name: 'Proveedores',
+        key: 'proveedores',
+        route: '/dashboards/proveedores',
         component: <SmartHome />,
       },
       {
-        name: 'Virtual Reality',
-        key: 'virtual-reality',
-        collapse: [
-          {
-            name: 'VR Default',
-            key: 'vr-default',
-            route: '/dashboards/virtual-reality/default',
-            component: <VRDefault />,
-          },
-          {
-            name: 'VR Info',
-            key: 'vr-info',
-            route: '/dashboards/virtual-reality/info',
-            component: <VRInfo />,
-          },
-        ],
+        name: 'Acreedores',
+        key: 'acreedores',
+        route: '/dashboards/acreedores',
+        component: <CRM />,
       },
-      { name: 'CRM', key: 'crm', route: '/dashboards/crm', component: <CRM /> },
     ],
   },
-  { type: 'title', title: 'Pages', key: 'title-pages' },
+  { type: 'title', title: 'Módulos', key: 'modulos' },
+  {
+    type: 'collapse',
+    name: 'Usuarios',
+    key: 'usuarios',
+    icon: <GroupIcon fontSize="10px" />,
+    collapse: [
+      {
+        name: 'Lista de usuarios',
+        key: 'lista-usuarios',
+        route: '/usuarios/lista-usuarios',
+        component: <UsersList />,
+      },
+    ],
+  },
   {
     type: 'collapse',
     name: 'Pages',

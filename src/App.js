@@ -41,7 +41,7 @@ import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from 'contex
 
 // Images
 import brand from 'assets/images/logo-ct.png';
-import SignIn from 'pages/auth/SignIn';
+import SignIn from 'pages/Auth/SignIn';
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -124,7 +124,7 @@ export default function App() {
           <Sidenav
             color={sidenavColor}
             brand={brand}
-            brandName="Soft UI Dashboard PRO"
+            brandName="Shoe Store App"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}

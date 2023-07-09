@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -22,7 +22,7 @@ import { sleep } from 'utils/sleep';
 import { useAuth } from 'hooks/useAuth';
 
 function SignIn() {
-  const { setUser } = useAuth();
+  const { setUser, user } = useAuth();
   const navigate = useNavigate();
   //   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -57,13 +57,19 @@ function SignIn() {
 
       setUser({ user });
 
-      navigate('/dashboards/default');
+      navigate('/dashboards/ventas');
     } catch (error) {
       console.error({ error });
     } finally {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboards/ventas');
+    }
+  }, [user]);
 
   return (
     <SignInLayout>
@@ -119,7 +125,7 @@ function SignIn() {
                 variant="gradient"
                 color="dark"
                 disabled={isLoading}
-                fullWidth={!isLoading}
+                fullWidth
               >
                 {isLoading ? (
                   <>
