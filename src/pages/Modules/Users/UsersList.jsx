@@ -2,6 +2,7 @@
 // react-router-dom components
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 // @mui material components
 import Card from '@mui/material/Card';
@@ -12,6 +13,7 @@ import SoftBox from 'components/SoftBox';
 import SoftTypography from 'components/SoftTypography';
 import SoftButton from 'components/SoftButton';
 import CustomLoader from 'components/CustomLoader/CustomLoader';
+import UsersActionsCell from './components/UsersActionCell';
 
 // Soft UI Dashboard PRO React example components
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
@@ -19,46 +21,16 @@ import DashboardNavbar from 'examples/Navbars/DashboardNavbar';
 import Footer from 'examples/Footer';
 import DataTable from 'examples/Tables/DataTable';
 
-// Utils
-import { sleep } from 'utils/sleep';
-import UsersActionsCell from './components/UsersActionCell';
+// hooks
+import { useUsersList } from './hooks/useUsersList';
+import { useUsersService } from 'services/useUsersService';
+import { validateResponse } from 'utils/validateResponse';
 
 const ENUM_ROLES = {
   superadmin: 'Super administrador',
   admin: 'Administrador',
   vendedor: 'Vendedor',
 };
-
-const USERS = [
-  {
-    id: 1,
-    nombre: 'Eliab López',
-    email: 'eliablopez@hotmail.com',
-    rol: 'superadmin',
-    local: 'LOCAL1',
-  },
-  {
-    id: 2,
-    nombre: 'Ismael López',
-    email: 'lopezmurillo@hotmail.com',
-    rol: 'superadmin',
-    local: 'LOCAL1',
-  },
-  {
-    id: 3,
-    nombre: 'Alexander López',
-    email: 'alexanderlopez@hotmail.com',
-    rol: 'admin',
-    local: 'LOCAL3',
-  },
-  {
-    id: 4,
-    nombre: 'Vendedores 1',
-    email: 'vendedor@hotmail.com',
-    rol: 'vendedor',
-    local: 'LOCAL2',
-  },
-];
 
 const columns = [
   {
@@ -90,34 +62,42 @@ const columns = [
 
 function UsersList() {
   const [dataTable, setDataTable] = useState({ columns, rows: [] });
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { data, isLoading, refetch } = useUsersList();
+  const { deleteUser: deleteUserService } = useUsersService();
 
   const deleteUser = async (item) => {
-    console.log('🚀 ~ deleteUser ~ item:', item);
-  };
+    const { isConfirmed } = await Swal.fire({
+      icon: 'warning',
+      text: '¿Esta seguro de eliminar este usuario?',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+      showCancelButton: true,
+      showConfirmButton: true,
+      reverseButtons: true,
+      showLoaderOnConfirm: true,
+      showCloseButton: true,
+      allowOutsideClick: false,
+      preConfirm: async () => {
+        const response = await deleteUserService({ user_id: item.id });
+        validateResponse(response, 'Ha ocurrido un error eliminando el usuario.');
+      },
+    });
 
-  const getData = async () => {
-    try {
-      setIsLoading(true);
-
-      await sleep(2);
-
-      const users = USERS.map((item) => ({
-        ...item,
-        options: <UsersActionsCell item={item} deleteUser={deleteUser} />,
-      }));
-
-      setDataTable((prevState) => ({ ...prevState, rows: users }));
-    } catch (error) {
-      console.error({ error });
-    } finally {
-      setIsLoading(false);
-    }
+    if (!isConfirmed) return;
+    refetch();
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (!data) return;
+
+    const users = data?.data?.map((item) => ({
+      ...item,
+      options: <UsersActionsCell item={item} deleteUser={deleteUser} />,
+    }));
+
+    setDataTable((prevState) => ({ ...prevState, rows: users || [] }));
+  }, [data, isLoading]);
 
   return (
     <DashboardLayout>
@@ -126,12 +106,12 @@ function UsersList() {
         <Card>
           <SoftBox display="flex" justifyContent="space-between" alignItems="flex-start" p={3}>
             <SoftBox lineHeight={1}>
-              <SoftTypography variant="h5" fontWeight="medium">
+              <SoftTypography variant="h4" fontWeight="medium">
                 Usuarios
               </SoftTypography>
-              <SoftTypography variant="button" fontWeight="regular" color="text">
+              {/* <SoftTypography variant="button" fontWeight="regular" color="text">
                 A lightweight, extendable, dependency-free javascript HTML table plugin.
-              </SoftTypography>
+              </SoftTypography> */}
             </SoftBox>
             <Stack spacing={1} direction="row">
               <Link to="/usuarios/nuevo-usuario">
