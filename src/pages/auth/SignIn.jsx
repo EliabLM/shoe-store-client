@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 // @mui material components
 import Card from '@mui/material/Card';
@@ -20,14 +21,12 @@ import { sleep } from 'utils/sleep';
 
 // Hooks
 import { useAuth } from 'hooks/useAuth';
+import { signInSchema } from './signIn.schema';
 
 function SignIn() {
   const { setUser, user } = useAuth();
   const navigate = useNavigate();
-  //   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  //   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
   const {
     register,
@@ -37,7 +36,7 @@ function SignIn() {
     criteriaMode: 'firstError',
     mode: 'all',
     reValidateMode: 'onChange',
-    // resolver: yupResolver
+    resolver: yupResolver(signInSchema),
   });
 
   const onSubmit = async (data) => {

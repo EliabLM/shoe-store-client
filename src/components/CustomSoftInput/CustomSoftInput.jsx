@@ -44,7 +44,7 @@ const CustomSoftInput = ({ register, name, label, errors, tooltip, ...rest }) =>
         fullWidth
         {...register(name)}
         error={errors && !!errors[name]}
-        // success={isDirty && Boolean(!error)}
+        // success={!errors[name]}
         {...rest}
       />
       {errors && formValidation(errors, name)}
