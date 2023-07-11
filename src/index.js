@@ -16,6 +16,8 @@ Coded by www.creative-tim.com
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+
 import App from 'App';
 import './index.css';
 
@@ -25,12 +27,16 @@ import AuthProvider from 'context/auth/AuthProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+const queryClient = new QueryClient();
+
 root.render(
   <BrowserRouter>
-    <SoftUIControllerProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </SoftUIControllerProvider>
+    <QueryClientProvider client={queryClient}>
+      <SoftUIControllerProvider>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </SoftUIControllerProvider>
+    </QueryClientProvider>
   </BrowserRouter>
 );
