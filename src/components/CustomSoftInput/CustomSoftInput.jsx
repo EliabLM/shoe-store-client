@@ -55,14 +55,9 @@ const CustomSoftInput = ({ register, name, label, errors, tooltip, ...rest }) =>
 export default CustomSoftInput;
 
 CustomSoftInput.propTypes = {
+  register: PropTypes.any,
+  name: PropTypes.string,
   label: PropTypes.string,
   errors: PropTypes.any,
   tooltip: PropTypes.string,
-  register: PropTypes.any,
-  name: PropTypes.string,
-  type: PropTypes.oneOf(['number', 'password', 'search', 'text', 'hidden', 'checkbox', 'email']),
-};
-
-CustomSoftInput.defaultProps = {
-  type: 'text',
 };

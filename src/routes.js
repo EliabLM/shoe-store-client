@@ -43,7 +43,7 @@ import ProfileOverview from 'layouts/pages/profile/profile-overview';
 import Teams from 'layouts/pages/profile/teams';
 import AllProjects from 'layouts/pages/profile/all-projects';
 import Reports from 'layouts/pages/users/reports';
-import NewUser from 'layouts/pages/users/new-user';
+import NewUser2 from 'layouts/pages/users/new-user';
 import Settings from 'layouts/pages/account/settings';
 import Billing from 'layouts/pages/account/billing';
 import Invoice from 'layouts/pages/account/invoice';
@@ -98,6 +98,7 @@ import GroupIcon from '@mui/icons-material/Group';
 // Pages
 import Sales from 'pages/Dashboards/Sales/Sales';
 import UsersList from 'pages/Modules/Users/UsersList';
+import NewUser from 'pages/Modules/Users/NewUser';
 
 const routes = [
   {
@@ -145,6 +146,12 @@ const routes = [
         route: '/usuarios/lista-usuarios',
         component: <UsersList />,
       },
+      {
+        name: 'Nuevo usuario',
+        key: 'nuevo-usuario',
+        route: '/usuarios/nuevo-usuario',
+        component: <NewUser />,
+      },
     ],
   },
   {
@@ -191,7 +198,7 @@ const routes = [
             name: 'New User',
             key: 'new-user',
             route: '/pages/users/new-user',
-            component: <NewUser />,
+            component: <NewUser2 />,
           },
         ],
       },

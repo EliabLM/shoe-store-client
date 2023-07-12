@@ -1,7 +1,26 @@
+import { axiosErrorAdapter } from 'adapters/axiosErrorAdapter';
 import { useAxios } from 'hooks/useAxios';
 
 export const useUsersService = () => {
   const axiosInstance = useAxios();
+
+  // ######### POST #########
+  const createUser = async ({ body }) => {
+    try {
+      const response = await axiosInstance.post('/users/create-user', body);
+
+      const createUserAdapter = {
+        statusCode: response.data.statusCode,
+        message: response.data.message,
+        data: response.data.data,
+      };
+
+      return createUserAdapter;
+    } catch (error) {
+      console.log('🚀 ~ createUser ~ error:', error);
+      return axiosErrorAdapter(error);
+    }
+  };
 
   // ######### GET ##########
   const getUsers = async () => {
@@ -16,15 +35,7 @@ export const useUsersService = () => {
 
       return getUsersAdapter;
     } catch (error) {
-      console.error('🚀 ~ ERROR getUsers ~ error:', error);
-
-      const getUsersAdapter = {
-        statusCode: error.response.data.statusCode || 400,
-        message: error.response.data.message || 'Ha ocurrido un error obteniendo los datos',
-        data: null,
-      };
-
-      return getUsersAdapter;
+      return axiosErrorAdapter(error);
     }
   };
 
@@ -42,20 +53,9 @@ export const useUsersService = () => {
 
       return deleteUserAdapter;
     } catch (error) {
-      console.error('🚀 ~ deleteUser ~ error:', error);
-
-      const deleteUserAdapter = {
-        statusCode: error.response.data?.statusCode || error.response.status || 400,
-        message:
-          error.response.data?.message ||
-          error.response.statusText ||
-          'Ha ocurrido un error eliminando el usuario.',
-        data: null,
-      };
-
-      return deleteUserAdapter;
+      return axiosErrorAdapter(error);
     }
   };
 
-  return { getUsers, deleteUser };
+  return { createUser, getUsers, deleteUser };
 };
