@@ -13,6 +13,7 @@ import SoftBox from 'components/SoftBox';
 import SoftTypography from 'components/SoftTypography';
 import SoftButton from 'components/SoftButton';
 import CustomLoader from 'components/CustomLoader/CustomLoader';
+import SoftBadge from 'components/SoftBadge';
 import UsersActionsCell from './components/UsersActionCell';
 
 // Soft UI Dashboard PRO React example components
@@ -53,6 +54,19 @@ const columns = [
   {
     Header: 'Local',
     accessor: 'local',
+  },
+  {
+    Header: 'Estado',
+    accessor: 'activo',
+    Cell: ({ value }) => {
+      console.log('value', value);
+      return (
+        <SoftBadge
+          badgeContent={value ? 'Activo' : 'Inactivo'}
+          color={value ? 'success' : 'error'}
+        />
+      );
+    },
   },
   {
     Header: 'Opciones',
