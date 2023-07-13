@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 // react-router-dom components
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 // @mui material components
@@ -58,15 +58,9 @@ const columns = [
   {
     Header: 'Estado',
     accessor: 'activo',
-    Cell: ({ value }) => {
-      console.log('value', value);
-      return (
-        <SoftBadge
-          badgeContent={value ? 'Activo' : 'Inactivo'}
-          color={value ? 'success' : 'error'}
-        />
-      );
-    },
+    Cell: ({ value }) => (
+      <SoftBadge badgeContent={value ? 'Activo' : 'Inactivo'} color={value ? 'success' : 'error'} />
+    ),
   },
   {
     Header: 'Opciones',
@@ -75,10 +69,11 @@ const columns = [
 ];
 
 function UsersList() {
-  const [dataTable, setDataTable] = useState({ columns, rows: [] });
-
+  const navigate = useNavigate();
   const { data, isLoading, refetch } = useUsersList();
   const { deleteUser: deleteUserService } = useUsersService();
+
+  const [dataTable, setDataTable] = useState({ columns, rows: [] });
 
   const deleteUser = async (item) => {
     const { isConfirmed } = await Swal.fire({
@@ -102,12 +97,16 @@ function UsersList() {
     refetch();
   };
 
+  const editUser = async (user) => {
+    navigate('/usuarios/editar-usuario', { state: user });
+  };
+
   useEffect(() => {
     if (!data) return;
 
     const users = data?.data?.map((item) => ({
       ...item,
-      options: <UsersActionsCell item={item} deleteUser={deleteUser} />,
+      options: <UsersActionsCell item={item} deleteUser={deleteUser} editUser={editUser} />,
     }));
 
     setDataTable((prevState) => ({ ...prevState, rows: users || [] }));

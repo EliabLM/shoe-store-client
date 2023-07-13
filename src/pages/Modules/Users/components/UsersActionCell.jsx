@@ -8,7 +8,7 @@ import Tooltip from '@mui/material/Tooltip';
 import SoftBox from 'components/SoftBox';
 import SoftTypography from 'components/SoftTypography';
 
-function UsersActionsCell({ item, deleteUser }) {
+function UsersActionsCell({ item, deleteUser, editUser }) {
   return (
     <SoftBox display="flex" alignItems="center">
       {/* <SoftTypography variant="body1" color="secondary" sx={{ cursor: 'pointer', lineHeight: 0 }}>
@@ -17,7 +17,12 @@ function UsersActionsCell({ item, deleteUser }) {
         </Tooltip>
       </SoftTypography> */}
       <SoftBox mx={2}>
-        <SoftTypography variant="body1" color="secondary" sx={{ cursor: 'pointer', lineHeight: 0 }}>
+        <SoftTypography
+          variant="body1"
+          color="secondary"
+          sx={{ cursor: 'pointer', lineHeight: 0 }}
+          onClick={() => editUser(item)}
+        >
           <Tooltip title="Editar" placement="top">
             <Icon>edit</Icon>
           </Tooltip>
@@ -29,8 +34,8 @@ function UsersActionsCell({ item, deleteUser }) {
         sx={{ cursor: 'pointer', lineHeight: 0 }}
         onClick={() => deleteUser(item)}
       >
-        <Tooltip title="Eliminar" placement="left">
-          <Icon>delete</Icon>
+        <Tooltip title="Deshabilitar" placement="left">
+          <Icon>not_interested</Icon>
         </Tooltip>
       </SoftTypography>
     </SoftBox>
@@ -42,4 +47,5 @@ export default UsersActionsCell;
 UsersActionsCell.propTypes = {
   item: PropTypes.object,
   deleteUser: PropTypes.func,
+  editUser: PropTypes.func,
 };

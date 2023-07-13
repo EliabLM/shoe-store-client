@@ -99,6 +99,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import Sales from 'pages/Dashboards/Sales/Sales';
 import UsersList from 'pages/Modules/Users/UsersList';
 import NewUser from 'pages/Modules/Users/NewUser';
+import EditUser from 'pages/Modules/Users/EditUser';
 
 const routes = [
   {
@@ -151,6 +152,12 @@ const routes = [
         key: 'nuevo-usuario',
         route: '/usuarios/nuevo-usuario',
         component: <NewUser />,
+      },
+      {
+        name: 'Editar usuario',
+        key: 'editar-usuario',
+        route: '/usuarios/editar-usuario',
+        component: <EditUser />,
       },
     ],
   },

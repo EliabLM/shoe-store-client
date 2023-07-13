@@ -1,5 +1,13 @@
 import * as yup from 'yup';
 
+export const ENUM_NAMES = {
+  nombre: 'nombre',
+  correo: 'correo',
+  role: 'role',
+  local: 'local',
+  activo: 'activo',
+};
+
 const nombre = yup
   .string()
   .min(3, 'Debe ingresar mínimo 3 caracteres')
@@ -15,8 +23,8 @@ const local = yup.object({
 });
 
 export const newUserSchema = yup.object({
-  nombre: nombre.required('El nombre es obligatorio'),
-  correo: correo.required('El correo es obligatorio'),
-  role: role.required('El rol es obligatorio'),
-  local: local.required('El local es obligatorio'),
+  [ENUM_NAMES.nombre]: nombre.required('El nombre es obligatorio'),
+  [ENUM_NAMES.correo]: correo.required('El correo es obligatorio'),
+  [ENUM_NAMES.role]: role.required('El rol es obligatorio'),
+  [ENUM_NAMES.local]: local.required('El local es obligatorio'),
 });

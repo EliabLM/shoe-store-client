@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Card, CircularProgress, Grid, Stack } from '@mui/material';
@@ -15,13 +15,15 @@ import Footer from 'examples/Footer';
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
 import DashboardNavbar from 'examples/Navbars/DashboardNavbar';
 
-import { newUserSchema } from './newUser.schema';
+import { newUserSchema, ENUM_NAMES } from './newUser.schema';
 import { useUsersService } from 'services/useUsersService';
 import { validateResponse } from 'utils/validateResponse';
 import { ROLES, LOCALES } from 'data/enums';
+import CustomSwitch from 'components/CustomSwitch/CustomSwitch';
 
-const NewUser = () => {
+const EditUser = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { createUser } = useUsersService();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,6 +31,7 @@ const NewUser = () => {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm({
     criteriaMode: 'firstError',
@@ -43,6 +46,7 @@ const NewUser = () => {
     const { nombre, correo, local, role } = data;
 
     const body = {
+      id: '',
       nombre,
       email: correo,
       rol: role.value,
@@ -70,6 +74,19 @@ const NewUser = () => {
     });
   };
 
+  useEffect(() => {
+    if (!location.state) return navigate('/usuarios/lista-usuarios');
+
+    const local = LOCALES.filter((item) => item.value === location.state.local)?.[0];
+    const role = ROLES.filter((item) => item.value === location.state.rol)?.[0];
+
+    setValue(ENUM_NAMES.nombre, location.state.nombre);
+    setValue(ENUM_NAMES.correo, location.state.email);
+    setValue(ENUM_NAMES.activo, location.state.activo);
+    setValue(ENUM_NAMES.local, local);
+    setValue(ENUM_NAMES.role, role);
+  }, [location.state]);
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -80,7 +97,7 @@ const NewUser = () => {
               <SoftBox display="flex" justifyContent="space-between" alignItems="flex-start" p={3}>
                 <SoftBox lineHeight={1}>
                   <SoftTypography variant="h4" fontWeight="medium">
-                    Nuevo usuario
+                    Editar usuario
                   </SoftTypography>
                   {/* <SoftTypography variant="button" fontWeight="regular" color="text">
                 A lightweight, extendable, dependency-free javascript HTML table plugin.
@@ -93,7 +110,7 @@ const NewUser = () => {
                   <Grid item xs={12} md={6}>
                     <CustomSoftInput
                       label="Nombre"
-                      name="nombre"
+                      name={ENUM_NAMES.nombre}
                       placeholder="Nombre"
                       register={register}
                       errors={errors}
@@ -104,7 +121,7 @@ const NewUser = () => {
                   <Grid item xs={12} md={6}>
                     <CustomSoftInput
                       label="Correo"
-                      name="correo"
+                      name={ENUM_NAMES.correo}
                       placeholder="ejemplo@gmail.com"
                       register={register}
                       errors={errors}
@@ -115,7 +132,7 @@ const NewUser = () => {
                   <Grid item xs={12} md={6}>
                     <CustomSoftSelect
                       label="Rol"
-                      name="role"
+                      name={ENUM_NAMES.role}
                       placeholder="Seleccione"
                       control={control}
                       options={ROLES}
@@ -126,13 +143,16 @@ const NewUser = () => {
                   <Grid item xs={12} md={6}>
                     <CustomSoftSelect
                       label="Local"
-                      name="local"
+                      name={ENUM_NAMES.local}
                       placeholder="Seleccione"
                       control={control}
                       options={LOCALES}
                       isDisabled={isLoading}
                       required
                     />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <CustomSwitch name={ENUM_NAMES.activo} control={control} disabled={isLoading} />
                   </Grid>
                 </Grid>
 
@@ -155,7 +175,7 @@ const NewUser = () => {
                         <CircularProgress size={20} color="white" />
                       </>
                     ) : (
-                      'Crear'
+                      'Editar'
                     )}
                   </SoftButton>
                 </SoftBox>
@@ -170,4 +190,4 @@ const NewUser = () => {
   );
 };
 
-export default NewUser;
+export default EditUser;
