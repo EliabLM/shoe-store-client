@@ -14,24 +14,24 @@ Coded by www.creative-tim.com
 */
 
 // @mui material components
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
 
 // Soft UI Dashboard PRO React components
-import SoftBox from "components/SoftBox";
-import SoftTypography from "components/SoftTypography";
-import SoftInput from "components/SoftInput";
-import SoftButton from "components/SoftButton";
+import SoftBox from 'components/SoftBox';
+import SoftTypography from 'components/SoftTypography';
+import SoftInput from 'components/SoftInput';
+import SoftButton from 'components/SoftButton';
 
 // Soft UI Dashboard PRO React example components
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import PageLayout from "examples/LayoutContainers/PageLayout";
+import DefaultNavbar from 'examples/Navbars/DefaultNavbar';
+import PageLayout from 'examples/LayoutContainers/PageLayout';
 
 // Authentication layout components
-import Footer from "layouts/authentication/components/Footer";
+import Footer from 'layouts/authentication/components/Footer';
 
 // Soft UI Dashboard PRO React page layout routes
-import pageRoutes from "page.routes";
+import pageRoutes from 'routes/page.routes';
 
 function Basic() {
   return (
@@ -39,12 +39,12 @@ function Basic() {
       <DefaultNavbar
         routes={pageRoutes}
         action={{
-          type: "external",
-          route: "https://material-ui.com/store/items/soft-ui-pro-dashboard/",
-          label: "buy now",
+          type: 'external',
+          route: 'https://material-ui.com/store/items/soft-ui-pro-dashboard/',
+          label: 'buy now',
         }}
       />
-      <Grid container spacing={3} justifyContent="center" sx={{ minHeight: "75vh" }}>
+      <Grid container spacing={3} justifyContent="center" sx={{ minHeight: '75vh' }}>
         <Grid item xs={10} md={6} lg={4}>
           <SoftBox mt={32} mb={3} px={{ xs: 0, lg: 2 }}>
             <Card>

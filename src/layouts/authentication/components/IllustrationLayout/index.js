@@ -14,24 +14,24 @@ Coded by www.creative-tim.com
 */
 
 // prop-types is a library for typechecking of props
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // @mui material components
-import Grid from "@mui/material/Grid";
+import Grid from '@mui/material/Grid';
 
 // Soft UI Dashboard PRO React components
-import SoftBox from "components/SoftBox";
-import SoftTypography from "components/SoftTypography";
+import SoftBox from 'components/SoftBox';
+import SoftTypography from 'components/SoftTypography';
 
 // Soft UI Dashboard PRO React example components
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import PageLayout from "examples/LayoutContainers/PageLayout";
+import DefaultNavbar from 'examples/Navbars/DefaultNavbar';
+import PageLayout from 'examples/LayoutContainers/PageLayout';
 
 // Soft UI Dashboard PRO React page layout routes
-import pageRoutes from "page.routes";
+import pageRoutes from 'routes/page.routes';
 
 // Images
-import pattern from "assets/images/shapes/pattern-lines.svg";
+import pattern from 'assets/images/shapes/pattern-lines.svg';
 
 function IllustrationLayout({ color, header, title, description, illustration, children }) {
   return (
@@ -39,13 +39,13 @@ function IllustrationLayout({ color, header, title, description, illustration, c
       <DefaultNavbar
         routes={pageRoutes}
         action={{
-          type: "external",
-          route: "https://material-ui.com/store/items/soft-ui-pro-dashboard/",
-          label: "buy now",
+          type: 'external',
+          route: 'https://material-ui.com/store/items/soft-ui-pro-dashboard/',
+          label: 'buy now',
         }}
       />
       <Grid container>
-        <Grid item xs={11} sm={8} md={6} lg={4} xl={3} sx={{ mx: "auto" }}>
+        <Grid item xs={11} sm={8} md={6} lg={4} xl={3} sx={{ mx: 'auto' }}>
           <SoftBox display="flex" flexDirection="column" justifyContent="center" height="100vh">
             <SoftBox pt={3} px={3}>
               {!header ? (
@@ -68,7 +68,7 @@ function IllustrationLayout({ color, header, title, description, illustration, c
         </Grid>
         <Grid item xs={12} lg={6}>
           <SoftBox
-            display={{ xs: "none", lg: "flex" }}
+            display={{ xs: 'none', lg: 'flex' }}
             flexDirection="column"
             justifyContent="center"
             alignItems="center"
@@ -81,7 +81,7 @@ function IllustrationLayout({ color, header, title, description, illustration, c
             variant="gradient"
             m={2}
             px={13}
-            sx={{ overflow: "hidden" }}
+            sx={{ overflow: 'hidden' }}
           >
             <SoftBox
               component="img"
@@ -125,16 +125,16 @@ function IllustrationLayout({ color, header, title, description, illustration, c
 
 // Setting default values for the props of IllustrationLayout
 IllustrationLayout.defaultProps = {
-  color: "info",
-  header: "",
-  title: "",
-  description: "",
+  color: 'info',
+  header: '',
+  title: '',
+  description: '',
   illustration: {},
 };
 
 // Typechecking props for the IllustrationLayout
 IllustrationLayout.propTypes = {
-  color: PropTypes.oneOf(["primary", "secondary", "info", "success", "warning", "error", "dark"]),
+  color: PropTypes.oneOf(['primary', 'secondary', 'info', 'success', 'warning', 'error', 'dark']),
   header: PropTypes.node,
   title: PropTypes.string,
   description: PropTypes.string,

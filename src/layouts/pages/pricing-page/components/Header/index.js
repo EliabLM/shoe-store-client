@@ -14,26 +14,26 @@ Coded by www.creative-tim.com
 */
 
 // prop-types is a library for typechecking of props
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // @mui material components
-import Grid from "@mui/material/Grid";
-import AppBar from "@mui/material/AppBar";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import Grid from '@mui/material/Grid';
+import AppBar from '@mui/material/AppBar';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 // Soft UI Dashboard PRO React components
-import SoftBox from "components/SoftBox";
-import SoftTypography from "components/SoftTypography";
+import SoftBox from 'components/SoftBox';
+import SoftTypography from 'components/SoftTypography';
 
 // Soft UI Dashboard PRO React example components
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
+import DefaultNavbar from 'examples/Navbars/DefaultNavbar';
 
 // Soft UI Dashboard PRO React page layout routes
-import pageRoutes from "page.routes";
+import pageRoutes from 'routes/page.routes';
 
 // Images
-import waves from "assets/images/shapes/waves-white.svg";
+import waves from 'assets/images/shapes/waves-white.svg';
 
 function Header({ tabValue, tabHandler }) {
   return (
@@ -41,10 +41,10 @@ function Header({ tabValue, tabHandler }) {
       <DefaultNavbar
         routes={pageRoutes}
         action={{
-          type: "external",
-          route: "https://material-ui.com/store/items/soft-ui-pro-dashboard/",
-          label: "buy now",
-          color: "dark",
+          type: 'external',
+          route: 'https://material-ui.com/store/items/soft-ui-pro-dashboard/',
+          label: 'buy now',
+          color: 'dark',
         }}
         transparent
         light
@@ -68,7 +68,7 @@ function Header({ tabValue, tabHandler }) {
           position="absolute"
           top={0}
         />
-        <Grid container spacing={3} justifyContent="center" sx={{ textAlign: "center" }}>
+        <Grid container spacing={3} justifyContent="center" sx={{ textAlign: 'center' }}>
           <Grid item xs={10} lg={5}>
             <SoftBox mb={1}>
               <SoftTypography variant="h3" color="white" fontWeight="bold">
@@ -80,7 +80,7 @@ function Header({ tabValue, tabHandler }) {
                 You have Free Unlimited Updates and Premium Support on each package.
               </SoftTypography>
             </SoftBox>
-            <Grid container item xs={12} sm={10} md={8} lg={7} sx={{ mx: "auto" }}>
+            <Grid container item xs={12} sm={10} md={8} lg={7} sx={{ mx: 'auto' }}>
               <SoftBox width="100%" mt={6}>
                 <AppBar position="static">
                   <Tabs value={tabValue} onChange={tabHandler}>

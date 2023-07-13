@@ -14,24 +14,24 @@ Coded by www.creative-tim.com
 */
 
 // prop-types is a library for typechecking of props
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // @mui material components
-import Grid from "@mui/material/Grid";
+import Grid from '@mui/material/Grid';
 
 // Soft UI Dashboard PRO React components
-import SoftBox from "components/SoftBox";
-import SoftTypography from "components/SoftTypography";
+import SoftBox from 'components/SoftBox';
+import SoftTypography from 'components/SoftTypography';
 
 // Soft UI Dashboard PRO React example components
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import PageLayout from "examples/LayoutContainers/PageLayout";
+import DefaultNavbar from 'examples/Navbars/DefaultNavbar';
+import PageLayout from 'examples/LayoutContainers/PageLayout';
 
 // Authentication layout components
-import Footer from "layouts/authentication/components/Footer";
+import Footer from 'layouts/authentication/components/Footer';
 
 // Soft UI Dashboard PRO React page layout routes
-import pageRoutes from "page.routes";
+import pageRoutes from 'routes/page.routes';
 
 function CoverLayout({ color, header, title, description, image, top, children }) {
   return (
@@ -39,16 +39,16 @@ function CoverLayout({ color, header, title, description, image, top, children }
       <DefaultNavbar
         routes={pageRoutes}
         action={{
-          type: "external",
-          route: "https://material-ui.com/store/items/soft-ui-pro-dashboard/",
-          label: "buy now",
+          type: 'external',
+          route: 'https://material-ui.com/store/items/soft-ui-pro-dashboard/',
+          label: 'buy now',
         }}
       />
       <Grid
         container
         justifyContent="center"
         sx={{
-          minHeight: "75vh",
+          minHeight: '75vh',
           margin: 0,
         }}
       >
@@ -76,13 +76,13 @@ function CoverLayout({ color, header, title, description, image, top, children }
         <Grid item xs={12} md={5}>
           <SoftBox
             height="100%"
-            display={{ xs: "none", md: "block" }}
+            display={{ xs: 'none', md: 'block' }}
             position="relative"
-            right={{ md: "-12rem", xl: "-16rem" }}
+            right={{ md: '-12rem', xl: '-16rem' }}
             mr={-16}
             sx={{
-              transform: "skewX(-10deg)",
-              overflow: "hidden",
+              transform: 'skewX(-10deg)',
+              overflow: 'hidden',
               borderBottomLeftRadius: ({ borders: { borderRadius } }) => borderRadius.lg,
             }}
           >
@@ -91,8 +91,8 @@ function CoverLayout({ color, header, title, description, image, top, children }
               height="100%"
               sx={{
                 backgroundImage: `url(${image})`,
-                backgroundSize: "cover",
-                transform: "skewX(10deg)",
+                backgroundSize: 'cover',
+                transform: 'skewX(10deg)',
               }}
             />
           </SoftBox>
@@ -105,24 +105,24 @@ function CoverLayout({ color, header, title, description, image, top, children }
 
 // Setting default values for the props of CoverLayout
 CoverLayout.defaultProps = {
-  header: "",
-  title: "",
-  description: "",
-  color: "info",
+  header: '',
+  title: '',
+  description: '',
+  color: 'info',
   top: 20,
 };
 
 // Typechecking props for the CoverLayout
 CoverLayout.propTypes = {
   color: PropTypes.oneOf([
-    "primary",
-    "secondary",
-    "info",
-    "success",
-    "warning",
-    "error",
-    "dark",
-    "light",
+    'primary',
+    'secondary',
+    'info',
+    'success',
+    'warning',
+    'error',
+    'dark',
+    'light',
   ]),
   header: PropTypes.node,
   title: PropTypes.string,

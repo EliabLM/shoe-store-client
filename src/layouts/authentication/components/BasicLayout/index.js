@@ -14,24 +14,24 @@ Coded by www.creative-tim.com
 */
 
 // prop-types is a library for typechecking of props
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // @mui material components
-import Grid from "@mui/material/Grid";
+import Grid from '@mui/material/Grid';
 
 // Soft UI Dashboard PRO React components
-import SoftBox from "components/SoftBox";
-import SoftTypography from "components/SoftTypography";
+import SoftBox from 'components/SoftBox';
+import SoftTypography from 'components/SoftTypography';
 
 // Soft UI Dashboard PRO React example components
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import PageLayout from "examples/LayoutContainers/PageLayout";
+import DefaultNavbar from 'examples/Navbars/DefaultNavbar';
+import PageLayout from 'examples/LayoutContainers/PageLayout';
 
 // Authentication layout components
-import Footer from "layouts/authentication/components/Footer";
+import Footer from 'layouts/authentication/components/Footer';
 
 // Soft UI Dashboard PRO React page layout routes
-import pageRoutes from "page.routes";
+import pageRoutes from 'routes/page.routes';
 
 function BasicLayout({ title, description, image, children }) {
   return (
@@ -39,9 +39,9 @@ function BasicLayout({ title, description, image, children }) {
       <DefaultNavbar
         routes={pageRoutes}
         action={{
-          type: "external",
-          route: "https://material-ui.com/store/items/soft-ui-pro-dashboard/",
-          label: "buy now",
+          type: 'external',
+          route: 'https://material-ui.com/store/items/soft-ui-pro-dashboard/',
+          label: 'buy now',
         }}
         transparent
         light
@@ -61,12 +61,12 @@ function BasicLayout({ title, description, image, children }) {
               rgba(gradients.dark.main, 0.6),
               rgba(gradients.dark.state, 0.6)
             )}, url(${image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
         }}
       >
-        <Grid container spacing={3} justifyContent="center" sx={{ textAlign: "center" }}>
+        <Grid container spacing={3} justifyContent="center" sx={{ textAlign: 'center' }}>
           <Grid item xs={10} lg={4}>
             <SoftBox mt={6} mb={1}>
               <SoftTypography variant="h1" color="white" fontWeight="bold">
@@ -95,8 +95,8 @@ function BasicLayout({ title, description, image, children }) {
 
 // Setting default values for the props of BasicLayout
 BasicLayout.defaultProps = {
-  title: "",
-  description: "",
+  title: '',
+  description: '',
 };
 
 // Typechecking props for the BasicLayout

@@ -34,7 +34,8 @@ import Configurator from 'examples/Configurator';
 import theme from 'assets/theme';
 
 // Soft UI Dashboard PRO React routes
-import routes from 'routes';
+import routes from 'routes/routes';
+import sidenavRoutes from 'routes/sidenav.routes';
 
 // Soft UI Dashboard PRO React contexts
 import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from 'context';
@@ -125,7 +126,7 @@ export default function App() {
             color={sidenavColor}
             brand={brand}
             brandName="Shoe Store App"
-            routes={routes}
+            routes={sidenavRoutes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />

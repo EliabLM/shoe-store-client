@@ -14,31 +14,31 @@ Coded by www.creative-tim.com
 */
 
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 // @mui material components
-import Grid from "@mui/material/Grid";
+import Grid from '@mui/material/Grid';
 
 // Soft UI Dashboard PRO React components
-import SoftBox from "components/SoftBox";
-import SoftTypography from "components/SoftTypography";
-import SoftButton from "components/SoftButton";
+import SoftBox from 'components/SoftBox';
+import SoftTypography from 'components/SoftTypography';
+import SoftButton from 'components/SoftButton';
 
 // Soft UI Dashboard PRO React example components
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import PageLayout from "examples/LayoutContainers/PageLayout";
+import DefaultNavbar from 'examples/Navbars/DefaultNavbar';
+import PageLayout from 'examples/LayoutContainers/PageLayout';
 
 // Soft UI Dashboard PRO React base styles
-import typography from "assets/theme/base/typography";
+import typography from 'assets/theme/base/typography';
 
 // Authentication layout components
-import Footer from "layouts/authentication/components/Footer";
+import Footer from 'layouts/authentication/components/Footer';
 
 // Soft UI Dashboard PRO React page layout routes
-import pageRoutes from "page.routes";
+import pageRoutes from 'routes/page.routes';
 
 // Images
-import error404 from "assets/images/illustrations/error-404.png";
+import error404 from 'assets/images/illustrations/error-404.png';
 
 function Error404() {
   const { d1, d3, d4, d5 } = typography;
@@ -49,10 +49,10 @@ function Error404() {
         routes={pageRoutes}
         transparent
         action={{
-          type: "external",
-          route: "https://material-ui.com/store/items/soft-ui-pro-dashboard/",
-          label: "buy now",
-          color: "dark",
+          type: 'external',
+          route: 'https://material-ui.com/store/items/soft-ui-pro-dashboard/',
+          label: 'buy now',
+          color: 'dark',
         }}
       />
       <SoftBox my={24} height="calc(100vh - 24rem)">
@@ -61,7 +61,7 @@ function Error404() {
           spacing={3}
           justifyContent="center"
           alignItems="center"
-          sx={{ height: "100%" }}
+          sx={{ height: '100%' }}
         >
           <Grid item xs={11} sm={9} container alignItems="center">
             <Grid item xs={12} lg={6}>

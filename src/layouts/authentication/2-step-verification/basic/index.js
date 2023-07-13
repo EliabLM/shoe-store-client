@@ -14,25 +14,25 @@ Coded by www.creative-tim.com
 */
 
 // @mui material components
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
 
 // Soft UI Dashboard PRO React components
-import SoftBox from "components/SoftBox";
-import SoftTypography from "components/SoftTypography";
-import SoftInput from "components/SoftInput";
-import SoftButton from "components/SoftButton";
+import SoftBox from 'components/SoftBox';
+import SoftTypography from 'components/SoftTypography';
+import SoftInput from 'components/SoftInput';
+import SoftButton from 'components/SoftButton';
 
 // Soft UI Dashboard PRO React example components
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import PageLayout from "examples/LayoutContainers/PageLayout";
-import SpaceShip from "examples/Icons/SpaceShip";
+import DefaultNavbar from 'examples/Navbars/DefaultNavbar';
+import PageLayout from 'examples/LayoutContainers/PageLayout';
+import SpaceShip from 'examples/Icons/SpaceShip';
 
 // Soft UI Dashboard PRO React page layout routes
-import pageRoutes from "page.routes";
+import pageRoutes from 'routes/page.routes';
 
 // Images
-import curved9 from "assets/images/curved-images/curved9.jpg";
+import curved9 from 'assets/images/curved-images/curved9.jpg';
 
 function Basic() {
   return (
@@ -40,14 +40,14 @@ function Basic() {
       <DefaultNavbar
         routes={pageRoutes}
         action={{
-          type: "external",
-          route: "https://material-ui.com/store/items/soft-ui-pro-dashboard/",
-          label: "buy now",
+          type: 'external',
+          route: 'https://material-ui.com/store/items/soft-ui-pro-dashboard/',
+          label: 'buy now',
         }}
         transparent
         light
       />
-      <SoftBox position="relative" width="100vw" height="100vh" sx={{ overflow: "hidden" }}>
+      <SoftBox position="relative" width="100vw" height="100vh" sx={{ overflow: 'hidden' }}>
         <SoftBox
           component="img"
           src={curved9}
@@ -55,7 +55,7 @@ function Basic() {
           position="absolute"
           width="100%"
           height="100%"
-          sx={{ objectFit: "cover", objectPosition: "center" }}
+          sx={{ objectFit: 'cover', objectPosition: 'center' }}
         />
         <SoftBox
           position="absolute"
@@ -70,7 +70,7 @@ function Basic() {
           spacing={3}
           justifyContent="center"
           alignItems="center"
-          sx={{ height: "100%" }}
+          sx={{ height: '100%' }}
         >
           <Grid item xs={11} md={6} lg={3}>
             <Card>
@@ -119,7 +119,7 @@ function Basic() {
                   </SoftButton>
                 </SoftBox>
                 <SoftTypography variant="button" color="text" fontWeight="regular">
-                  Haven&apos;t received it?{" "}
+                  Haven&apos;t received it?{' '}
                   <SoftTypography component="a" href="#verification" variant="button">
                     Resend a new code
                   </SoftTypography>
