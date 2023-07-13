@@ -10,21 +10,21 @@ import SoftBox from 'components/SoftBox';
 import SoftButton from 'components/SoftButton';
 import SoftTypography from 'components/SoftTypography';
 import CustomSoftSelect from 'components/CustomSoftSelect/CustomSoftSelect';
+import CustomSwitch from 'components/CustomSwitch/CustomSwitch';
 
 import Footer from 'examples/Footer';
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
 import DashboardNavbar from 'examples/Navbars/DashboardNavbar';
 
-import { newUserSchema, ENUM_NAMES } from './newUser.schema';
+import { ENUM_NAMES, updateUserSchema } from './newUser.schema';
 import { useUsersService } from 'services/useUsersService';
 import { validateResponse } from 'utils/validateResponse';
 import { ROLES, LOCALES } from 'data/enums';
-import CustomSwitch from 'components/CustomSwitch/CustomSwitch';
 
 const EditUser = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { createUser } = useUsersService();
+  const { updateUser } = useUsersService();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -37,38 +37,38 @@ const EditUser = () => {
     criteriaMode: 'firstError',
     mode: 'all',
     reValidateMode: 'onChange',
-    resolver: yupResolver(newUserSchema),
+    resolver: yupResolver(updateUserSchema),
   });
 
   const onSubmit = async (data) => {
     setIsLoading(true);
 
-    const { nombre, correo, local, role } = data;
+    const { nombre, correo, local, role, activo } = data;
 
     const body = {
-      id: '',
+      id: location.state.id,
       nombre,
+      activo,
       email: correo,
       rol: role.value,
       local: local.value,
     };
 
-    const resCreateUser = await createUser({ body });
-    console.log('🚀 ~ onSubmit ~ resCreateUser:', resCreateUser);
+    const resUpdateUser = await updateUser({ body });
 
     setIsLoading((prevState) => !prevState);
 
     if (
       !validateResponse(
-        resCreateUser,
-        'Ha ocurrido un error registrando el usuario, por favor intente nuevamente.'
+        resUpdateUser,
+        'Ha ocurrido un error actualizando el usuario, por favor intente nuevamente.'
       )
     )
       return;
 
     Swal.fire({
       icon: 'success',
-      text: resCreateUser.message,
+      text: resUpdateUser.message,
     }).then(() => {
       navigate('/usuarios/lista-usuarios');
     });

@@ -17,7 +17,6 @@ export const useUsersService = () => {
 
       return createUserAdapter;
     } catch (error) {
-      console.log('🚀 ~ createUser ~ error:', error);
       return axiosErrorAdapter(error);
     }
   };
@@ -57,5 +56,21 @@ export const useUsersService = () => {
     }
   };
 
-  return { createUser, getUsers, deleteUser };
+  const updateUser = async ({ body }) => {
+    try {
+      const res = await axiosInstance.put('/users/update-user', body);
+
+      const updateUserAdapter = {
+        statusCode: res.data.statusCode,
+        message: res.data.message,
+        data: res.data.data,
+      };
+
+      return updateUserAdapter;
+    } catch (error) {
+      return axiosErrorAdapter(error);
+    }
+  };
+
+  return { createUser, getUsers, deleteUser, updateUser };
 };

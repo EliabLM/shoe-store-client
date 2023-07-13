@@ -24,15 +24,11 @@ import breakpoints from 'assets/theme/base/breakpoints';
 import salesTableData from 'layouts/dashboards/default/data/salesTableData';
 import reportsBarChartData from 'layouts/dashboards/default/data/reportsBarChartData';
 import gradientLineChartData from 'layouts/dashboards/default/data/gradientLineChartData';
-import { useAuth } from 'hooks/useAuth';
 
 function Sales() {
   const { values } = breakpoints;
   const { size } = typography;
   const { chart, items } = reportsBarChartData;
-
-  const { user } = useAuth();
-  console.log('🚀 ~ Default ~ user:', user);
 
   return (
     <DashboardLayout>

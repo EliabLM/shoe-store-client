@@ -21,10 +21,19 @@ const local = yup.object({
   value: yup.string().required('El local es obligatorio'),
   label: yup.string().required('El local es obligatorio'),
 });
+const activo = yup.boolean();
 
 export const newUserSchema = yup.object({
   [ENUM_NAMES.nombre]: nombre.required('El nombre es obligatorio'),
   [ENUM_NAMES.correo]: correo.required('El correo es obligatorio'),
   [ENUM_NAMES.role]: role.required('El rol es obligatorio'),
   [ENUM_NAMES.local]: local.required('El local es obligatorio'),
+});
+
+export const updateUserSchema = yup.object({
+  [ENUM_NAMES.nombre]: nombre.required('El nombre es obligatorio'),
+  [ENUM_NAMES.correo]: correo.required('El correo es obligatorio'),
+  [ENUM_NAMES.role]: role.required('El rol es obligatorio'),
+  [ENUM_NAMES.local]: local.required('El local es obligatorio'),
+  [ENUM_NAMES.activo]: activo.required('El estado es requerido'),
 });

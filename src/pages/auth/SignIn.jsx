@@ -44,7 +44,6 @@ function SignIn() {
       setIsLoading(true);
 
       await sleep(2);
-      console.log('🚀 ~ onSubmit ~ data:', data);
 
       const user = {
         nombre: 'Eliab López',

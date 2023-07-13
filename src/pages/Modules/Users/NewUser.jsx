@@ -50,7 +50,6 @@ const NewUser = () => {
     };
 
     const resCreateUser = await createUser({ body });
-    console.log('🚀 ~ onSubmit ~ resCreateUser:', resCreateUser);
 
     setIsLoading((prevState) => !prevState);
 
