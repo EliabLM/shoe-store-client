@@ -94,12 +94,14 @@ import SettingsIcon from 'examples/Icons/Settings';
 import Basket from 'examples/Icons/Basket';
 import Document from 'examples/Icons/Document';
 import GroupIcon from '@mui/icons-material/Group';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
 // Pages
 import Sales from 'pages/Dashboards/Sales/Sales';
 import UsersList from 'pages/Modules/Users/UsersList';
 import NewUser from 'pages/Modules/Users/NewUser';
 import EditUser from 'pages/Modules/Users/EditUser';
+import CreditorsList from 'pages/Modules/Creditors/CreditorsList';
 
 const routes = [
   {
@@ -158,6 +160,20 @@ const routes = [
         key: 'editar-usuario',
         route: '/usuarios/editar-usuario',
         component: <EditUser />,
+      },
+    ],
+  },
+  {
+    type: 'collapse',
+    name: 'Acreedores',
+    key: 'acreedores',
+    icon: <AccountBalanceIcon fontSize="10px" />,
+    collapse: [
+      {
+        name: 'Lista de acreedores',
+        key: 'lista-acreedores',
+        route: '/acreedores/lista-acreedores',
+        component: <CreditorsList />,
       },
     ],
   },
