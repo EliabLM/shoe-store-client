@@ -103,6 +103,7 @@ import NewUser from 'pages/Modules/Users/NewUser';
 import EditUser from 'pages/Modules/Users/EditUser';
 import CreditorsList from 'pages/Modules/Creditors/CreditorsList';
 import NewCreditor from 'pages/Modules/Creditors/NewCreditor';
+import EditCreditor from 'pages/Modules/Creditors/EditCreditor';
 
 const routes = [
   {
@@ -181,6 +182,12 @@ const routes = [
         key: 'nuevo-acreedor',
         route: '/acreedores/nuevo-acreedor',
         component: <NewCreditor />,
+      },
+      {
+        name: 'Editar acreedor',
+        key: 'editar-acreedor',
+        route: '/acreedores/editar-acreedor',
+        component: <EditCreditor />,
       },
     ],
   },
