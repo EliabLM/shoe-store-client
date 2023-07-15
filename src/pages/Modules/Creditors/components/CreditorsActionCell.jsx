@@ -8,7 +8,7 @@ import Tooltip from '@mui/material/Tooltip';
 import SoftBox from 'components/SoftBox';
 import SoftTypography from 'components/SoftTypography';
 
-function CreditorsActionsCell({ item, deleteCreditor, editCreditor }) {
+function CreditorsActionsCell({ item, disableCreditor, editCreditor }) {
   return (
     <SoftBox display="flex" alignItems="center">
       <SoftBox mx={2}>
@@ -27,7 +27,7 @@ function CreditorsActionsCell({ item, deleteCreditor, editCreditor }) {
         variant="body1"
         color="secondary"
         sx={{ cursor: 'pointer', lineHeight: 0 }}
-        onClick={() => deleteCreditor(item)}
+        onClick={() => disableCreditor(item)}
       >
         <Tooltip title="Deshabilitar" placement="left">
           <Icon>not_interested</Icon>
@@ -41,6 +41,6 @@ export default CreditorsActionsCell;
 
 CreditorsActionsCell.propTypes = {
   item: PropTypes.object,
-  deleteCreditor: PropTypes.func,
+  disableCreditor: PropTypes.func,
   editCreditor: PropTypes.func,
 };

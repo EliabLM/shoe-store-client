@@ -39,18 +39,18 @@ export const useCreditorsService = () => {
   };
 
   // ######### PUT ##########
-  const deleteCreditor = async ({ creditor_id }) => {
+  const disableCreditor = async ({ creditor_id }) => {
     try {
       const params = { creditor_id };
-      const res = await axiosInstance.put('/creditors/delete-creditor', null, { params });
+      const res = await axiosInstance.put('/creditors/disable-creditor', null, { params });
 
-      const deleteCreditorAdapter = {
+      const disableCreditorAdapter = {
         statusCode: res.data.statusCode,
         message: res.data.message,
         data: res.data.data,
       };
 
-      return deleteCreditorAdapter;
+      return disableCreditorAdapter;
     } catch (error) {
       return axiosErrorAdapter(error);
     }
@@ -75,7 +75,7 @@ export const useCreditorsService = () => {
   return {
     createCreditor,
     getCreditors,
-    deleteCreditor,
+    disableCreditor,
     updateCreditor,
   };
 };

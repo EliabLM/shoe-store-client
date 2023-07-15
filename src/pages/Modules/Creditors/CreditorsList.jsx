@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { ToastContainer, toast } from 'react-toastify';
 
 // @mui material components
 import Card from '@mui/material/Card';
@@ -13,6 +14,7 @@ import SoftBox from 'components/SoftBox';
 import SoftTypography from 'components/SoftTypography';
 import SoftButton from 'components/SoftButton';
 import CustomLoader from 'components/CustomLoader/CustomLoader';
+import SoftBadge from 'components/SoftBadge';
 import CreditorsActionCell from './components/CreditorsActionCell';
 
 // Soft UI Dashboard PRO React example components
@@ -36,6 +38,13 @@ const columns = [
     accessor: 'contact',
   },
   {
+    Header: 'Estado',
+    accessor: 'active',
+    Cell: ({ value }) => (
+      <SoftBadge badgeContent={value ? 'Activo' : 'Inactivo'} color={value ? 'success' : 'error'} />
+    ),
+  },
+  {
     Header: 'Opciones',
     accessor: 'options',
   },
@@ -44,11 +53,11 @@ const columns = [
 function CreditorsList() {
   const navigate = useNavigate();
   const { data, isLoading, refetch } = useCreditorsList();
-  const { deleteCreditor: deleteCreditorService } = useCreditorsService();
+  const { disableCreditor: disableCreditorService } = useCreditorsService();
 
   const [dataTable, setDataTable] = useState({ columns, rows: [] });
 
-  const deleteCreditor = async (item) => {
+  const disableCreditor = async (item) => {
     const { isConfirmed } = await Swal.fire({
       icon: 'question',
       text: '¿Esta seguro de eliminar este acreedor?',
@@ -61,8 +70,8 @@ function CreditorsList() {
       showCloseButton: true,
       allowOutsideClick: false,
       preConfirm: async () => {
-        const response = await deleteCreditorService({ user_id: item.id });
-        validateResponse(response, 'Ha ocurrido un error eliminando el acreedor.');
+        const response = await disableCreditorService({ creditor_id: item.id });
+        validateResponse(response, 'Ha ocurrido un error deshabilitando el acreedor.');
       },
     });
 
@@ -77,12 +86,27 @@ function CreditorsList() {
   useEffect(() => {
     if (!data) return;
 
+    if (!data.data) {
+      toast.error(data.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+
+      return;
+    }
+
     const creditors = data?.data?.map((item) => ({
       ...item,
       options: (
         <CreditorsActionCell
           item={item}
-          deleteCreditor={deleteCreditor}
+          disableCreditor={disableCreditor}
           editCreditor={editCreditor}
         />
       ),
@@ -94,6 +118,18 @@ function CreditorsList() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <SoftBox my={3}>
         <Card>
           <SoftBox display="flex" justifyContent="space-between" alignItems="flex-start" p={3}>

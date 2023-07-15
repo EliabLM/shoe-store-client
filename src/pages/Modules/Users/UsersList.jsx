@@ -2,6 +2,7 @@
 // react-router-dom components
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
 // @mui material components
@@ -26,7 +27,6 @@ import DataTable from 'examples/Tables/DataTable';
 import { useUsersList } from './hooks/useUsersList';
 import { useUsersService } from 'services/useUsersService';
 import { validateResponse } from 'utils/validateResponse';
-import { ToastContainer, toast } from 'react-toastify';
 
 const ENUM_ROLES = {
   superadmin: 'Super administrador',

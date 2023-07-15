@@ -101,6 +101,7 @@ import Sales from 'pages/Dashboards/Sales/Sales';
 import UsersList from 'pages/Modules/Users/UsersList';
 import NewUser from 'pages/Modules/Users/NewUser';
 import CreditorsList from 'pages/Modules/Creditors/CreditorsList';
+import NewCreditor from 'pages/Modules/Creditors/NewCreditor';
 
 const sidenavRoutes = [
   {
@@ -167,6 +168,12 @@ const sidenavRoutes = [
         key: 'lista-acreedores',
         route: '/acreedores/lista-acreedores',
         component: <CreditorsList />,
+      },
+      {
+        name: 'Nuevo acreedor',
+        key: 'nuevo-acreedor',
+        route: '/acreedores/nuevo-acreedor',
+        component: <NewCreditor />,
       },
     ],
   },
