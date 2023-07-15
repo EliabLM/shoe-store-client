@@ -26,6 +26,7 @@ import DataTable from 'examples/Tables/DataTable';
 import { useUsersList } from './hooks/useUsersList';
 import { useUsersService } from 'services/useUsersService';
 import { validateResponse } from 'utils/validateResponse';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ENUM_ROLES = {
   superadmin: 'Super administrador',
@@ -104,6 +105,21 @@ function UsersList() {
   useEffect(() => {
     if (!data) return;
 
+    if (!data.data) {
+      toast.error(data.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+
+      return;
+    }
+
     const users = data?.data?.map((item) => ({
       ...item,
       options: <UsersActionsCell item={item} deleteUser={deleteUser} editUser={editUser} />,
@@ -115,6 +131,18 @@ function UsersList() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <SoftBox my={3}>
         <Card>
           <SoftBox display="flex" justifyContent="space-between" alignItems="flex-start" p={3}>
