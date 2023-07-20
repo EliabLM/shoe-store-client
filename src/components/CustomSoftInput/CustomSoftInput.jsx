@@ -40,13 +40,7 @@ const CustomSoftInput = ({ register, name, label, errors, tooltip, ...rest }) =>
         </SoftTypography>
       </SoftBox>
 
-      <SoftInput
-        fullWidth
-        {...register(name)}
-        error={errors && !!errors[name]}
-        // success={!errors[name]}
-        {...rest}
-      />
+      <SoftInput fullWidth error={errors && !!errors[name]} {...register(name)} {...rest} />
       {errors && formValidation(errors, name)}
     </SoftBox>
   );
