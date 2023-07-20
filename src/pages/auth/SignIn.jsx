@@ -12,6 +12,7 @@ import SoftBox from 'components/SoftBox';
 import SoftTypography from 'components/SoftTypography';
 import SoftButton from 'components/SoftButton';
 import CustomSoftInput from 'components/CustomSoftInput/CustomSoftInput';
+import CustomPasswordInput from 'components/CustomPasswordInput/CustomPasswordInput';
 
 // Authentication layout components
 import SignInLayout from 'examples/LayoutContainers/SignInLayout/SignInLayout';
@@ -41,6 +42,7 @@ function SignIn() {
 
   const onSubmit = async (data) => {
     try {
+      console.log('🚀 ~ onSubmit ~ data:', data);
       setIsLoading(true);
 
       await sleep(2);
@@ -95,7 +97,7 @@ function SignIn() {
               />
             </SoftBox>
             <SoftBox mb={2}>
-              <CustomSoftInput
+              <CustomPasswordInput
                 label="Contraseña"
                 name="password"
                 type="password"
