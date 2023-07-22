@@ -9,15 +9,22 @@ import SoftBox from 'components/SoftBox';
 import SoftTypography from 'components/SoftTypography';
 import SoftInput from 'components/SoftInput';
 
-const CustomCurrencyInput = ({ control, name, label, tooltip, ...rest }) => {
-  const handleChange = (value, onChange) => {
-    let newValue = `${value.target.value}`;
-    newValue = newValue.replace(/\D/g, '');
-    newValue = newValue.replace(/(\d)(\d{3})$/, '$1.$2');
-    newValue = newValue.replace(/(?=(\d{3})+(\D))\B/g, '.');
-    newValue = newValue.replace('', '$ ');
+const CustomPercentageInput = ({ control, name, label, tooltip, ...rest }) => {
+  const handleInputChange = (value, onChange) => {
+    let newValue = value.target.value;
 
-    if (newValue === '$ ') newValue = '';
+    // Comprueba si se presionó la tecla "backspace"
+    if (value.nativeEvent.inputType === 'deleteContentBackward') {
+      // Verifica si el último carácter es el símbolo de porcentaje
+      if (newValue.slice(-1) === '%') {
+        newValue = newValue.slice(0, -1); // Elimina el último carácter
+      }
+    } else {
+      newValue = newValue.replace(/[^0-9.]/g, '');
+
+      newValue += '%';
+    }
+
     value.target.value = newValue;
     onChange(value);
   };
@@ -26,7 +33,7 @@ const CustomCurrencyInput = ({ control, name, label, tooltip, ...rest }) => {
     <Controller
       control={control}
       name={name}
-      render={({ field: { value, onChange }, fieldState: { error } }) => (
+      render={({ field: { onChange, value, ...field }, fieldState: { error } }) => (
         <SoftBox>
           <SoftBox display="flex" alignItems="center" gap={1} mb={1}>
             <SoftTypography
@@ -47,9 +54,10 @@ const CustomCurrencyInput = ({ control, name, label, tooltip, ...rest }) => {
 
           <SoftInput
             fullWidth
-            value={value || ''}
-            onChange={(val) => handleChange(val, onChange)}
             error={Boolean(error)}
+            value={value || ''}
+            onChange={(val) => handleInputChange(val, onChange)}
+            {...field}
             {...rest}
           />
           {error && (
@@ -65,9 +73,9 @@ const CustomCurrencyInput = ({ control, name, label, tooltip, ...rest }) => {
   );
 };
 
-export default CustomCurrencyInput;
+export default CustomPercentageInput;
 
-CustomCurrencyInput.propTypes = {
+CustomPercentageInput.propTypes = {
   label: PropTypes.string,
   tooltip: PropTypes.string,
   control: PropTypes.any,

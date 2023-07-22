@@ -33,7 +33,13 @@ const CustomSoftSelect = ({ control, name, label, options, tooltip, ...rest }) =
             </SoftTypography>
           </SoftBox>
 
-          <SoftSelect value={value} onChange={onChange} options={options} error={error} {...rest} />
+          <SoftSelect
+            value={value}
+            onChange={onChange}
+            options={options}
+            error={Boolean(error)}
+            {...rest}
+          />
           {error && (
             <SoftBox mt={0.75}>
               <SoftTypography component="div" variant="caption" color="error">

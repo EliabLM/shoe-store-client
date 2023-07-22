@@ -37,6 +37,7 @@ const CustomSoftDatePicker = ({ control, name, label, tooltip, ...rest }) => {
             value={value || ''}
             onChange={onChange}
             input={{ ...rest }}
+            error={Boolean(error)}
             // input={{ value, onChange, error, ...rest }}
             {...rest}
           />
