@@ -102,6 +102,8 @@ import UsersList from 'pages/Modules/Users/UsersList';
 import NewUser from 'pages/Modules/Users/NewUser';
 import CreditorsList from 'pages/Modules/Creditors/CreditorsList';
 import NewCreditor from 'pages/Modules/Creditors/NewCreditor';
+import CreditsList from 'pages/Modules/Creditors/Credits/CreditsList';
+import NewCredit from 'pages/Modules/Creditors/Credits/NewCredit';
 
 const sidenavRoutes = [
   {
@@ -174,6 +176,24 @@ const sidenavRoutes = [
         key: 'nuevo-acreedor',
         route: '/acreedores/nuevo-acreedor',
         component: <NewCreditor />,
+      },
+      {
+        name: 'Créditos',
+        key: 'creditos',
+        collapse: [
+          {
+            name: 'Lista de créditos',
+            key: 'lista-creditos',
+            route: '/acreedores/creditos/lista-creditos',
+            component: <CreditsList />,
+          },
+          {
+            name: 'Nuevo credito',
+            key: 'nuevo-credito',
+            route: '/acreedores/creditos/nuevo-credito',
+            component: <NewCredit />,
+          },
+        ],
       },
     ],
   },

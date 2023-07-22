@@ -104,6 +104,8 @@ import EditUser from 'pages/Modules/Users/EditUser';
 import CreditorsList from 'pages/Modules/Creditors/CreditorsList';
 import NewCreditor from 'pages/Modules/Creditors/NewCreditor';
 import EditCreditor from 'pages/Modules/Creditors/EditCreditor';
+import CreditsList from 'pages/Modules/Creditors/Credits/CreditsList';
+import NewCredit from 'pages/Modules/Creditors/Credits/NewCredit';
 
 const routes = [
   {
@@ -188,6 +190,24 @@ const routes = [
         key: 'editar-acreedor',
         route: '/acreedores/editar-acreedor',
         component: <EditCreditor />,
+      },
+      {
+        name: 'Créditos',
+        key: 'creditos',
+        collapse: [
+          {
+            name: 'Lista de créditos',
+            key: 'lista-creditos',
+            route: '/acreedores/creditos/lista-creditos',
+            component: <CreditsList />,
+          },
+          {
+            name: 'Nuevo credito',
+            key: 'nuevo-credito',
+            route: '/acreedores/creditos/nuevo-credito',
+            component: <NewCredit />,
+          },
+        ],
       },
     ],
   },

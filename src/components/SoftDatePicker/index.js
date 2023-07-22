@@ -14,16 +14,20 @@ Coded by www.creative-tim.com
 */
 
 // prop-types is a library for typechecking of props
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // react-flatpickr components
-import Flatpickr from "react-flatpickr";
+import Flatpickr from 'react-flatpickr';
+import flatpickr from 'flatpickr';
+import { Spanish } from 'flatpickr/dist/l10n/es';
 
 // react-flatpickr styles
-import "flatpickr/dist/flatpickr.css";
+import 'flatpickr/dist/flatpickr.css';
 
 // Soft UI Dashboard PRO React components
-import SoftInput from "components/SoftInput";
+import SoftInput from 'components/SoftInput';
+
+flatpickr.localize(Spanish);
 
 function SoftDatePicker({ input, ...rest }) {
   return (
