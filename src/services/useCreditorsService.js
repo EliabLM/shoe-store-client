@@ -72,10 +72,28 @@ export const useCreditorsService = () => {
     }
   };
 
+  // ######## Credits #######
+  const createCredit = async ({ body }) => {
+    try {
+      const response = await axiosInstance.post('/credits/create-credit', body);
+
+      const createCreditAdapter = {
+        statusCode: response.data.statusCode,
+        message: response.data.message,
+        data: response.data.data,
+      };
+
+      return createCreditAdapter;
+    } catch (error) {
+      return axiosErrorAdapter(error);
+    }
+  };
+
   return {
     createCreditor,
     getCreditors,
     disableCreditor,
     updateCreditor,
+    createCredit,
   };
 };

@@ -23,10 +23,12 @@ import { convertCurrencyToNumber, removePercentage } from 'utils/formatNumber';
 
 import { ENUM_NAMES, newCreditSchema } from './newCredit.schema';
 import { useCreditorsList } from '../hooks/useCreditorsList';
+import { useCreditorsService } from 'services/useCreditorsService';
 
 const NewCredit = () => {
   const navigate = useNavigate();
   const { data, isLoading: isLoadingCreditors } = useCreditorsList();
+  const { createCredit } = useCreditorsService();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -44,31 +46,30 @@ const NewCredit = () => {
     newData.initial_value = convertCurrencyToNumber(newData.initial_value);
     newData.creation_date = newData.creation_date.toISOString();
 
-    return;
-    setIsLoading(true);
-
-    const { name, contact } = data;
+    const { interest_rate, initial_value, creation_date, creditor } = newData;
 
     const body = {
-      name,
-      contact: contact || '',
+      creditor: creditor.value,
+      creationDate: creation_date,
+      initialValue: initial_value,
+      interestRate: interest_rate,
     };
 
-    // const resCreateCreditor = await createCreditor({ body });
-
+    setIsLoading(true);
+    const resCreateCredit = await createCredit({ body });
     setIsLoading((prevState) => !prevState);
 
     if (
       !validateResponse(
-        // resCreateCreditor,
-        'Ha ocurrido un error registrando el acreedor, por favor intente nuevamente.'
+        resCreateCredit,
+        'Ha ocurrido un error registrando el crédito, por favor intente nuevamente.'
       )
     )
       return;
 
     Swal.fire({
       icon: 'success',
-      // text: resCreateCreditor.message,
+      text: resCreateCredit.message,
     }).then(() => {
       navigate('/acreedores/creditos/lista-creditos');
     });
