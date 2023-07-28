@@ -13,7 +13,7 @@ export const convertCurrencyToNumber = (currency) => {
   return Number(number);
 };
 
-export const AddPercentage = (number) => {
+export const addPercentage = (number) => {
   return `${number}%`;
 };
 

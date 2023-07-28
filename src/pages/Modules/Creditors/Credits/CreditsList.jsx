@@ -24,26 +24,30 @@ import Footer from 'examples/Footer';
 import DataTable from 'examples/Tables/DataTable';
 
 // hooks
-import { useCreditorsList } from '../hooks/useCreditorsList';
+import { useCreditsList } from '../hooks/useCreditsList';
 import { useCreditorsService } from 'services/useCreditorsService';
+
+// Utils
 import { validateResponse } from 'utils/validateResponse';
+import { convertNumberToCurrency } from 'utils/formatNumber';
+import { addPercentage } from 'utils/formatNumber';
 
 const columns = [
   {
     Header: 'Acreedor',
-    accessor: 'creditor',
+    accessor: 'creditor_name',
   },
   {
     Header: 'Valor inicial',
-    accessor: 'initial_value',
+    accessor: 'initialValue',
   },
   {
     Header: 'Fecha',
-    accessor: 'date',
+    accessor: 'creationDate',
   },
   {
     Header: 'Tasa de interés',
-    accessor: 'interest_rate',
+    accessor: 'interestRate',
   },
   {
     Header: 'Estado',
@@ -60,7 +64,7 @@ const columns = [
 
 function CreditsList() {
   const navigate = useNavigate();
-  const { data, isLoading, refetch } = useCreditorsList();
+  const { data, isLoading, refetch } = useCreditsList();
   const { disableCreditor: disableCreditorService } = useCreditorsService();
 
   const [dataTable, setDataTable] = useState({ columns, rows: [] });
@@ -109,12 +113,16 @@ function CreditsList() {
       return;
     }
 
-    const creditors = data?.data?.map((item) => ({
+    const credits = data?.data?.map((item) => ({
       ...item,
+      creditor_name: item.creditor.name,
+      initialValue: convertNumberToCurrency(item.initialValue),
+      creationDate: item.creationDate?.split('T')?.[0],
+      interestRate: addPercentage(item.interestRate),
       options: <CreditsActionCell item={item} />,
     }));
 
-    setDataTable((prevState) => ({ ...prevState, rows: creditors || [] }));
+    setDataTable((prevState) => ({ ...prevState, rows: credits || [] }));
   }, [data, isLoading]);
 
   return (
