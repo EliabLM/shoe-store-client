@@ -106,6 +106,7 @@ import NewCreditor from 'pages/Modules/Creditors/NewCreditor';
 import EditCreditor from 'pages/Modules/Creditors/EditCreditor';
 import CreditsList from 'pages/Modules/Creditors/Credits/CreditsList';
 import NewCredit from 'pages/Modules/Creditors/Credits/NewCredit';
+import UpdateCredit from 'pages/Modules/Creditors/Credits/UpdateCredit';
 
 const routes = [
   {
@@ -202,10 +203,16 @@ const routes = [
             component: <CreditsList />,
           },
           {
-            name: 'Nuevo credito',
+            name: 'Nuevo crédito',
             key: 'nuevo-credito',
             route: '/acreedores/creditos/nuevo-credito',
             component: <NewCredit />,
+          },
+          {
+            name: 'Actualizar credito',
+            key: 'actualizar-credito',
+            route: '/acreedores/creditos/actualizar-credito',
+            component: <UpdateCredit />,
           },
         ],
       },

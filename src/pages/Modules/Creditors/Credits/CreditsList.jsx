@@ -53,7 +53,11 @@ const columns = [
     Header: 'Estado',
     accessor: 'active',
     Cell: ({ value }) => (
-      <SoftBadge badgeContent={value ? 'Activo' : 'Inactivo'} color={value ? 'success' : 'error'} />
+      <SoftBadge
+        variant="contained"
+        badgeContent={value ? 'Activo' : 'Inactivo'}
+        color={value ? 'success' : 'error'}
+      />
     ),
   },
   {
@@ -91,8 +95,8 @@ function CreditsList() {
     refetch();
   };
 
-  const editCreditor = async (acreedor) => {
-    navigate('/acreedores/editar-acreedor', { state: acreedor });
+  const updateCredit = async (credit) => {
+    navigate('/acreedores/creditos/actualizar-credito', { state: credit });
   };
 
   useEffect(() => {
@@ -119,7 +123,7 @@ function CreditsList() {
       initialValue: convertNumberToCurrency(item.initialValue),
       creationDate: item.creationDate?.split('T')?.[0],
       interestRate: addPercentage(item.interestRate),
-      options: <CreditsActionCell item={item} />,
+      options: <CreditsActionCell item={item} updateCredit={updateCredit} />,
     }));
 
     setDataTable((prevState) => ({ ...prevState, rows: credits || [] }));

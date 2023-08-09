@@ -106,6 +106,22 @@ export const useCreditorsService = () => {
     }
   };
 
+  const updateCredit = async ({ body }) => {
+    try {
+      const res = await axiosInstance.put('/credits/update-credit', body);
+
+      const updateCreditAdapter = {
+        statusCode: res.data.statusCode,
+        message: res.data.message,
+        data: res.data.data,
+      };
+
+      return updateCreditAdapter;
+    } catch (error) {
+      return axiosErrorAdapter(error);
+    }
+  };
+
   return {
     createCreditor,
     getCreditors,
@@ -113,5 +129,6 @@ export const useCreditorsService = () => {
     updateCreditor,
     createCredit,
     getCredits,
+    updateCredit,
   };
 };

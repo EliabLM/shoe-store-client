@@ -42,7 +42,6 @@ function SignIn() {
 
   const onSubmit = async (data) => {
     try {
-      console.log('🚀 ~ onSubmit ~ data:', data);
       setIsLoading(true);
 
       await sleep(2);

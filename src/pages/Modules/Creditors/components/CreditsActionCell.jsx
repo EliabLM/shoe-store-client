@@ -8,7 +8,7 @@ import Tooltip from '@mui/material/Tooltip';
 import SoftBox from 'components/SoftBox';
 import SoftTypography from 'components/SoftTypography';
 
-function CreditsActionsCell({ item }) {
+function CreditsActionsCell({ item, updateCredit }) {
   return (
     <SoftBox display="flex" alignItems="center">
       <SoftTypography variant="body1" color="secondary" sx={{ cursor: 'pointer', lineHeight: 0 }}>
@@ -21,7 +21,7 @@ function CreditsActionsCell({ item }) {
           variant="body1"
           color="secondary"
           sx={{ cursor: 'pointer', lineHeight: 0 }}
-          onClick={() => {}}
+          onClick={() => updateCredit(item)}
         >
           <Tooltip title="Editar" placement="top">
             <Icon>edit</Icon>
@@ -46,7 +46,5 @@ export default CreditsActionsCell;
 
 CreditsActionsCell.propTypes = {
   item: PropTypes.object,
-  openCredit: PropTypes.func,
-  disableCredit: PropTypes.func,
-  editCredit: PropTypes.func,
+  updateCredit: PropTypes.func,
 };
