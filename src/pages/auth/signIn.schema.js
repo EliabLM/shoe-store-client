@@ -1,9 +1,14 @@
 import * as yup from 'yup';
 
-const email = yup.string().email('Debe ingresar un correo válido');
+const code = yup
+  .string()
+  .matches(
+    /^[A-Z0-9]{6}$/,
+    'El código debe tener exactamente 6 caracteres, compuestos por letras mayúsculas y números'
+  );
 const password = yup.string();
 
 export const signInSchema = yup.object({
-  email: email.required('El correo es obligatorio'),
+  code: code.required('El código es obligatorio'),
   password: password.required('La contraseña es obligatoria'),
 });

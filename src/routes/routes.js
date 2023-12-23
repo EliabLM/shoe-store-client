@@ -95,6 +95,7 @@ import Basket from 'examples/Icons/Basket';
 import Document from 'examples/Icons/Document';
 import GroupIcon from '@mui/icons-material/Group';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 // Pages
 import Sales from 'pages/Dashboards/Sales/Sales';
@@ -107,6 +108,7 @@ import EditCreditor from 'pages/Modules/Creditors/EditCreditor';
 import CreditsList from 'pages/Modules/Creditors/Credits/CreditsList';
 import NewCredit from 'pages/Modules/Creditors/Credits/NewCredit';
 import UpdateCredit from 'pages/Modules/Creditors/Credits/UpdateCredit';
+import Profile from 'pages/auth/Profile/Profile';
 
 const routes = [
   {
@@ -593,6 +595,15 @@ const routes = [
         ],
       },
     ],
+  },
+  {
+    type: 'collapse',
+    name: 'Profile',
+    key: 'profile',
+    noCollapse: true,
+    route: '/profile',
+    icon: <AccountBoxIcon size="12px" />,
+    component: <Profile />,
   },
 ];
 

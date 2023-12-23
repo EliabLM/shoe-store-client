@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard PRO React - v4.0.0
-=========================================================
-
-* Product Page: https://material-ui.com/store/items/soft-ui-pro-dashboard/
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect } from 'react';
 
 // react-router components
@@ -29,6 +14,7 @@ import SoftBox from 'components/SoftBox';
 // Soft UI Dashboard PRO React example components
 import Sidenav from 'examples/Sidenav';
 import Configurator from 'examples/Configurator';
+import RequireAuth from 'examples/LayoutContainers/RequireAuth/RequireAuth';
 
 // Soft UI Dashboard PRO React themes
 import theme from 'assets/theme';
@@ -42,7 +28,10 @@ import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from 'contex
 
 // Images
 import brand from 'assets/images/logo-ct.png';
-import SignIn from 'pages/Auth/SignIn';
+
+// Pages
+import SignIn from 'pages/auth/SignIn';
+import Error500 from 'pages/Error500';
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -136,8 +125,14 @@ export default function App() {
       )}
 
       <Routes>
-        <Route exact path={'/'} element={<SignIn />} key={'sign-in'} />
-        {getRoutes(routes)}
+        {/* Public routes */}
+        <Route exact index element={<SignIn />} key={'sign-in'} />
+        <Route exact path={'/error-500'} element={<Error500 />} key={'error-500'} />
+
+        {/* Private routes */}
+        <Route element={<RequireAuth allowedRoles={['superadmin']} />}>{getRoutes(routes)}</Route>
+
+        {/* Not found */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </ThemeProvider>

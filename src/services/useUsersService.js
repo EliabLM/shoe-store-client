@@ -38,7 +38,7 @@ export const useUsersService = () => {
     }
   };
 
-  // ######### PUT ##########
+  // ####### DELETE ########
   const deleteUser = async ({ user_id }) => {
     try {
       const params = { user_id };
@@ -56,6 +56,7 @@ export const useUsersService = () => {
     }
   };
 
+  // ######### PUT ##########
   const updateUser = async ({ body }) => {
     try {
       const res = await axiosInstance.put('/users/update-user', body);
@@ -72,5 +73,22 @@ export const useUsersService = () => {
     }
   };
 
-  return { createUser, getUsers, deleteUser, updateUser };
+  // ########## LOGIN ##########
+  const login = async ({ body }) => {
+    try {
+      const response = await axiosInstance.post('/users/login', body);
+
+      const res = {
+        statusCode: response.data.statusCode,
+        message: response.data.message,
+        data: response.data.data,
+      };
+
+      return res;
+    } catch (error) {
+      return axiosErrorAdapter(error);
+    }
+  };
+
+  return { createUser, getUsers, deleteUser, updateUser, login };
 };
