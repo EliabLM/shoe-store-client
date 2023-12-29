@@ -37,5 +37,38 @@ export const useLocationsService = () => {
     }
   };
 
-  return { createLocation, getLocations };
+  const updateLocation = async ({ body }) => {
+    try {
+      const response = await axiosInstance.put('/locations/update-location', body);
+
+      const res = {
+        statusCode: response.data.statusCode,
+        message: response.data.message,
+        data: response.data.data,
+      };
+
+      return res;
+    } catch (error) {
+      return axiosErrorAdapter(error);
+    }
+  };
+
+  const deleteLocation = async ({ locationId }) => {
+    try {
+      const params = { location_id: locationId };
+      const response = await axiosInstance.delete('locations/delete-location', { params });
+
+      const res = {
+        statusCode: response.data.statusCode,
+        message: response.data.message,
+        data: response.data.data,
+      };
+
+      return res;
+    } catch (error) {
+      return axiosErrorAdapter(error);
+    }
+  };
+
+  return { createLocation, getLocations, updateLocation, deleteLocation };
 };

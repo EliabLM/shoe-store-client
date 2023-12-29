@@ -20,8 +20,8 @@ import RequireAuth from 'examples/LayoutContainers/RequireAuth/RequireAuth';
 import theme from 'assets/theme';
 
 // Soft UI Dashboard PRO React routes
-import routes from 'routes/routes';
-import sidenavRoutes from 'routes/sidenav.routes';
+import routes from 'routes/superadmin/superadmin.routes';
+import sidenavRoutes from 'routes/superadmin/superadminSidenav.routes';
 
 // Soft UI Dashboard PRO React contexts
 import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from 'context';

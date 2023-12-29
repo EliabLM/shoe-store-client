@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 // @mui material components
@@ -8,7 +9,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 // Soft UI Dashboard PRO React components
 import SoftBox from 'components/SoftBox';
 import SoftTypography from 'components/SoftTypography';
-import { useState } from 'react';
 
 function UsersActionsCell({ item, toggleUserState, editUser }) {
   const [isLoading, setIsLoading] = useState(false);

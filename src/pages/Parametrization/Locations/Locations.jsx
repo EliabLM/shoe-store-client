@@ -14,7 +14,6 @@ import SoftTypography from 'components/SoftTypography';
 import SoftButton from 'components/SoftButton';
 import CustomLoader from 'components/CustomLoader/CustomLoader';
 import SoftBadge from 'components/SoftBadge';
-import UsersActionsCell from './components/UsersActionCell';
 
 // Soft UI Dashboard PRO React example components
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
@@ -23,41 +22,17 @@ import Footer from 'examples/Footer';
 import DataTable from 'examples/Tables/DataTable';
 
 // hooks
-import { useUsersList } from './hooks/useUsersList';
-import { useUsersService } from 'services/useUsersService';
-import { validateResponse } from 'utils/validateResponse';
-
-const ENUM_ROLES = {
-  superadmin: 'Super administrador',
-  admin: 'Administrador',
-  vendedor: 'Vendedor',
-};
+import { useLocations } from 'hooks/useLocations';
+import LocationActionCell from './components/LocationsActionCell';
 
 const columns = [
   {
-    Header: 'Código',
-    accessor: 'code',
-  },
-  {
     Header: 'Nombre',
-    accessor: 'names',
+    accessor: 'name',
   },
   {
-    Header: 'Correo',
-    accessor: 'email',
-  },
-  {
-    Header: 'Rol',
-    accessor: 'role',
-    Cell: ({ value }) => (
-      <SoftTypography color="text" fontSize="0.9rem">
-        {ENUM_ROLES[value]}
-      </SoftTypography>
-    ),
-  },
-  {
-    Header: 'Local',
-    accessor: 'location.name',
+    Header: 'Descripción',
+    accessor: 'description',
   },
   {
     Header: 'Estado',
@@ -76,21 +51,14 @@ const columns = [
   },
 ];
 
-function UsersList() {
+function Locations() {
   const navigate = useNavigate();
-  const { data, isLoading, refetch } = useUsersList();
-  const { updateUserState } = useUsersService();
+  const { data, isLoading } = useLocations();
 
   const [dataTable, setDataTable] = useState({ columns, rows: [] });
 
-  const toggleUserState = async (item) => {
-    const response = await updateUserState({ userId: item.id, active: !item.active });
-    validateResponse(response, 'Ha ocurrido un error actualizando el estado del usuario');
-    refetch();
-  };
-
-  const editUser = async (user) => {
-    navigate('/usuarios/editar-usuario', { state: user });
+  const editLocation = async (location) => {
+    navigate('/parametrizacion/editar-local', { state: location });
   };
 
   useEffect(() => {
@@ -111,15 +79,13 @@ function UsersList() {
       return;
     }
 
-    const users = data?.data?.map((item) => ({
+    const locations = data?.data?.map((item) => ({
       ...item,
-      options: (
-        <UsersActionsCell item={item} toggleUserState={toggleUserState} editUser={editUser} />
-      ),
+      options: <LocationActionCell item={item} editLocation={editLocation} />,
     }));
 
-    setDataTable((prevState) => ({ ...prevState, rows: users || [] }));
-  }, [data, isLoading]);
+    setDataTable((prevState) => ({ ...prevState, rows: locations || [] }));
+  }, [data]);
 
   return (
     <DashboardLayout>
@@ -141,16 +107,16 @@ function UsersList() {
           <SoftBox display="flex" justifyContent="space-between" alignItems="flex-start" p={3}>
             <SoftBox lineHeight={1}>
               <SoftTypography variant="h4" fontWeight="medium">
-                Usuarios
+                Locales
               </SoftTypography>
               {/* <SoftTypography variant="button" fontWeight="regular" color="text">
                 A lightweight, extendable, dependency-free javascript HTML table plugin.
               </SoftTypography> */}
             </SoftBox>
             <Stack spacing={1} direction="row">
-              <Link to="/usuarios/nuevo-usuario">
+              <Link to="/parametrizacion/nuevo-local">
                 <SoftButton variant="gradient" color="dark" size="small">
-                  + Nuevo usuario
+                  + Nuevo local
                 </SoftButton>
               </Link>
               {/* <SoftButton variant="outlined" color="info" size="small">
@@ -182,4 +148,4 @@ function UsersList() {
   );
 }
 
-export default UsersList;
+export default Locations;

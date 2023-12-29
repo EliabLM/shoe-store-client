@@ -93,7 +93,7 @@ const EditUser = () => {
 
     const role = ROLES.filter((item) => item.value === location.state.role)[0];
     const userLocation = dataLocations?.data
-      ?.filter((item) => item.id === location.state.location._id)
+      ?.filter((item) => item.id === location.state.location?._id)
       ?.map((item) => ({
         ...item,
         value: item.id,
