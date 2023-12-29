@@ -22,9 +22,10 @@ export const useUsersService = () => {
   };
 
   // ######### GET ##########
-  const getUsers = async () => {
+  const getUsers = async ({ active }) => {
     try {
-      const res = await axiosInstance.get('/users/get-users');
+      const params = { active };
+      const res = await axiosInstance.get('/users/get-users', { params });
 
       const getUsersAdapter = {
         statusCode: res.data.statusCode,
@@ -90,5 +91,20 @@ export const useUsersService = () => {
     }
   };
 
-  return { createUser, getUsers, deleteUser, updateUser, login };
+  const updateUserState = async ({ userId, active }) => {
+    try {
+      const params = { user_id: userId, active };
+      const response = await axiosInstance.patch('/users/update-user-state', null, { params });
+
+      return {
+        statusCode: response.data.statusCode,
+        message: response.data.message,
+        data: response.data.data,
+      };
+    } catch (error) {
+      return axiosErrorAdapter(error);
+    }
+  };
+
+  return { createUser, getUsers, deleteUser, updateUser, login, updateUserState };
 };

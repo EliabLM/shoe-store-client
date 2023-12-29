@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Card, CircularProgress, Grid, Stack } from '@mui/material';
@@ -15,14 +15,17 @@ import Footer from 'examples/Footer';
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
 import DashboardNavbar from 'examples/Navbars/DashboardNavbar';
 
-import { newUserSchema } from './newUser.schema';
-import { useUsersService } from 'services/useUsersService';
+import { createUserSchema, USER_ENUM_NAMES } from './userSchema';
 import { validateResponse } from 'utils/validateResponse';
-import { ROLES, LOCALES } from 'data/enums';
+import { ROLES } from 'data/enums';
+
+import { useUsersService } from 'services/useUsersService';
+import { useLocations } from 'hooks/useLocations';
 
 const NewUser = () => {
   const navigate = useNavigate();
   const { createUser } = useUsersService();
+  const { data: dataLocations } = useLocations();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -34,45 +37,55 @@ const NewUser = () => {
     criteriaMode: 'firstError',
     mode: 'all',
     reValidateMode: 'onChange',
-    resolver: yupResolver(newUserSchema),
+    resolver: yupResolver(createUserSchema),
   });
 
   const onSubmit = async (data) => {
-    setIsLoading(true);
+    try {
+      setIsLoading(true);
 
-    const { nombre, correo, local, role } = data;
+      const body = {
+        names: data.names,
+        email: data.email,
+        role: data.role.value,
+        location: data.location.value,
+        code: data.code,
+        password: 'Asdf1234$$',
+      };
 
-    const body = {
-      nombre,
-      email: correo,
-      rol: role.value,
-      local: local.value,
-    };
+      const resCreateUser = await createUser({ body });
 
-    const resCreateUser = await createUser({ body });
-
-    setIsLoading((prevState) => !prevState);
-
-    if (
-      !validateResponse(
-        resCreateUser,
-        'Ha ocurrido un error registrando el usuario, por favor intente nuevamente.'
+      if (
+        !validateResponse(
+          resCreateUser,
+          'Ha ocurrido un error registrando el usuario, por favor intente nuevamente.'
+        )
       )
-    )
-      return;
+        return;
 
-    Swal.fire({
-      icon: 'success',
-      text: resCreateUser.message,
-    }).then(() => {
-      navigate('/usuarios/lista-usuarios');
-    });
+      Swal.fire({
+        icon: 'success',
+        text: resCreateUser.message,
+      }).then(() => {
+        navigate('/usuarios/lista-usuarios');
+      });
+    } catch (error) {
+      console.error('🚀 ~ onSubmit ~ error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  const locationsList = useMemo(() => {
+    if (!dataLocations) return [];
+
+    return dataLocations.data.map((item) => ({ ...item, value: item.id, label: item.name }));
+  }, [dataLocations]);
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <SoftBox py={3} mb={30}>
+      <SoftBox py={3}>
         <Grid container justifyContent={'center'} sx={{ height: '100%' }}>
           <Grid item xs={12} lg={8}>
             <Card sx={{ overflow: 'visible' }}>
@@ -91,9 +104,9 @@ const NewUser = () => {
                 <Grid container columnSpacing={3} rowSpacing={2}>
                   <Grid item xs={12} md={6}>
                     <CustomSoftInput
-                      label="Nombre"
-                      name="nombre"
-                      placeholder="Nombre"
+                      label="Código"
+                      name={USER_ENUM_NAMES.code}
+                      placeholder="CÓDIGO"
                       register={register}
                       errors={errors}
                       disabled={isLoading}
@@ -102,8 +115,19 @@ const NewUser = () => {
                   </Grid>
                   <Grid item xs={12} md={6}>
                     <CustomSoftInput
-                      label="Correo"
-                      name="correo"
+                      label="Nombre completo"
+                      name={USER_ENUM_NAMES.names}
+                      placeholder="Nombre completo"
+                      register={register}
+                      errors={errors}
+                      disabled={isLoading}
+                      required
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <CustomSoftInput
+                      label="Correo electrónico"
+                      name={USER_ENUM_NAMES.email}
                       placeholder="ejemplo@gmail.com"
                       register={register}
                       errors={errors}
@@ -114,7 +138,7 @@ const NewUser = () => {
                   <Grid item xs={12} md={6}>
                     <CustomSoftSelect
                       label="Rol"
-                      name="role"
+                      name={USER_ENUM_NAMES.role}
                       placeholder="Seleccione"
                       control={control}
                       options={ROLES}
@@ -125,10 +149,10 @@ const NewUser = () => {
                   <Grid item xs={12} md={6}>
                     <CustomSoftSelect
                       label="Local"
-                      name="local"
+                      name={USER_ENUM_NAMES.location}
                       placeholder="Seleccione"
                       control={control}
-                      options={LOCALES}
+                      options={locationsList}
                       isDisabled={isLoading}
                       required
                     />
@@ -137,16 +161,15 @@ const NewUser = () => {
 
                 <SoftBox mt={4} mb={1} gap={1} display="flex" justifyContent="flex-end">
                   <Stack spacing={1} direction="row">
-                    <Link to={isLoading ? '/usuarios/nuevo-usuario' : '/usuarios/lista-usuarios'}>
-                      <SoftButton
-                        type="button"
-                        variant="gradient"
-                        color="secondary"
-                        disabled={isLoading}
-                      >
-                        Volver
-                      </SoftButton>
-                    </Link>
+                    <SoftButton
+                      type="button"
+                      variant="gradient"
+                      color="secondary"
+                      disabled={isLoading}
+                      onClick={() => navigate(-1)}
+                    >
+                      Volver
+                    </SoftButton>
                   </Stack>
                   <SoftButton type="submit" variant="gradient" color="dark" disabled={isLoading}>
                     {isLoading ? (

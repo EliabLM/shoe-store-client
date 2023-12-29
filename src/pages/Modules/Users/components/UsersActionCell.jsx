@@ -3,12 +3,27 @@ import PropTypes from 'prop-types';
 // @mui material components
 import Icon from '@mui/material/Icon';
 import Tooltip from '@mui/material/Tooltip';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // Soft UI Dashboard PRO React components
 import SoftBox from 'components/SoftBox';
 import SoftTypography from 'components/SoftTypography';
+import { useState } from 'react';
 
-function UsersActionsCell({ item, deleteUser, editUser }) {
+function UsersActionsCell({ item, toggleUserState, editUser }) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleUserState = async () => {
+    try {
+      setIsLoading(true);
+      await toggleUserState(item);
+    } catch (error) {
+      console.error('🚀 ~ handleUserState ~ error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <SoftBox display="flex" alignItems="center">
       {/* <SoftTypography variant="body1" color="secondary" sx={{ cursor: 'pointer', lineHeight: 0 }}>
@@ -32,10 +47,14 @@ function UsersActionsCell({ item, deleteUser, editUser }) {
         variant="body1"
         color="secondary"
         sx={{ cursor: 'pointer', lineHeight: 0 }}
-        onClick={() => deleteUser(item)}
+        onClick={isLoading ? undefined : handleUserState}
       >
-        <Tooltip title="Deshabilitar" placement="left">
-          <Icon>not_interested</Icon>
+        <Tooltip title={item?.active ? 'Deshabilitar' : 'Habilitar'} placement="left">
+          {isLoading ? (
+            <CircularProgress color="dark" size={18} />
+          ) : (
+            <Icon>{item?.active ? 'not_interested' : 'done'}</Icon>
+          )}
         </Tooltip>
       </SoftTypography>
     </SoftBox>
@@ -46,6 +65,7 @@ export default UsersActionsCell;
 
 UsersActionsCell.propTypes = {
   item: PropTypes.object,
-  deleteUser: PropTypes.func,
+  toggleUserState: PropTypes.func,
   editUser: PropTypes.func,
+  isLoading: PropTypes.bool,
 };

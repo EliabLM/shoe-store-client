@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import Swal from 'sweetalert2';
 
 // @mui material components
 import Card from '@mui/material/Card';
@@ -36,8 +35,12 @@ const ENUM_ROLES = {
 
 const columns = [
   {
+    Header: 'Código',
+    accessor: 'code',
+  },
+  {
     Header: 'Nombre',
-    accessor: 'nombre',
+    accessor: 'names',
   },
   {
     Header: 'Correo',
@@ -45,22 +48,26 @@ const columns = [
   },
   {
     Header: 'Rol',
-    accessor: 'rol',
+    accessor: 'role',
     Cell: ({ value }) => (
-      <SoftTypography color="text" fontSize="1rem">
+      <SoftTypography color="text" fontSize="0.9rem">
         {ENUM_ROLES[value]}
       </SoftTypography>
     ),
   },
   {
     Header: 'Local',
-    accessor: 'local',
+    accessor: 'location.name',
   },
   {
     Header: 'Estado',
-    accessor: 'activo',
+    accessor: 'active',
     Cell: ({ value }) => (
-      <SoftBadge badgeContent={value ? 'Activo' : 'Inactivo'} color={value ? 'success' : 'error'} />
+      <SoftBadge
+        badgeContent={value ? 'Activo' : 'Inactivo'}
+        color={value ? 'success' : 'error'}
+        variant="contained"
+      />
     ),
   },
   {
@@ -72,29 +79,13 @@ const columns = [
 function UsersList() {
   const navigate = useNavigate();
   const { data, isLoading, refetch } = useUsersList();
-  const { deleteUser: deleteUserService } = useUsersService();
+  const { updateUserState } = useUsersService();
 
   const [dataTable, setDataTable] = useState({ columns, rows: [] });
 
-  const deleteUser = async (item) => {
-    const { isConfirmed } = await Swal.fire({
-      icon: 'warning',
-      text: '¿Esta seguro de eliminar este usuario?',
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: 'Cancelar',
-      showCancelButton: true,
-      showConfirmButton: true,
-      reverseButtons: true,
-      showLoaderOnConfirm: true,
-      showCloseButton: true,
-      allowOutsideClick: false,
-      preConfirm: async () => {
-        const response = await deleteUserService({ user_id: item.id });
-        validateResponse(response, 'Ha ocurrido un error eliminando el usuario.');
-      },
-    });
-
-    if (!isConfirmed) return;
+  const toggleUserState = async (item) => {
+    const response = await updateUserState({ userId: item.id, active: !item.active });
+    validateResponse(response, 'Ha ocurrido un error actualizando el estado del usuario');
     refetch();
   };
 
@@ -122,7 +113,9 @@ function UsersList() {
 
     const users = data?.data?.map((item) => ({
       ...item,
-      options: <UsersActionsCell item={item} deleteUser={deleteUser} editUser={editUser} />,
+      options: (
+        <UsersActionsCell item={item} toggleUserState={toggleUserState} editUser={editUser} />
+      ),
     }));
 
     setDataTable((prevState) => ({ ...prevState, rows: users || [] }));

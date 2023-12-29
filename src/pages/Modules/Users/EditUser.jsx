@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Card, CircularProgress, Grid, Stack } from '@mui/material';
@@ -16,15 +16,18 @@ import Footer from 'examples/Footer';
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
 import DashboardNavbar from 'examples/Navbars/DashboardNavbar';
 
-import { ENUM_NAMES, updateUserSchema } from './newUser.schema';
-import { useUsersService } from 'services/useUsersService';
+import { USER_ENUM_NAMES, updateUserSchema } from './userSchema';
 import { validateResponse } from 'utils/validateResponse';
-import { ROLES, LOCALES } from 'data/enums';
+import { ROLES } from 'data/enums';
+
+import { useUsersService } from 'services/useUsersService';
+import { useLocations } from 'hooks/useLocations';
 
 const EditUser = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { updateUser } = useUsersService();
+  const { data: dataLocations } = useLocations();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -38,54 +41,74 @@ const EditUser = () => {
     mode: 'all',
     reValidateMode: 'onChange',
     resolver: yupResolver(updateUserSchema),
+    defaultValues: {
+      code: location.state.code,
+      names: location.state.names,
+      email: location.state.email,
+      active: location.state.active,
+    },
   });
 
   const onSubmit = async (data) => {
-    setIsLoading(true);
+    try {
+      setIsLoading(true);
 
-    const { nombre, correo, local, role, activo } = data;
+      const body = {
+        id: location.state.id,
+        code: location.state.code,
+        names: data.names,
+        email: data.email,
+        role: data.role.value,
+        location: data.location.value,
+        active: data.active,
+      };
 
-    const body = {
-      id: location.state.id,
-      nombre,
-      activo,
-      email: correo,
-      rol: role.value,
-      local: local.value,
-    };
+      const resUpdateUser = await updateUser({ body });
 
-    const resUpdateUser = await updateUser({ body });
+      setIsLoading((prevState) => !prevState);
 
-    setIsLoading((prevState) => !prevState);
-
-    if (
-      !validateResponse(
-        resUpdateUser,
-        'Ha ocurrido un error actualizando el usuario, por favor intente nuevamente.'
+      if (
+        !validateResponse(
+          resUpdateUser,
+          'Ha ocurrido un error actualizando el usuario, por favor intente nuevamente.'
+        )
       )
-    )
-      return;
+        return;
 
-    Swal.fire({
-      icon: 'success',
-      text: resUpdateUser.message,
-    }).then(() => {
-      navigate('/usuarios/lista-usuarios');
-    });
+      Swal.fire({
+        icon: 'success',
+        text: resUpdateUser.message,
+      }).then(() => {
+        navigate('/usuarios/lista-usuarios');
+      });
+    } catch (error) {
+      console.error('🚀 ~ onSubmit ~ error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
     if (!location.state) return navigate('/usuarios/lista-usuarios');
 
-    const local = LOCALES.filter((item) => item.value === location.state.local)?.[0];
-    const role = ROLES.filter((item) => item.value === location.state.rol)?.[0];
+    const role = ROLES.filter((item) => item.value === location.state.role)[0];
+    const userLocation = dataLocations?.data
+      ?.filter((item) => item.id === location.state.location._id)
+      ?.map((item) => ({
+        ...item,
+        value: item.id,
+        label: item.name,
+      }))[0];
 
-    setValue(ENUM_NAMES.nombre, location.state.nombre);
-    setValue(ENUM_NAMES.correo, location.state.email);
-    setValue(ENUM_NAMES.activo, location.state.activo);
-    setValue(ENUM_NAMES.local, local);
-    setValue(ENUM_NAMES.role, role);
-  }, [location.state]);
+    setValue(USER_ENUM_NAMES.role, role);
+    setValue(USER_ENUM_NAMES.location, userLocation);
+  }, [location]);
+
+  const locationsList = useMemo(() => {
+    if (!dataLocations) return [];
+
+    return dataLocations.data.map((item) => ({ ...item, value: item.id, label: item.name }));
+  }, [dataLocations]);
 
   return (
     <DashboardLayout>
@@ -109,9 +132,20 @@ const EditUser = () => {
                 <Grid container columnSpacing={3} rowSpacing={2}>
                   <Grid item xs={12} md={6}>
                     <CustomSoftInput
-                      label="Nombre"
-                      name={ENUM_NAMES.nombre}
-                      placeholder="Nombre"
+                      label="Código"
+                      name={USER_ENUM_NAMES.code}
+                      placeholder="CÓDIGO"
+                      register={register}
+                      errors={errors}
+                      disabled
+                      required
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <CustomSoftInput
+                      label="Nombre completo"
+                      name={USER_ENUM_NAMES.names}
+                      placeholder="Nombre completo"
                       register={register}
                       errors={errors}
                       disabled={isLoading}
@@ -120,8 +154,8 @@ const EditUser = () => {
                   </Grid>
                   <Grid item xs={12} md={6}>
                     <CustomSoftInput
-                      label="Correo"
-                      name={ENUM_NAMES.correo}
+                      label="Correo electrónico"
+                      name={USER_ENUM_NAMES.email}
                       placeholder="ejemplo@gmail.com"
                       register={register}
                       errors={errors}
@@ -132,7 +166,7 @@ const EditUser = () => {
                   <Grid item xs={12} md={6}>
                     <CustomSoftSelect
                       label="Rol"
-                      name={ENUM_NAMES.role}
+                      name={USER_ENUM_NAMES.role}
                       placeholder="Seleccione"
                       control={control}
                       options={ROLES}
@@ -143,31 +177,35 @@ const EditUser = () => {
                   <Grid item xs={12} md={6}>
                     <CustomSoftSelect
                       label="Local"
-                      name={ENUM_NAMES.local}
+                      name={USER_ENUM_NAMES.location}
                       placeholder="Seleccione"
                       control={control}
-                      options={LOCALES}
+                      options={locationsList}
                       isDisabled={isLoading}
                       required
                     />
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <CustomSwitch name={ENUM_NAMES.activo} control={control} disabled={isLoading} />
+                    <CustomSwitch
+                      label="Estado"
+                      name={USER_ENUM_NAMES.active}
+                      control={control}
+                      disabled={isLoading}
+                    />
                   </Grid>
                 </Grid>
 
                 <SoftBox mt={4} mb={1} gap={1} display="flex" justifyContent="flex-end">
                   <Stack spacing={1} direction="row">
-                    <Link to={isLoading ? '/usuarios/editar-usuario' : '/usuarios/lista-usuarios'}>
-                      <SoftButton
-                        type="button"
-                        variant="gradient"
-                        color="secondary"
-                        disabled={isLoading}
-                      >
-                        Volver
-                      </SoftButton>
-                    </Link>
+                    <SoftButton
+                      type="button"
+                      variant="gradient"
+                      color="secondary"
+                      disabled={isLoading}
+                      onClick={() => navigate(-1)}
+                    >
+                      Volver
+                    </SoftButton>
                   </Stack>
                   <SoftButton type="submit" variant="gradient" color="dark" disabled={isLoading}>
                     {isLoading ? (
