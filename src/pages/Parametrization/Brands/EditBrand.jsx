@@ -15,15 +15,15 @@ import Footer from 'examples/Footer';
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
 import DashboardNavbar from 'examples/Navbars/DashboardNavbar';
 
-import { LOCATION_ENUM_NAMES, updateLocationSchema } from './locationSchema';
+import { BRAND_ENUM_NAMES, updateBrandSchema } from './brandSchema';
 import { validateResponse } from 'utils/validateResponse';
 
-import { useLocationsService } from 'services/useLocationsService';
+import { useBrandsService } from 'services/useBrandsService';
 
-const EditLocation = () => {
+const EditBrand = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { updateLocation, deleteLocation } = useLocationsService();
+  const { updateBrand, deleteBrand } = useBrandsService();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -35,10 +35,9 @@ const EditLocation = () => {
     criteriaMode: 'firstError',
     mode: 'all',
     reValidateMode: 'onChange',
-    resolver: yupResolver(updateLocationSchema),
+    resolver: yupResolver(updateBrandSchema),
     defaultValues: {
       name: state.name,
-      description: state.description,
       active: state.active,
     },
   });
@@ -50,16 +49,15 @@ const EditLocation = () => {
       const body = {
         id: state.id,
         name: data.name,
-        description: data.description,
         active: data.active,
       };
 
-      const response = await updateLocation({ body });
+      const response = await updateBrand({ body });
 
       if (
         !validateResponse(
           response,
-          'Ha ocurrido un error actualizando el local, por favor intente nuevamente.'
+          'Ha ocurrido un error actualizando la marca, por favor intente nuevamente.'
         )
       )
         return;
@@ -80,7 +78,7 @@ const EditLocation = () => {
   const handleDeleteLocation = async () => {
     const { isConfirmed } = await Swal.fire({
       icon: 'warning',
-      text: '¿Esta seguro de eliminar este local?',
+      text: '¿Esta seguro de eliminar esta marca?',
       confirmButtonText: 'Confirmar',
       cancelButtonText: 'Cancelar',
       showCancelButton: true,
@@ -90,8 +88,8 @@ const EditLocation = () => {
       showCloseButton: true,
       allowOutsideClick: false,
       preConfirm: async () => {
-        const response = await deleteLocation({ locationId: state.id });
-        validateResponse(response, 'Ha ocurrido un error eliminando el local');
+        const response = await deleteBrand({ brandId: state.id });
+        validateResponse(response, 'Ha ocurrido un error eliminando la marca');
       },
     });
 
@@ -99,7 +97,7 @@ const EditLocation = () => {
 
     Swal.fire({
       icon: 'success',
-      text: 'Local eliminado exitosamente',
+      text: 'Marca eliminada exitosamente',
     }).then(() => {
       navigate(-1);
     });
@@ -115,7 +113,7 @@ const EditLocation = () => {
               <SoftBox display="flex" justifyContent="space-between" alignItems="flex-start" p={3}>
                 <SoftBox lineHeight={1}>
                   <SoftTypography variant="h4" fontWeight="medium">
-                    Editar local
+                    Editar marca
                   </SoftTypography>
                 </SoftBox>
               </SoftBox>
@@ -125,31 +123,19 @@ const EditLocation = () => {
                   <Grid item xs={12}>
                     <CustomSoftInput
                       label="Nombre"
-                      name={LOCATION_ENUM_NAMES.name}
-                      placeholder="Nombre del local"
+                      name={BRAND_ENUM_NAMES.name}
+                      placeholder="Nombre de la marca"
                       register={register}
                       errors={errors}
                       disabled={isLoading}
                       required
                     />
                   </Grid>
-                  <Grid item xs={12}>
-                    <CustomSoftInput
-                      label="Descripción"
-                      name={LOCATION_ENUM_NAMES.description}
-                      placeholder="Descripción"
-                      register={register}
-                      errors={errors}
-                      disabled={isLoading}
-                      multiline
-                      rows={5}
-                      required
-                    />
-                  </Grid>
+
                   <Grid item xs={12} md={6}>
                     <CustomSwitch
                       label="Estado"
-                      name={LOCATION_ENUM_NAMES.active}
+                      name={BRAND_ENUM_NAMES.active}
                       control={control}
                       disabled={isLoading}
                     />
@@ -199,4 +185,4 @@ const EditLocation = () => {
   );
 };
 
-export default EditLocation;
+export default EditBrand;

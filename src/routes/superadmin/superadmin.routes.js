@@ -98,6 +98,9 @@ import Profile from 'pages/auth/Profile/Profile';
 import Locations from 'pages/Parametrization/Locations/Locations';
 import NewLocation from 'pages/Parametrization/Locations/NewLocation';
 import EditLocation from 'pages/Parametrization/Locations/EditLocation';
+import Brands from 'pages/Parametrization/Brands/Brands';
+import NewBrand from 'pages/Parametrization/Brands/newBrand';
+import EditBrand from 'pages/Parametrization/Brands/EditBrand';
 
 const routes = [
   {
@@ -224,15 +227,33 @@ const routes = [
       },
       {
         name: 'Locales',
-        key: 'locales',
+        key: 'nuevo-local',
         route: '/parametrizacion/nuevo-local',
         component: <NewLocation />,
       },
       {
         name: 'Locales',
-        key: 'locales',
+        key: 'editar-local',
         route: '/parametrizacion/editar-local',
         component: <EditLocation />,
+      },
+      {
+        name: 'Marcas',
+        key: 'marcas',
+        route: '/parametrizacion/marcas',
+        component: <Brands />,
+      },
+      {
+        name: 'Marcas',
+        key: 'nueva-marca',
+        route: '/parametrizacion/nueva-marca',
+        component: <NewBrand />,
+      },
+      {
+        name: 'Marcas',
+        key: 'editar-marca',
+        route: '/parametrizacion/editar-marca',
+        component: <EditBrand />,
       },
     ],
   },

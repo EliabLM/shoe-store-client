@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Card, CircularProgress, Grid, Stack } from '@mui/material';
@@ -9,38 +9,30 @@ import CustomSoftInput from 'components/CustomSoftInput/CustomSoftInput';
 import SoftBox from 'components/SoftBox';
 import SoftButton from 'components/SoftButton';
 import SoftTypography from 'components/SoftTypography';
-import CustomSwitch from 'components/CustomSwitch/CustomSwitch';
 
 import Footer from 'examples/Footer';
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
 import DashboardNavbar from 'examples/Navbars/DashboardNavbar';
 
-import { LOCATION_ENUM_NAMES, updateLocationSchema } from './locationSchema';
+import { BRAND_ENUM_NAMES, createBrandSchema } from './brandSchema';
 import { validateResponse } from 'utils/validateResponse';
 
-import { useLocationsService } from 'services/useLocationsService';
+import { useBrandsService } from 'services/useBrandsService';
 
-const EditLocation = () => {
+const NewBrand = () => {
   const navigate = useNavigate();
-  const { state } = useLocation();
-  const { updateLocation, deleteLocation } = useLocationsService();
+  const { createBrand } = useBrandsService();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm({
     criteriaMode: 'firstError',
     mode: 'all',
     reValidateMode: 'onChange',
-    resolver: yupResolver(updateLocationSchema),
-    defaultValues: {
-      name: state.name,
-      description: state.description,
-      active: state.active,
-    },
+    resolver: yupResolver(createBrandSchema),
   });
 
   const onSubmit = async (data) => {
@@ -48,18 +40,15 @@ const EditLocation = () => {
       setIsLoading(true);
 
       const body = {
-        id: state.id,
         name: data.name,
-        description: data.description,
-        active: data.active,
       };
 
-      const response = await updateLocation({ body });
+      const response = await createBrand({ body });
 
       if (
         !validateResponse(
           response,
-          'Ha ocurrido un error actualizando el local, por favor intente nuevamente.'
+          'Ha ocurrido un error registrando la marca, por favor intente nuevamente.'
         )
       )
         return;
@@ -77,34 +66,6 @@ const EditLocation = () => {
     }
   };
 
-  const handleDeleteLocation = async () => {
-    const { isConfirmed } = await Swal.fire({
-      icon: 'warning',
-      text: '¿Esta seguro de eliminar este local?',
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: 'Cancelar',
-      showCancelButton: true,
-      showConfirmButton: true,
-      reverseButtons: true,
-      showLoaderOnConfirm: true,
-      showCloseButton: true,
-      allowOutsideClick: false,
-      preConfirm: async () => {
-        const response = await deleteLocation({ locationId: state.id });
-        validateResponse(response, 'Ha ocurrido un error eliminando el local');
-      },
-    });
-
-    if (!isConfirmed) return;
-
-    Swal.fire({
-      icon: 'success',
-      text: 'Local eliminado exitosamente',
-    }).then(() => {
-      navigate(-1);
-    });
-  };
-
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -115,7 +76,7 @@ const EditLocation = () => {
               <SoftBox display="flex" justifyContent="space-between" alignItems="flex-start" p={3}>
                 <SoftBox lineHeight={1}>
                   <SoftTypography variant="h4" fontWeight="medium">
-                    Editar local
+                    Nueva marca
                   </SoftTypography>
                 </SoftBox>
               </SoftBox>
@@ -125,48 +86,17 @@ const EditLocation = () => {
                   <Grid item xs={12}>
                     <CustomSoftInput
                       label="Nombre"
-                      name={LOCATION_ENUM_NAMES.name}
-                      placeholder="Nombre del local"
+                      name={BRAND_ENUM_NAMES.name}
+                      placeholder="Nombre de la marca"
                       register={register}
                       errors={errors}
                       disabled={isLoading}
                       required
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <CustomSoftInput
-                      label="Descripción"
-                      name={LOCATION_ENUM_NAMES.description}
-                      placeholder="Descripción"
-                      register={register}
-                      errors={errors}
-                      disabled={isLoading}
-                      multiline
-                      rows={5}
-                      required
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={6}>
-                    <CustomSwitch
-                      label="Estado"
-                      name={LOCATION_ENUM_NAMES.active}
-                      control={control}
-                      disabled={isLoading}
                     />
                   </Grid>
                 </Grid>
 
                 <SoftBox mt={4} mb={1} gap={1} display="flex" justifyContent="flex-end">
-                  <SoftButton
-                    type="button"
-                    variant="gradient"
-                    color="error"
-                    sx={{ marginRight: 'auto' }}
-                    disabled={isLoading}
-                    onClick={handleDeleteLocation}
-                  >
-                    Eliminar
-                  </SoftButton>
                   <Stack spacing={1} direction="row">
                     <SoftButton
                       type="button"
@@ -184,7 +114,7 @@ const EditLocation = () => {
                         <CircularProgress size={20} color="white" />
                       </>
                     ) : (
-                      'Editar'
+                      'Crear'
                     )}
                   </SoftButton>
                 </SoftBox>
@@ -199,4 +129,4 @@ const EditLocation = () => {
   );
 };
 
-export default EditLocation;
+export default NewBrand;

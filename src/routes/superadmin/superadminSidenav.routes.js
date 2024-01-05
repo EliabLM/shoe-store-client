@@ -196,6 +196,11 @@ const sidenavRoutes = [
         key: 'locales',
         route: '/parametrizacion/locales',
       },
+      {
+        name: 'Marcas',
+        key: 'marcas',
+        route: '/parametrizacion/marcas',
+      },
     ],
   },
   { type: 'title', title: 'Ejemplos', key: 'ejemplos' },
