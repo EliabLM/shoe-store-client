@@ -1,12 +1,12 @@
 import { axiosErrorAdapter } from 'adapters/axiosErrorAdapter';
 import { useAxios } from 'hooks/useAxios';
 
-export const useLocationsService = () => {
+export const useCategoriesService = () => {
   const axiosInstance = useAxios();
 
-  const createLocation = async ({ body }) => {
+  const createCategory = async ({ body }) => {
     try {
-      const response = await axiosInstance.post('/locations/create-location', body);
+      const response = await axiosInstance.post('/categories/create-category', body);
 
       const res = {
         statusCode: response.data.statusCode,
@@ -20,10 +20,10 @@ export const useLocationsService = () => {
     }
   };
 
-  const getLocations = async ({ active }) => {
+  const getCategories = async ({ active }) => {
     try {
       const params = { active };
-      const response = await axiosInstance.get('/locations/get-locations', { params });
+      const response = await axiosInstance.get('/categories/get-categories', { params });
 
       const res = {
         statusCode: response.data.statusCode,
@@ -37,9 +37,9 @@ export const useLocationsService = () => {
     }
   };
 
-  const updateLocation = async ({ body }) => {
+  const updateCategory = async ({ body }) => {
     try {
-      const response = await axiosInstance.put('/locations/update-location', body);
+      const response = await axiosInstance.put('/categories/update-category', body);
 
       const res = {
         statusCode: response.data.statusCode,
@@ -53,10 +53,10 @@ export const useLocationsService = () => {
     }
   };
 
-  const deleteLocation = async ({ locationId }) => {
+  const deleteCategory = async ({ categoryId }) => {
     try {
-      const params = { location_id: locationId };
-      const response = await axiosInstance.delete('/locations/delete-location', { params });
+      const params = { category_id: categoryId };
+      const response = await axiosInstance.delete('/categories/delete-category', { params });
 
       const res = {
         statusCode: response.data.statusCode,
@@ -70,5 +70,5 @@ export const useLocationsService = () => {
     }
   };
 
-  return { createLocation, getLocations, updateLocation, deleteLocation };
+  return { createCategory, getCategories, updateCategory, deleteCategory };
 };

@@ -201,6 +201,11 @@ const sidenavRoutes = [
         key: 'marcas',
         route: '/parametrizacion/marcas',
       },
+      {
+        name: 'Categorías',
+        key: 'categorias',
+        route: '/parametrizacion/categorias',
+      },
     ],
   },
   { type: 'title', title: 'Ejemplos', key: 'ejemplos' },

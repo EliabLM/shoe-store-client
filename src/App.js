@@ -30,7 +30,7 @@ import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from 'contex
 import brand from 'assets/images/logo-ct.png';
 
 // Pages
-import SignIn from 'pages/auth/SignIn';
+import SignIn from 'pages/Auth/SignIn';
 import Error500 from 'pages/Error500';
 
 export default function App() {

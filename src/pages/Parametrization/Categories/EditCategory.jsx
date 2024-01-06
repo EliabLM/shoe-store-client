@@ -15,15 +15,15 @@ import Footer from 'examples/Footer';
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
 import DashboardNavbar from 'examples/Navbars/DashboardNavbar';
 
-import { BRAND_ENUM_NAMES, updateBrandSchema } from './brandSchema';
+import { CATEGORY_ENUM_NAMES, updateCategorySchema } from './categorySchema';
 import { validateResponse } from 'utils/validateResponse';
 
-import { useBrandsService } from 'services/useBrandsService';
+import { useCategoriesService } from 'services/useCategoriesService';
 
-const EditBrand = () => {
+const EditCategory = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { updateBrand, deleteBrand } = useBrandsService();
+  const { updateCategory, deleteCategory } = useCategoriesService();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -35,7 +35,7 @@ const EditBrand = () => {
     criteriaMode: 'firstError',
     mode: 'all',
     reValidateMode: 'onChange',
-    resolver: yupResolver(updateBrandSchema),
+    resolver: yupResolver(updateCategorySchema),
     defaultValues: {
       name: state.name,
       active: state.active,
@@ -52,12 +52,12 @@ const EditBrand = () => {
         active: data.active,
       };
 
-      const response = await updateBrand({ body });
+      const response = await updateCategory({ body });
 
       if (
         !validateResponse(
           response,
-          'Ha ocurrido un error actualizando la marca, por favor intente nuevamente.'
+          'Ha ocurrido un error actualizando la categoría, por favor intente nuevamente.'
         )
       )
         return;
@@ -75,10 +75,10 @@ const EditBrand = () => {
     }
   };
 
-  const handleDeleteBrand = async () => {
+  const handleDeleteCategory = async () => {
     const { isConfirmed } = await Swal.fire({
       icon: 'warning',
-      text: '¿Esta seguro de eliminar esta marca?',
+      text: '¿Esta seguro de eliminar esta categoría?',
       confirmButtonText: 'Confirmar',
       cancelButtonText: 'Cancelar',
       showCancelButton: true,
@@ -88,8 +88,8 @@ const EditBrand = () => {
       showCloseButton: true,
       allowOutsideClick: false,
       preConfirm: async () => {
-        const response = await deleteBrand({ brandId: state.id });
-        validateResponse(response, 'Ha ocurrido un error eliminando la marca');
+        const response = await deleteCategory({ categoryId: state.id });
+        validateResponse(response, 'Ha ocurrido un error eliminando la categoría');
       },
     });
 
@@ -97,7 +97,7 @@ const EditBrand = () => {
 
     Swal.fire({
       icon: 'success',
-      text: 'Marca eliminada exitosamente',
+      text: 'Categoría eliminada exitosamente',
     }).then(() => {
       navigate(-1);
     });
@@ -113,7 +113,7 @@ const EditBrand = () => {
               <SoftBox display="flex" justifyContent="space-between" alignItems="flex-start" p={3}>
                 <SoftBox lineHeight={1}>
                   <SoftTypography variant="h4" fontWeight="medium">
-                    Editar marca
+                    Editar categoría
                   </SoftTypography>
                 </SoftBox>
               </SoftBox>
@@ -123,8 +123,8 @@ const EditBrand = () => {
                   <Grid item xs={12}>
                     <CustomSoftInput
                       label="Nombre"
-                      name={BRAND_ENUM_NAMES.name}
-                      placeholder="Nombre de la marca"
+                      name={CATEGORY_ENUM_NAMES.name}
+                      placeholder="Nombre de la categoría"
                       register={register}
                       errors={errors}
                       disabled={isLoading}
@@ -135,7 +135,7 @@ const EditBrand = () => {
                   <Grid item xs={12} md={6}>
                     <CustomSwitch
                       label="Estado"
-                      name={BRAND_ENUM_NAMES.active}
+                      name={CATEGORY_ENUM_NAMES.active}
                       control={control}
                       disabled={isLoading}
                     />
@@ -149,7 +149,7 @@ const EditBrand = () => {
                     color="error"
                     sx={{ marginRight: 'auto' }}
                     disabled={isLoading}
-                    onClick={handleDeleteBrand}
+                    onClick={handleDeleteCategory}
                   >
                     Eliminar
                   </SoftButton>
@@ -185,4 +185,4 @@ const EditBrand = () => {
   );
 };
 
-export default EditBrand;
+export default EditCategory;

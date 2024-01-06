@@ -94,13 +94,16 @@ import EditCreditor from 'pages/Modules/Creditors/EditCreditor';
 import CreditsList from 'pages/Modules/Creditors/Credits/CreditsList';
 import NewCredit from 'pages/Modules/Creditors/Credits/NewCredit';
 import UpdateCredit from 'pages/Modules/Creditors/Credits/UpdateCredit';
-import Profile from 'pages/auth/Profile/Profile';
+import Profile from 'pages/Auth/Profile/Profile';
 import Locations from 'pages/Parametrization/Locations/Locations';
 import NewLocation from 'pages/Parametrization/Locations/NewLocation';
 import EditLocation from 'pages/Parametrization/Locations/EditLocation';
 import Brands from 'pages/Parametrization/Brands/Brands';
-import NewBrand from 'pages/Parametrization/Brands/newBrand';
+import NewBrand from 'pages/Parametrization/Brands/NewBrand';
 import EditBrand from 'pages/Parametrization/Brands/EditBrand';
+import Categories from 'pages/Parametrization/Categories/Categories';
+import NewCategory from 'pages/Parametrization/Categories/NewCategory';
+import EditCategory from 'pages/Parametrization/Categories/EditCategory';
 
 const routes = [
   {
@@ -254,6 +257,24 @@ const routes = [
         key: 'editar-marca',
         route: '/parametrizacion/editar-marca',
         component: <EditBrand />,
+      },
+      {
+        name: 'Categorías',
+        key: 'categorias',
+        route: '/parametrizacion/categorias',
+        component: <Categories />,
+      },
+      {
+        name: 'Categorías',
+        key: 'nueva-categoria',
+        route: '/parametrizacion/nueva-categoria',
+        component: <NewCategory />,
+      },
+      {
+        name: 'Categorías',
+        key: 'editar-categoria',
+        route: '/parametrizacion/editar-categoria',
+        component: <EditCategory />,
       },
     ],
   },
