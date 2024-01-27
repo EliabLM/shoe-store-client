@@ -104,24 +104,24 @@ const sidenavRoutes = [
         route: '/dashboards/ventas',
         component: <Sales />,
       },
-      {
-        name: 'Inventarios',
-        key: 'inventarios',
-        route: '/dashboards/inventarios',
-        component: <Automotive />,
-      },
-      {
-        name: 'Proveedores',
-        key: 'proveedores',
-        route: '/dashboards/proveedores',
-        component: <SmartHome />,
-      },
-      {
-        name: 'Acreedores',
-        key: 'acreedores',
-        route: '/dashboards/acreedores',
-        component: <CRM />,
-      },
+      // {
+      //   name: 'Inventarios',
+      //   key: 'inventarios',
+      //   route: '/dashboards/inventarios',
+      //   component: <Automotive />,
+      // },
+      // {
+      //   name: 'Proveedores',
+      //   key: 'proveedores',
+      //   route: '/dashboards/proveedores',
+      //   component: <SmartHome />,
+      // },
+      // {
+      //   name: 'Acreedores',
+      //   key: 'acreedores',
+      //   route: '/dashboards/acreedores',
+      //   component: <CRM />,
+      // },
     ],
   },
 
@@ -146,44 +146,44 @@ const sidenavRoutes = [
       },
     ],
   },
-  {
-    type: 'collapse',
-    name: 'Acreedores',
-    key: 'acreedores',
-    icon: <AccountBalanceIcon fontSize="10px" />,
-    collapse: [
-      {
-        name: 'Lista de acreedores',
-        key: 'lista-acreedores',
-        route: '/acreedores/lista-acreedores',
-        component: <CreditorsList />,
-      },
-      {
-        name: 'Nuevo acreedor',
-        key: 'nuevo-acreedor',
-        route: '/acreedores/nuevo-acreedor',
-        component: <NewCreditor />,
-      },
-      {
-        name: 'Créditos',
-        key: 'creditos',
-        collapse: [
-          {
-            name: 'Lista de créditos',
-            key: 'lista-creditos',
-            route: '/acreedores/creditos/lista-creditos',
-            component: <CreditsList />,
-          },
-          {
-            name: 'Nuevo credito',
-            key: 'nuevo-credito',
-            route: '/acreedores/creditos/nuevo-credito',
-            component: <NewCredit />,
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   type: 'collapse',
+  //   name: 'Acreedores',
+  //   key: 'acreedores',
+  //   icon: <AccountBalanceIcon fontSize="10px" />,
+  //   collapse: [
+  //     {
+  //       name: 'Lista de acreedores',
+  //       key: 'lista-acreedores',
+  //       route: '/acreedores/lista-acreedores',
+  //       component: <CreditorsList />,
+  //     },
+  //     {
+  //       name: 'Nuevo acreedor',
+  //       key: 'nuevo-acreedor',
+  //       route: '/acreedores/nuevo-acreedor',
+  //       component: <NewCreditor />,
+  //     },
+  //     {
+  //       name: 'Créditos',
+  //       key: 'creditos',
+  //       collapse: [
+  //         {
+  //           name: 'Lista de créditos',
+  //           key: 'lista-creditos',
+  //           route: '/acreedores/creditos/lista-creditos',
+  //           component: <CreditsList />,
+  //         },
+  //         {
+  //           name: 'Nuevo credito',
+  //           key: 'nuevo-credito',
+  //           route: '/acreedores/creditos/nuevo-credito',
+  //           component: <NewCredit />,
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
   // { type: 'title', title: 'Parametrización', key: 'parametrizacion-title' },
   {
     type: 'collapse',
@@ -191,6 +191,11 @@ const sidenavRoutes = [
     key: 'parametrizacion',
     icon: <SettingsSuggestIcon fontSize="10px" />,
     collapse: [
+      {
+        name: 'Productos',
+        key: 'productos',
+        route: '/parametrizacion/productos',
+      },
       {
         name: 'Locales',
         key: 'locales',
@@ -208,383 +213,383 @@ const sidenavRoutes = [
       },
     ],
   },
-  { type: 'title', title: 'Ejemplos', key: 'ejemplos' },
-  {
-    type: 'collapse',
-    name: 'Pages',
-    key: 'pages',
-    icon: <Office size="12px" />,
-    collapse: [
-      {
-        name: 'Profile',
-        key: 'profile',
-        collapse: [
-          {
-            name: 'Profile Overview',
-            key: 'profile-overview',
-            route: '/pages/profile/profile-overview',
-            component: <ProfileOverview />,
-          },
-          {
-            name: 'Teams',
-            key: 'teams',
-            route: '/pages/profile/teams',
-            component: <Teams />,
-          },
-          {
-            name: 'All Projects',
-            key: 'all-projects',
-            route: '/pages/profile/all-projects',
-            component: <AllProjects />,
-          },
-        ],
-      },
-      {
-        name: 'Users',
-        key: 'users',
-        collapse: [
-          {
-            name: 'Reports',
-            key: 'reports',
-            route: '/pages/users/reports',
-            component: <Reports />,
-          },
-          {
-            name: 'New User',
-            key: 'new-user',
-            route: '/pages/users/new-user',
-            component: <NewUser2 />,
-          },
-        ],
-      },
-      {
-        name: 'Account',
-        key: 'account',
-        collapse: [
-          {
-            name: 'Settings',
-            key: 'settings',
-            route: '/pages/account/settings',
-            component: <Settings />,
-          },
-          {
-            name: 'Billing',
-            key: 'billing',
-            route: '/pages/account/billing',
-            component: <Billing />,
-          },
-          {
-            name: 'Invoice',
-            key: 'invoice',
-            route: '/pages/account/invoice',
-            component: <Invoice />,
-          },
-          {
-            name: 'Security',
-            key: 'security',
-            route: '/pages/account/security',
-            component: <Security />,
-          },
-        ],
-      },
-      {
-        name: 'Projects',
-        key: 'projects',
-        collapse: [
-          {
-            name: 'General',
-            key: 'general',
-            route: '/pages/projects/general',
-            component: <General />,
-          },
-          {
-            name: 'Timeline',
-            key: 'timeline',
-            route: '/pages/projects/timeline',
-            component: <Timeline />,
-          },
-          {
-            name: 'New Project',
-            key: 'new-project',
-            route: '/pages/projects/new-project',
-            component: <NewProject />,
-          },
-        ],
-      },
-      {
-        name: 'Pricing Page',
-        key: 'pricing-page',
-        route: '/pages/pricing-page',
-        component: <PricingPage />,
-      },
-      { name: 'Widgets', key: 'widgets', route: '/pages/widgets', component: <Widgets /> },
-      { name: 'Charts', key: 'charts', route: '/pages/charts', component: <Charts /> },
-      {
-        name: 'Sweet Alerts',
-        key: 'sweet-alerts',
-        route: '/pages/sweet-alerts',
-        component: <SweetAlerts />,
-      },
-      {
-        name: 'Notfications',
-        key: 'notifications',
-        route: '/pages/notifications',
-        component: <Notifications />,
-      },
-    ],
-  },
-  {
-    type: 'collapse',
-    name: 'Applications',
-    key: 'applications',
-    icon: <SettingsIcon size="12px" />,
-    collapse: [
-      {
-        name: 'Kanban',
-        key: 'kanban',
-        route: '/applications/kanban',
-        component: <Kanban />,
-      },
-      {
-        name: 'Wizard',
-        key: 'wizard',
-        route: '/applications/wizard',
-        component: <Wizard />,
-      },
-      {
-        name: 'Data Tables',
-        key: 'data-tables',
-        route: '/applications/data-tables',
-        component: <DataTables />,
-      },
-      {
-        name: 'Calendar',
-        key: 'calendar',
-        route: '/applications/calendar',
-        component: <Calendar />,
-      },
-      {
-        name: 'Analytics',
-        key: 'analytics',
-        route: '/applications/analytics',
-        component: <Analytics />,
-      },
-    ],
-  },
-  {
-    type: 'collapse',
-    name: 'Ecommerce',
-    key: 'ecommerce',
-    icon: <Basket size="12px" />,
-    collapse: [
-      {
-        name: 'Overview',
-        key: 'overview',
-        route: '/ecommerce/overview',
-        component: <Overview />,
-      },
-      {
-        name: 'Products',
-        key: 'products',
-        collapse: [
-          {
-            name: 'New Product',
-            key: 'new-product',
-            route: '/ecommerce/products/new-product',
-            component: <NewProduct />,
-          },
-          {
-            name: 'Edit Product',
-            key: 'edit-product',
-            route: '/ecommerce/products/edit-product',
-            component: <EditProduct />,
-          },
-          {
-            name: 'Product Page',
-            key: 'product-page',
-            route: '/ecommerce/products/product-page',
-            component: <ProductPage />,
-          },
-          {
-            name: 'Products List',
-            key: 'products-list',
-            route: '/ecommerce/products/products-list',
-            component: <ProductsList />,
-          },
-        ],
-      },
-      {
-        name: 'Orders',
-        key: 'orders',
-        collapse: [
-          {
-            name: 'Order List',
-            key: 'order-list',
-            route: '/ecommerce/orders/order-list',
-            component: <OrderList />,
-          },
-          {
-            name: 'Order Details',
-            key: 'order-details',
-            route: '/ecommerce/orders/order-details',
-            component: <OrderDetails />,
-          },
-        ],
-      },
-      {
-        name: 'Referral',
-        key: 'referral',
-        route: '/ecommerce/referral',
-        component: <Referral />,
-      },
-    ],
-  },
-  {
-    type: 'collapse',
-    name: 'Authentication',
-    key: 'authentication',
-    icon: <Document size="12px" />,
-    collapse: [
-      {
-        name: 'Sign In',
-        key: 'sign-in',
-        collapse: [
-          {
-            name: 'Basic',
-            key: 'basic',
-            route: '/authentication/sign-in/basic',
-            component: <SignInBasic />,
-          },
-          {
-            name: 'Cover',
-            key: 'cover',
-            route: '/authentication/sign-in/cover',
-            component: <SignInCover />,
-          },
-          {
-            name: 'Illustration',
-            key: 'illustration',
-            route: '/authentication/sign-in/illustration',
-            component: <SignInIllustration />,
-          },
-        ],
-      },
-      {
-        name: 'Sign Up',
-        key: 'sign-up',
-        collapse: [
-          {
-            name: 'Basic',
-            key: 'basic',
-            route: '/authentication/sign-up/basic',
-            component: <SignUpBasic />,
-          },
-          {
-            name: 'Cover',
-            key: 'cover',
-            route: '/authentication/sign-up/cover',
-            component: <SignUpCover />,
-          },
-          {
-            name: 'Illustration',
-            key: 'illustration',
-            route: '/authentication/sign-up/illustration',
-            component: <SignUpIllustration />,
-          },
-        ],
-      },
-      {
-        name: 'Reset Password',
-        key: 'reset-password',
-        collapse: [
-          {
-            name: 'Basic',
-            key: 'basic',
-            route: '/authentication/reset-password/basic',
-            component: <ResetBasic />,
-          },
-          {
-            name: 'Cover',
-            key: 'cover',
-            route: '/authentication/reset-password/cover',
-            component: <ResetCover />,
-          },
-          {
-            name: 'Illustration',
-            key: 'illustration',
-            route: '/authentication/reset-password/illustration',
-            component: <ResetIllustration />,
-          },
-        ],
-      },
-      {
-        name: 'Lock',
-        key: 'lock',
-        collapse: [
-          {
-            name: 'Basic',
-            key: 'basic',
-            route: '/authentication/lock/basic',
-            component: <LockBasic />,
-          },
-          {
-            name: 'Cover',
-            key: 'cover',
-            route: '/authentication/lock/cover',
-            component: <LockCover />,
-          },
-          {
-            name: 'Illustration',
-            key: 'illustration',
-            route: '/authentication/lock/illustration',
-            component: <LockIllustration />,
-          },
-        ],
-      },
-      {
-        name: '2-Step Verification',
-        key: '2-step-verification',
-        collapse: [
-          {
-            name: 'Basic',
-            key: 'basic',
-            route: '/authentication/verification/basic',
-            component: <VerificationBasic />,
-          },
-          {
-            name: 'Cover',
-            key: 'cover',
-            route: '/authentication/verification/cover',
-            component: <VerificationCover />,
-          },
-          {
-            name: 'Illustration',
-            key: 'illustration',
-            route: '/authentication/verification/illustration',
-            component: <VerificationIllustration />,
-          },
-        ],
-      },
-      {
-        name: 'Error',
-        key: 'error',
-        collapse: [
-          {
-            name: 'Error 404',
-            key: 'error-404',
-            route: '/authentication/error/404',
-            component: <Error404 />,
-          },
-          {
-            name: 'Error 500',
-            key: 'error-500',
-            route: '/authentication/error/500',
-            component: <Error500 />,
-          },
-        ],
-      },
-    ],
-  },
+  // { type: 'title', title: 'Ejemplos', key: 'ejemplos' },
+  // {
+  //   type: 'collapse',
+  //   name: 'Pages',
+  //   key: 'pages',
+  //   icon: <Office size="12px" />,
+  //   collapse: [
+  //     {
+  //       name: 'Profile',
+  //       key: 'profile',
+  //       collapse: [
+  //         {
+  //           name: 'Profile Overview',
+  //           key: 'profile-overview',
+  //           route: '/pages/profile/profile-overview',
+  //           component: <ProfileOverview />,
+  //         },
+  //         {
+  //           name: 'Teams',
+  //           key: 'teams',
+  //           route: '/pages/profile/teams',
+  //           component: <Teams />,
+  //         },
+  //         {
+  //           name: 'All Projects',
+  //           key: 'all-projects',
+  //           route: '/pages/profile/all-projects',
+  //           component: <AllProjects />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: 'Users',
+  //       key: 'users',
+  //       collapse: [
+  //         {
+  //           name: 'Reports',
+  //           key: 'reports',
+  //           route: '/pages/users/reports',
+  //           component: <Reports />,
+  //         },
+  //         {
+  //           name: 'New User',
+  //           key: 'new-user',
+  //           route: '/pages/users/new-user',
+  //           component: <NewUser2 />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: 'Account',
+  //       key: 'account',
+  //       collapse: [
+  //         {
+  //           name: 'Settings',
+  //           key: 'settings',
+  //           route: '/pages/account/settings',
+  //           component: <Settings />,
+  //         },
+  //         {
+  //           name: 'Billing',
+  //           key: 'billing',
+  //           route: '/pages/account/billing',
+  //           component: <Billing />,
+  //         },
+  //         {
+  //           name: 'Invoice',
+  //           key: 'invoice',
+  //           route: '/pages/account/invoice',
+  //           component: <Invoice />,
+  //         },
+  //         {
+  //           name: 'Security',
+  //           key: 'security',
+  //           route: '/pages/account/security',
+  //           component: <Security />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: 'Projects',
+  //       key: 'projects',
+  //       collapse: [
+  //         {
+  //           name: 'General',
+  //           key: 'general',
+  //           route: '/pages/projects/general',
+  //           component: <General />,
+  //         },
+  //         {
+  //           name: 'Timeline',
+  //           key: 'timeline',
+  //           route: '/pages/projects/timeline',
+  //           component: <Timeline />,
+  //         },
+  //         {
+  //           name: 'New Project',
+  //           key: 'new-project',
+  //           route: '/pages/projects/new-project',
+  //           component: <NewProject />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: 'Pricing Page',
+  //       key: 'pricing-page',
+  //       route: '/pages/pricing-page',
+  //       component: <PricingPage />,
+  //     },
+  //     { name: 'Widgets', key: 'widgets', route: '/pages/widgets', component: <Widgets /> },
+  //     { name: 'Charts', key: 'charts', route: '/pages/charts', component: <Charts /> },
+  //     {
+  //       name: 'Sweet Alerts',
+  //       key: 'sweet-alerts',
+  //       route: '/pages/sweet-alerts',
+  //       component: <SweetAlerts />,
+  //     },
+  //     {
+  //       name: 'Notfications',
+  //       key: 'notifications',
+  //       route: '/pages/notifications',
+  //       component: <Notifications />,
+  //     },
+  //   ],
+  // },
+  // {
+  //   type: 'collapse',
+  //   name: 'Applications',
+  //   key: 'applications',
+  //   icon: <SettingsIcon size="12px" />,
+  //   collapse: [
+  //     {
+  //       name: 'Kanban',
+  //       key: 'kanban',
+  //       route: '/applications/kanban',
+  //       component: <Kanban />,
+  //     },
+  //     {
+  //       name: 'Wizard',
+  //       key: 'wizard',
+  //       route: '/applications/wizard',
+  //       component: <Wizard />,
+  //     },
+  //     {
+  //       name: 'Data Tables',
+  //       key: 'data-tables',
+  //       route: '/applications/data-tables',
+  //       component: <DataTables />,
+  //     },
+  //     {
+  //       name: 'Calendar',
+  //       key: 'calendar',
+  //       route: '/applications/calendar',
+  //       component: <Calendar />,
+  //     },
+  //     {
+  //       name: 'Analytics',
+  //       key: 'analytics',
+  //       route: '/applications/analytics',
+  //       component: <Analytics />,
+  //     },
+  //   ],
+  // },
+  // {
+  //   type: 'collapse',
+  //   name: 'Ecommerce',
+  //   key: 'ecommerce',
+  //   icon: <Basket size="12px" />,
+  //   collapse: [
+  //     {
+  //       name: 'Overview',
+  //       key: 'overview',
+  //       route: '/ecommerce/overview',
+  //       component: <Overview />,
+  //     },
+  //     {
+  //       name: 'Products',
+  //       key: 'products',
+  //       collapse: [
+  //         {
+  //           name: 'New Product',
+  //           key: 'new-product',
+  //           route: '/ecommerce/products/new-product',
+  //           component: <NewProduct />,
+  //         },
+  //         {
+  //           name: 'Edit Product',
+  //           key: 'edit-product',
+  //           route: '/ecommerce/products/edit-product',
+  //           component: <EditProduct />,
+  //         },
+  //         {
+  //           name: 'Product Page',
+  //           key: 'product-page',
+  //           route: '/ecommerce/products/product-page',
+  //           component: <ProductPage />,
+  //         },
+  //         {
+  //           name: 'Products List',
+  //           key: 'products-list',
+  //           route: '/ecommerce/products/products-list',
+  //           component: <ProductsList />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: 'Orders',
+  //       key: 'orders',
+  //       collapse: [
+  //         {
+  //           name: 'Order List',
+  //           key: 'order-list',
+  //           route: '/ecommerce/orders/order-list',
+  //           component: <OrderList />,
+  //         },
+  //         {
+  //           name: 'Order Details',
+  //           key: 'order-details',
+  //           route: '/ecommerce/orders/order-details',
+  //           component: <OrderDetails />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: 'Referral',
+  //       key: 'referral',
+  //       route: '/ecommerce/referral',
+  //       component: <Referral />,
+  //     },
+  //   ],
+  // },
+  // {
+  //   type: 'collapse',
+  //   name: 'Authentication',
+  //   key: 'authentication',
+  //   icon: <Document size="12px" />,
+  //   collapse: [
+  //     {
+  //       name: 'Sign In',
+  //       key: 'sign-in',
+  //       collapse: [
+  //         {
+  //           name: 'Basic',
+  //           key: 'basic',
+  //           route: '/authentication/sign-in/basic',
+  //           component: <SignInBasic />,
+  //         },
+  //         {
+  //           name: 'Cover',
+  //           key: 'cover',
+  //           route: '/authentication/sign-in/cover',
+  //           component: <SignInCover />,
+  //         },
+  //         {
+  //           name: 'Illustration',
+  //           key: 'illustration',
+  //           route: '/authentication/sign-in/illustration',
+  //           component: <SignInIllustration />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: 'Sign Up',
+  //       key: 'sign-up',
+  //       collapse: [
+  //         {
+  //           name: 'Basic',
+  //           key: 'basic',
+  //           route: '/authentication/sign-up/basic',
+  //           component: <SignUpBasic />,
+  //         },
+  //         {
+  //           name: 'Cover',
+  //           key: 'cover',
+  //           route: '/authentication/sign-up/cover',
+  //           component: <SignUpCover />,
+  //         },
+  //         {
+  //           name: 'Illustration',
+  //           key: 'illustration',
+  //           route: '/authentication/sign-up/illustration',
+  //           component: <SignUpIllustration />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: 'Reset Password',
+  //       key: 'reset-password',
+  //       collapse: [
+  //         {
+  //           name: 'Basic',
+  //           key: 'basic',
+  //           route: '/authentication/reset-password/basic',
+  //           component: <ResetBasic />,
+  //         },
+  //         {
+  //           name: 'Cover',
+  //           key: 'cover',
+  //           route: '/authentication/reset-password/cover',
+  //           component: <ResetCover />,
+  //         },
+  //         {
+  //           name: 'Illustration',
+  //           key: 'illustration',
+  //           route: '/authentication/reset-password/illustration',
+  //           component: <ResetIllustration />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: 'Lock',
+  //       key: 'lock',
+  //       collapse: [
+  //         {
+  //           name: 'Basic',
+  //           key: 'basic',
+  //           route: '/authentication/lock/basic',
+  //           component: <LockBasic />,
+  //         },
+  //         {
+  //           name: 'Cover',
+  //           key: 'cover',
+  //           route: '/authentication/lock/cover',
+  //           component: <LockCover />,
+  //         },
+  //         {
+  //           name: 'Illustration',
+  //           key: 'illustration',
+  //           route: '/authentication/lock/illustration',
+  //           component: <LockIllustration />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: '2-Step Verification',
+  //       key: '2-step-verification',
+  //       collapse: [
+  //         {
+  //           name: 'Basic',
+  //           key: 'basic',
+  //           route: '/authentication/verification/basic',
+  //           component: <VerificationBasic />,
+  //         },
+  //         {
+  //           name: 'Cover',
+  //           key: 'cover',
+  //           route: '/authentication/verification/cover',
+  //           component: <VerificationCover />,
+  //         },
+  //         {
+  //           name: 'Illustration',
+  //           key: 'illustration',
+  //           route: '/authentication/verification/illustration',
+  //           component: <VerificationIllustration />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: 'Error',
+  //       key: 'error',
+  //       collapse: [
+  //         {
+  //           name: 'Error 404',
+  //           key: 'error-404',
+  //           route: '/authentication/error/404',
+  //           component: <Error404 />,
+  //         },
+  //         {
+  //           name: 'Error 500',
+  //           key: 'error-500',
+  //           route: '/authentication/error/500',
+  //           component: <Error500 />,
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
 ];
 
 export default sidenavRoutes;

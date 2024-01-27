@@ -47,8 +47,7 @@ import DataTables from 'layouts/applications/data-tables';
 import Calendar from 'layouts/applications/calendar';
 import Analytics from 'layouts/applications/analytics';
 import Overview from 'layouts/ecommerce/overview';
-import NewProduct from 'layouts/ecommerce/products/new-product';
-import EditProduct from 'layouts/ecommerce/products/edit-product';
+import EditProduct2 from 'layouts/ecommerce/products/edit-product';
 import ProductPage from 'layouts/ecommerce/products/product-page';
 import ProductsList from 'layouts/ecommerce/products/products-list';
 import OrderList from 'layouts/ecommerce/orders/order-list';
@@ -94,16 +93,19 @@ import EditCreditor from 'pages/Modules/Creditors/EditCreditor';
 import CreditsList from 'pages/Modules/Creditors/Credits/CreditsList';
 import NewCredit from 'pages/Modules/Creditors/Credits/NewCredit';
 import UpdateCredit from 'pages/Modules/Creditors/Credits/UpdateCredit';
-import Profile from 'pages/Auth/Profile/Profile';
+import Profile from 'pages/auth/Profile/Profile';
 import Locations from 'pages/Parametrization/Locations/Locations';
 import NewLocation from 'pages/Parametrization/Locations/NewLocation';
 import EditLocation from 'pages/Parametrization/Locations/EditLocation';
 import Brands from 'pages/Parametrization/Brands/Brands';
-import NewBrand from 'pages/Parametrization/Brands/NewBrand';
+import NewBrand from 'pages/Parametrization/Brands/newBrand';
 import EditBrand from 'pages/Parametrization/Brands/EditBrand';
 import Categories from 'pages/Parametrization/Categories/Categories';
 import NewCategory from 'pages/Parametrization/Categories/NewCategory';
 import EditCategory from 'pages/Parametrization/Categories/EditCategory';
+import Products from 'pages/Parametrization/Products/Products';
+import NewProduct from 'pages/Parametrization/Products/NewProduct';
+import EditProduct from 'pages/Parametrization/Products/EditProduct';
 
 const routes = [
   {
@@ -116,7 +118,7 @@ const routes = [
         name: 'Ventas',
         key: 'ventas',
         route: '/dashboards/ventas',
-        component: <Sales />,
+        component: <Overview />,
       },
       {
         name: 'Inventarios',
@@ -275,6 +277,24 @@ const routes = [
         key: 'editar-categoria',
         route: '/parametrizacion/editar-categoria',
         component: <EditCategory />,
+      },
+      {
+        name: 'Productos',
+        key: 'productos',
+        route: '/parametrizacion/productos',
+        component: <Products />,
+      },
+      {
+        name: 'Productos',
+        key: 'nuevo-producto',
+        route: '/parametrizacion/nuevo-producto',
+        component: <NewProduct />,
+      },
+      {
+        name: 'Productos',
+        key: 'editar-producto',
+        route: '/parametrizacion/editar-producto',
+        component: <EditProduct />,
       },
     ],
   },
@@ -466,7 +486,7 @@ const routes = [
             name: 'Edit Product',
             key: 'edit-product',
             route: '/ecommerce/products/edit-product',
-            component: <EditProduct />,
+            component: <EditProduct2 />,
           },
           {
             name: 'Product Page',

@@ -20,9 +20,10 @@ export const useBrandsService = () => {
     }
   };
 
-  const getBrands = async () => {
+  const getBrands = async ({ active }) => {
     try {
-      const response = await axiosInstance.get('/brands/get-brands');
+      const params = { active };
+      const response = await axiosInstance.get('/brands/get-brands', { params });
 
       const res = {
         statusCode: response.data.statusCode,

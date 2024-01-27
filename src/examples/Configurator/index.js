@@ -1,25 +1,9 @@
-/**
-=========================================================
-* Soft UI Dashboard PRO React - v4.0.0
-=========================================================
-
-* Product Page: https://material-ui.com/store/items/soft-ui-pro-dashboard/
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect } from 'react';
 
 // @mui material components
 import Divider from '@mui/material/Divider';
 import Switch from '@mui/material/Switch';
 import IconButton from '@mui/material/IconButton';
-import Link from '@mui/material/Link';
 import Icon from '@mui/material/Icon';
 
 // Soft UI Dashboard PRO React components
@@ -94,9 +78,9 @@ function Configurator() {
         px={3}
       >
         <SoftBox>
-          <SoftTypography variant="h5">Soft UI Configurator</SoftTypography>
+          <SoftTypography variant="h5">Dashboards</SoftTypography>
           <SoftTypography variant="body2" color="text">
-            See our dashboard options.
+            Opciones de configuración
           </SoftTypography>
         </SoftBox>
 
@@ -119,7 +103,7 @@ function Configurator() {
 
       <SoftBox pt={1.25} pb={3} px={3}>
         <SoftBox>
-          <SoftTypography variant="h6">Sidenav Colors</SoftTypography>
+          <SoftTypography variant="h6">Colores disponibles</SoftTypography>
 
           <SoftBox mb={0.5}>
             {sidenavColors.map((color) => (
@@ -153,10 +137,10 @@ function Configurator() {
         </SoftBox>
 
         <SoftBox mt={3} lineHeight={1}>
-          <SoftTypography variant="h6">Sidenav Type</SoftTypography>
-          <SoftTypography variant="button" color="text" fontWeight="regular">
+          <SoftTypography variant="h6">Navegación lateral</SoftTypography>
+          {/* <SoftTypography variant="button" color="text" fontWeight="regular">
             Choose between 2 different sidenav types.
-          </SoftTypography>
+          </SoftTypography> */}
 
           <SoftBox
             sx={{
@@ -190,7 +174,7 @@ function Configurator() {
           </SoftBox>
         </SoftBox>
         <SoftBox mt={3} mb={2} lineHeight={1}>
-          <SoftTypography variant="h6">Navbar Fixed</SoftTypography>
+          <SoftTypography variant="h6">Navegación superior fija</SoftTypography>
 
           <Switch checked={fixedNavbar} onChange={handleFixedNavbar} />
         </SoftBox>
@@ -198,39 +182,12 @@ function Configurator() {
         <Divider />
 
         <SoftBox mt={2} mb={3} lineHeight={1}>
-          <SoftTypography variant="h6">Sidenav Mini</SoftTypography>
+          <SoftTypography variant="h6">Navegación lateral mini</SoftTypography>
 
           <Switch checked={miniSidenav} onChange={handleMiniSidenav} />
         </SoftBox>
 
         <Divider />
-
-        <SoftBox mt={3} mb={2}>
-          <SoftBox mb={2}>
-            <SoftButton
-              component={Link}
-              href="https://material-ui.com/store/items/soft-ui-pro-dashboard/"
-              target="_blank"
-              rel="noreferrer"
-              color="info"
-              variant="gradient"
-              fullWidth
-            >
-              buy now
-            </SoftButton>
-          </SoftBox>
-          <SoftButton
-            component={Link}
-            href="https://www.creative-tim.com/learning-lab/material-ui-marketplace/quick-start/soft-ui-dashboard/"
-            target="_blank"
-            rel="noreferrer"
-            color="dark"
-            variant="outlined"
-            fullWidth
-          >
-            view documentation
-          </SoftButton>
-        </SoftBox>
       </SoftBox>
     </ConfiguratorRoot>
   );
