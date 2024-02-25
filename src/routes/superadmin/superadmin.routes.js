@@ -83,7 +83,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 
 // Pages
-import Sales from 'pages/Dashboards/Sales/Sales';
+// import Sales from 'pages/Dashboards/Sales/Sales';
 import UsersList from 'pages/Modules/Users/UsersList';
 import NewUser from 'pages/Modules/Users/NewUser';
 import EditUser from 'pages/Modules/Users/EditUser';
@@ -106,6 +106,11 @@ import EditCategory from 'pages/Parametrization/Categories/EditCategory';
 import Products from 'pages/Parametrization/Products/Products';
 import NewProduct from 'pages/Parametrization/Products/NewProduct';
 import EditProduct from 'pages/Parametrization/Products/EditProduct';
+import Sales from 'pages/Sales/Sales';
+import NewSale from 'pages/Sales/NewSale';
+import PaymentMethods from 'pages/Parametrization/paymentMethods/PaymentMethods';
+import NewPaymentMethod from 'pages/Parametrization/paymentMethods/NewPaymentMethod';
+import EditPaymentMethod from 'pages/Parametrization/paymentMethods/EditPaymentMethod';
 
 const routes = [
   {
@@ -295,6 +300,43 @@ const routes = [
         key: 'editar-producto',
         route: '/parametrizacion/editar-producto',
         component: <EditProduct />,
+      },
+      {
+        name: 'Métodos de pago',
+        key: 'metodos-de-pago',
+        route: '/parametrizacion/metodos-de-pago',
+        component: <PaymentMethods />,
+      },
+      {
+        name: 'Métodos de pago',
+        key: 'nuevo-metodo-de-pago',
+        route: '/parametrizacion/nuevo-metodo-de-pago',
+        component: <NewPaymentMethod />,
+      },
+      {
+        name: 'Métodos de pago',
+        key: 'editar-metodo-de-pago',
+        route: '/parametrizacion/editar-metodo-de-pago',
+        component: <EditPaymentMethod />,
+      },
+    ],
+  },
+  {
+    type: 'collapse',
+    name: 'Ventas',
+    key: 'ventas',
+    collapse: [
+      {
+        name: 'Ventas',
+        key: 'listado',
+        route: '/ventas/listado',
+        component: <Sales />,
+      },
+      {
+        name: 'Nueva venta',
+        key: 'nueva-venta',
+        route: '/ventas/nueva-venta',
+        component: <NewSale />,
       },
     ],
   },

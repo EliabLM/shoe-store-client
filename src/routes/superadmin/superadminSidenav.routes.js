@@ -81,6 +81,7 @@ import Document from 'examples/Icons/Document';
 import GroupIcon from '@mui/icons-material/Group';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 // Pages
 import Sales from 'pages/Dashboards/Sales/Sales';
@@ -210,6 +211,24 @@ const sidenavRoutes = [
         name: 'Categorías',
         key: 'categorias',
         route: '/parametrizacion/categorias',
+      },
+      {
+        name: 'Métodos de pago',
+        key: 'metodos-de-pago',
+        route: '/parametrizacion/metodos-de-pago',
+      },
+    ],
+  },
+  {
+    type: 'collapse',
+    name: 'Ventas',
+    key: 'ventas',
+    icon: <AddShoppingCartIcon fontSize="10px" />,
+    collapse: [
+      {
+        name: 'Listado',
+        key: 'listado',
+        route: '/ventas/listado',
       },
     ],
   },

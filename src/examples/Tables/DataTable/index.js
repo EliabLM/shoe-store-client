@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard PRO React - v4.0.0
-=========================================================
-
-* Product Page: https://material-ui.com/store/items/soft-ui-pro-dashboard/
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useMemo, useEffect, useState } from 'react';
 
 // prop-types is a library for typechecking of props
@@ -146,17 +131,21 @@ function DataTable({
   return (
     <TableContainer sx={{ boxShadow: 'none' }}>
       {entriesPerPage || canSearch ? (
-        <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+        <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3} gap={2}>
           {entriesPerPage && (
-            <SoftBox display="flex" alignItems="center">
+            <SoftBox display="flex" alignItems="center" gap={2}>
               <SoftSelect
                 defaultValue={{ value: defaultValue, label: defaultValue }}
                 options={entries.map((entry) => ({ value: entry, label: entry }))}
                 onChange={setEntriesPerPage}
                 size="small"
               />
-              <SoftTypography variant="caption" color="secondary">
-                &nbsp;&nbsp;entradas por página
+              <SoftTypography
+                display={{ xs: 'none', lg: 'unset' }}
+                variant="caption"
+                color="secondary"
+              >
+                entradas por página
               </SoftTypography>
             </SoftBox>
           )}
