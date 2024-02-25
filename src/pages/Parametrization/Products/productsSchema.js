@@ -1,6 +1,5 @@
 import * as yup from 'yup';
 export const PRODUCT_ENUM_NAMES = {
-  code: 'code',
   brand: 'brand',
   name: 'name',
   categories: 'categories',
@@ -10,7 +9,6 @@ export const PRODUCT_ENUM_NAMES = {
   active: 'active',
 };
 
-const code = yup.string().min(1, 'El código debe tener mínimo 1 carácter');
 const brand = yup.object().shape({
   label: yup.string().required('La marca es obligatoria'),
   value: yup.string().required('La marca es obligatoria'),
@@ -38,7 +36,6 @@ const price = yup.string();
 const active = yup.boolean().typeError('El estado debe ser un dato verdadero o falso');
 
 export const createProductSchema = yup.object().shape({
-  [PRODUCT_ENUM_NAMES.code]: code.required('El código es obligatorio'),
   [PRODUCT_ENUM_NAMES.brand]: brand.required('La marca es obligatoria'),
   [PRODUCT_ENUM_NAMES.name]: name.required('El nombre es obligatorio'),
   [PRODUCT_ENUM_NAMES.categories]: categories.required('Debe incluir al menos una categoría'),
@@ -51,7 +48,6 @@ export const updateProductSchema = yup.object().shape({
   [PRODUCT_ENUM_NAMES.brand]: brand.required('La marca es obligatoria'),
   [PRODUCT_ENUM_NAMES.name]: name.required('El nombre es obligatorio'),
   [PRODUCT_ENUM_NAMES.categories]: categories.required('Debe incluir al menos una categoría'),
-  [PRODUCT_ENUM_NAMES.stock]: stock.required('Debe ingresar el stock actual del producto'),
   [PRODUCT_ENUM_NAMES.description]: description,
   [PRODUCT_ENUM_NAMES.price]: price.required('Debe ingresar el precio del producto'),
   [PRODUCT_ENUM_NAMES.active]: active.required('El estado es obligatorio'),

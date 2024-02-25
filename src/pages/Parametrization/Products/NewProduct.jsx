@@ -50,7 +50,6 @@ const NewProduct = () => {
       setIsLoading(true);
 
       const body = {
-        code: data.code,
         name: data.name,
         description: data.description,
         brand: data.brand.id,
@@ -114,17 +113,6 @@ const NewProduct = () => {
 
               <SoftBox p={3} component="form" onSubmit={handleSubmit(onSubmit)}>
                 <Grid container columnSpacing={3} rowSpacing={2}>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <CustomSoftInput
-                      label="Código"
-                      name={PRODUCT_ENUM_NAMES.code}
-                      placeholder="CÓDIGO"
-                      register={register}
-                      errors={errors}
-                      disabled={isLoading}
-                      required
-                    />
-                  </Grid>
                   <Grid item xs={12} md={6} lg={4}>
                     <CustomSoftSelect
                       label="Marca"

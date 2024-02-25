@@ -48,7 +48,6 @@ const EditProduct = () => {
     reValidateMode: 'onChange',
     resolver: yupResolver(createProductSchema),
     defaultValues: {
-      code: state.code,
       name: state.name,
       stock: state.stock,
       description: state.description,
@@ -108,7 +107,7 @@ const EditProduct = () => {
       showCloseButton: true,
       allowOutsideClick: false,
       preConfirm: async () => {
-        const response = await deleteProduct({ productId: state.id });
+        const response = await deleteProduct({ productId: state._id });
         validateResponse(response, 'Ha ocurrido un error eliminando el producto');
       },
     });
@@ -165,17 +164,6 @@ const EditProduct = () => {
 
               <SoftBox p={3} component="form" onSubmit={handleSubmit(onSubmit)}>
                 <Grid container columnSpacing={3} rowSpacing={2}>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <CustomSoftInput
-                      label="Código"
-                      name={PRODUCT_ENUM_NAMES.code}
-                      placeholder="CÓDIGO"
-                      register={register}
-                      errors={errors}
-                      disabled
-                      required
-                    />
-                  </Grid>
                   <Grid item xs={12} md={6} lg={4}>
                     <CustomSoftSelect
                       label="Marca"

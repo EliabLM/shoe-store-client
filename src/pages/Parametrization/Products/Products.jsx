@@ -30,7 +30,7 @@ import { validateResponse } from 'utils/validateResponse';
 const columns = [
   {
     Header: 'Código',
-    accessor: 'code',
+    accessor: 'product_id',
   },
   {
     Header: 'Marca',
@@ -73,7 +73,7 @@ function Products() {
   };
 
   const toggleProductState = async (item) => {
-    const response = await updateProductState({ productId: item.id, active: !item.active });
+    const response = await updateProductState({ productId: item._id, active: !item.active });
     validateResponse(response, 'Ha ocurrido un error actualizando el estado del producto');
     refetch();
   };
