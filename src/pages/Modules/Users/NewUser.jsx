@@ -25,7 +25,7 @@ import { useLocations } from 'hooks/useLocations';
 const NewUser = () => {
   const navigate = useNavigate();
   const { createUser } = useUsersService();
-  const { data: dataLocations } = useLocations();
+  const { data: dataLocations } = useLocations({ active: true });
   const [isLoading, setIsLoading] = useState(false);
 
   const {

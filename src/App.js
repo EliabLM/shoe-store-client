@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 // react-router components
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 // @mui material components
 import { ThemeProvider } from '@mui/material/styles';
@@ -38,6 +38,7 @@ export default function App() {
   const { miniSidenav, direction, layout, openConfigurator, sidenavColor } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
@@ -98,10 +99,10 @@ export default function App() {
       zIndex={99}
       color="dark"
       sx={{ cursor: 'pointer' }}
-      onClick={handleConfiguratorOpen}
+      onClick={() => navigate('/ventas/nueva-venta')}
     >
       <Icon fontSize="default" color="inherit">
-        settings
+        local_grocery_store_icon
       </Icon>
     </SoftBox>
   );

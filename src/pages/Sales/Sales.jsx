@@ -14,7 +14,6 @@ import SoftTypography from 'components/SoftTypography';
 import SoftButton from 'components/SoftButton';
 import CustomLoader from 'components/CustomLoader/CustomLoader';
 import SoftBadge from 'components/SoftBadge';
-import UsersActionsCell from './components/UsersActionCell';
 
 // Soft UI Dashboard PRO React example components
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
@@ -23,75 +22,56 @@ import Footer from 'examples/Footer';
 import DataTable from 'examples/Tables/DataTable';
 
 // hooks
-import { useUsersList } from './hooks/useUsersList';
-import { useUsersService } from 'services/useUsersService';
-import { validateResponse } from 'utils/validateResponse';
+import { useSales } from 'hooks/useSales';
 
-const ENUM_ROLES = {
-  superadmin: 'Super administrador',
-  admin: 'Administrador',
-  vendedor: 'Vendedor',
+const SALE_STATUS = {
+  CANCELADA: 'error',
+  PAGADA: 'success',
+  PENDIENTE: 'warning',
 };
 
 const columns = [
   {
-    Header: 'Código',
-    accessor: 'code',
+    Header: 'ID',
+    accessor: 'id',
+    flex: 1,
   },
   {
-    Header: 'Nombre',
-    accessor: 'names',
-  },
-  {
-    Header: 'Correo',
-    accessor: 'email',
-  },
-  {
-    Header: 'Rol',
-    accessor: 'role',
-    Cell: ({ value }) => (
-      <SoftTypography color="text" fontSize="0.9rem">
-        {ENUM_ROLES[value]}
-      </SoftTypography>
-    ),
+    Header: 'Vendedor',
+    accessor: 'user.names',
+    flex: 2,
   },
   {
     Header: 'Local',
-    accessor: 'location.name',
+    accessor: 'sale_location.name',
+    flex: 2,
+  },
+  {
+    Header: 'Fecha',
+    accessor: 'registration_date',
+    flex: 2,
+    Cell: ({ value }) => value?.split('T')?.[0],
   },
   {
     Header: 'Estado',
-    accessor: 'active',
+    accessor: 'sale_status',
     Cell: ({ value }) => (
-      <SoftBadge
-        badgeContent={value ? 'Activo' : 'Inactivo'}
-        color={value ? 'success' : 'error'}
-        variant="contained"
-      />
+      <SoftBadge badgeContent={value} color={SALE_STATUS[value]} variant="contained" />
     ),
+    flex: 1,
   },
   {
     Header: 'Opciones',
     accessor: 'options',
+    flex: 1,
   },
 ];
 
-function UsersList() {
+function Sales() {
   const navigate = useNavigate();
-  const { data, isLoading, refetch } = useUsersList();
-  const { updateUserState } = useUsersService();
+  const { data, isLoading } = useSales();
 
   const [dataTable, setDataTable] = useState({ columns, rows: [] });
-
-  const toggleUserState = async (item) => {
-    const response = await updateUserState({ userId: item.id, active: !item.active });
-    validateResponse(response, 'Ha ocurrido un error actualizando el estado del usuario');
-    refetch();
-  };
-
-  const editUser = async (user) => {
-    navigate('/usuarios/editar-usuario', { state: user });
-  };
 
   useEffect(() => {
     if (!data) return;
@@ -111,15 +91,19 @@ function UsersList() {
       return;
     }
 
-    const users = data?.data?.map((item) => ({
+    const sales = data?.data?.map((item) => ({
       ...item,
-      options: (
-        <UsersActionsCell item={item} toggleUserState={toggleUserState} editUser={editUser} />
-      ),
+      //   options: (
+      //     <ProductActionCell
+      //       item={item}
+      //       editProduct={editProduct}
+      //       toggleProductState={toggleProductState}
+      //     />
+      //   ),
     }));
 
-    setDataTable((prevState) => ({ ...prevState, rows: users || [] }));
-  }, [data, isLoading]);
+    setDataTable((prevState) => ({ ...prevState, rows: sales || [] }));
+  }, [data]);
 
   return (
     <DashboardLayout>
@@ -147,16 +131,16 @@ function UsersList() {
           >
             <SoftBox lineHeight={1}>
               <SoftTypography variant="h4" fontWeight="medium">
-                Usuarios
+                Ventas
               </SoftTypography>
               {/* <SoftTypography variant="button" fontWeight="regular" color="text">
                 A lightweight, extendable, dependency-free javascript HTML table plugin.
               </SoftTypography> */}
             </SoftBox>
             <Stack spacing={1} direction="row">
-              <Link to="/usuarios/nuevo-usuario">
+              <Link to="/ventas/nueva-venta">
                 <SoftButton variant="gradient" color="dark" size="small">
-                  + Nuevo usuario
+                  + Nueva venta
                 </SoftButton>
               </Link>
               {/* <SoftButton variant="outlined" color="info" size="small">
@@ -188,4 +172,4 @@ function UsersList() {
   );
 }
 
-export default UsersList;
+export default Sales;

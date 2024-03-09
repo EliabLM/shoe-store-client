@@ -67,7 +67,7 @@ const EditProduct = () => {
         brand: data.brand.value,
         categories: data.categories.map((item) => item.value),
         price: convertCurrencyToNumber(data.price),
-        stock: data.stock,
+        stock: state.stock,
         active: data.active,
       };
 
@@ -206,8 +206,7 @@ const EditProduct = () => {
                       name={PRODUCT_ENUM_NAMES.stock}
                       register={register}
                       errors={errors}
-                      disabled={isLoading}
-                      required
+                      disabled
                     />
                   </Grid>
                   <Grid item xs={12} md={8}>

@@ -11,7 +11,11 @@ export const USER_ENUM_NAMES = {
 const names = yup
   .string()
   .min(3, 'Los nombres deben tener mínimo 3 caracteres')
-  .max(30, 'Los nombres deben tener máximo 30 caracteres');
+  .max(30, 'Los nombres deben tener máximo 30 caracteres')
+  .matches(
+    /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]{1,50}$/,
+    'Los nombres no deben tener números o caracteres especiales'
+  );
 const code = yup
   .string()
   .matches(
