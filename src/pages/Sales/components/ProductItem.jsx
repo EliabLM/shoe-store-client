@@ -121,7 +121,7 @@ function ProductItem({ item, setSelectedProducts }) {
         <SoftTypography variant="caption" color="text">
           Código:&nbsp;&nbsp;&nbsp;
           <SoftTypography variant="caption" fontWeight="medium">
-            {item?.code}
+            {item?.product_id}
           </SoftTypography>
         </SoftTypography>
       </SoftBox>

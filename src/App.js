@@ -22,6 +22,8 @@ import theme from 'assets/theme';
 // Soft UI Dashboard PRO React routes
 import routes from 'routes/superadmin/superadmin.routes';
 import sidenavRoutes from 'routes/superadmin/superadminSidenav.routes';
+import sellerRoutes from 'routes/seller/seller.routes';
+import sellerSidenavRoutes from 'routes/seller/sellerSidenav.routes';
 
 // Soft UI Dashboard PRO React contexts
 import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from 'context';
@@ -33,12 +35,22 @@ import brand from 'assets/images/logo-ct.png';
 import SignIn from 'pages/auth/SignIn';
 import Error500 from 'pages/Error500';
 
+import { useAuth } from 'hooks/useAuth';
+
+const sidenavRoleRoutes = {
+  superadmin: sidenavRoutes,
+  vendedor: sellerSidenavRoutes,
+  administrador: sellerSidenavRoutes,
+};
+
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
   const { miniSidenav, direction, layout, openConfigurator, sidenavColor } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  const { user } = useAuth();
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
@@ -116,7 +128,7 @@ export default function App() {
             color={sidenavColor}
             brand={brand}
             brandName="Shoe Store App"
-            routes={sidenavRoutes}
+            routes={sidenavRoleRoutes[user?.role] || []}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
@@ -131,6 +143,10 @@ export default function App() {
         <Route exact path={'/error-500'} element={<Error500 />} key={'error-500'} />
 
         {/* Private routes */}
+        <Route element={<RequireAuth allowedRoles={['vendedor', 'administrador', 'superadmin']} />}>
+          {getRoutes(sellerRoutes)}
+        </Route>
+
         <Route element={<RequireAuth allowedRoles={['superadmin']} />}>{getRoutes(routes)}</Route>
 
         {/* Not found */}

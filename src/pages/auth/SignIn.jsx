@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -63,7 +64,23 @@ function SignIn() {
 
       setUser({ user: response.data });
 
-      navigate('/dashboards/ventas');
+      switch (user?.role) {
+        case 'superadmin':
+          navigate('/dashboards/ventas');
+          break;
+
+        case 'administrador':
+          navigate('/ventas/listado');
+          break;
+
+        case 'vendedor':
+          navigate('/ventas/listado');
+          break;
+
+        default:
+          navigate('/');
+          break;
+      }
     } catch (error) {
       console.error('🚀 ~ onSubmit ~ error:', error);
     } finally {
@@ -72,8 +89,22 @@ function SignIn() {
   };
 
   useEffect(() => {
-    if (user) {
-      navigate('/dashboards/ventas');
+    switch (user?.role) {
+      case 'superadmin':
+        navigate('/dashboards/ventas');
+        break;
+
+      case 'administrador':
+        navigate('/ventas/listado');
+        break;
+
+      case 'vendedor':
+        navigate('/ventas/listado');
+        break;
+
+      default:
+        navigate('/');
+        break;
     }
   }, [user]);
 

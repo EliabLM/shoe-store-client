@@ -33,5 +33,20 @@ export const useSalesService = () => {
     }
   };
 
-  return { createSale, getAllSales };
+  const getSalesByUser = async ({ sale_status, user_id }) => {
+    try {
+      const params = { sale_status, user_id };
+      const response = await axiosInstance.get('/sales/get-sales-by-user', { params });
+
+      return {
+        statusCode: response.data.statusCode,
+        message: response.data.message,
+        data: response.data.data,
+      };
+    } catch (error) {
+      return axiosErrorAdapter(error);
+    }
+  };
+
+  return { createSale, getAllSales, getSalesByUser };
 };

@@ -30,7 +30,7 @@ import { useProducts } from 'hooks/useProducts';
 import { useUsers } from 'hooks/useUsers';
 import { usePaymentMethods } from 'hooks/usePaymentMethods';
 
-import ProductItem from './ProductItem';
+import ProductItem from './components/ProductItem';
 import { createSaleSchema } from './saleSchema';
 
 const SALE_STATUS = [
@@ -151,7 +151,7 @@ const NewSale = () => {
           name: paymentMethod.name,
         },
         sale_status: saleState.value,
-        registration_date: `${registrationDate}T00:00:00.000`,
+        registration_date: `${registrationDate}T00:00:00.000Z`,
         sale_detail: saleDetail,
       };
 

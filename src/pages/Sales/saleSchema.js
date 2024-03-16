@@ -1,10 +1,16 @@
 import * as yup from 'yup';
+import { isAfter, parseISO } from 'date-fns';
 
 const registration_date = yup
   .string()
   .typeError('Debe ingresar una cadena de texto')
   .test('es-formato-iso', 'La fecha de registro debe tener un formato válido', (value) => {
     return /^(\d{4}-\d{2}-\d{2})$/.test(value || '');
+  })
+  .test('is-before-today', 'La fecha no puede ser posterior a hoy', function (value) {
+    const today = new Date();
+    const providedDate = parseISO(value);
+    return isAfter(today, providedDate);
   });
 
 export const createSaleSchema = yup.object().shape({
