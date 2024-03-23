@@ -3,7 +3,7 @@ import { useSalesService } from 'services/useSalesService';
 import { useAuth } from './useAuth';
 
 export const useSales = (state) => {
-  const { getAllSales, getSalesByUser } = useSalesService();
+  const { getAllSales } = useSalesService();
 
   const { user } = useAuth();
 
@@ -14,10 +14,18 @@ export const useSales = (state) => {
       refetchOnWindowFocus: false,
       retry: 1,
     });
-  } else {
+  } else if (user?.role === 'admin') {
+    return useQuery({
+      queryKey: [`sales-locations-${user.code}`],
+      queryFn: () =>
+        getAllSales({ saleStatus: state?.saleStatus, sale_location: user?.location?._id }),
+      refetchOnWindowFocus: false,
+      retry: 1,
+    });
+  } else if (user?.role === 'vendedor') {
     return useQuery({
       queryKey: [`sales-user-${user.code}`],
-      queryFn: () => getSalesByUser({ saleStatus: state?.saleStatus, user_id: user.id }),
+      queryFn: () => getAllSales({ saleStatus: state?.saleStatus, user_id: user.id }),
       refetchOnWindowFocus: false,
       retry: 1,
     });

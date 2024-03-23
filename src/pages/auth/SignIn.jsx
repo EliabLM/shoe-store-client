@@ -69,7 +69,7 @@ function SignIn() {
           navigate('/dashboards/ventas');
           break;
 
-        case 'administrador':
+        case 'admin':
           navigate('/ventas/listado');
           break;
 
@@ -94,7 +94,7 @@ function SignIn() {
         navigate('/dashboards/ventas');
         break;
 
-      case 'administrador':
+      case 'admin':
         navigate('/ventas/listado');
         break;
 

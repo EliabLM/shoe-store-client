@@ -21,6 +21,13 @@ export const createSaleSchema = yup.object().shape({
       value: yup.string().required('El vendedor es obligatorio'),
     })
     .required('El vendedor es obligatorio'),
+  location: yup
+    .object()
+    .shape({
+      label: yup.string().required('El local es obligatorio'),
+      value: yup.string().required('El local es obligatorio'),
+    })
+    .required('El local es obligatorio'),
   paymentMethod: yup.object().shape({
     label: yup.string().required('El método de pago es obligatorio'),
     value: yup.string().required('El método de pago es obligatorio'),

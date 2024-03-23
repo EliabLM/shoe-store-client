@@ -24,6 +24,8 @@ import routes from 'routes/superadmin/superadmin.routes';
 import sidenavRoutes from 'routes/superadmin/superadminSidenav.routes';
 import sellerRoutes from 'routes/seller/seller.routes';
 import sellerSidenavRoutes from 'routes/seller/sellerSidenav.routes';
+import adminRoutes from 'routes/admin/admin.routes';
+import adminSidenavRoutes from 'routes/admin/adminSidenav.routes';
 
 // Soft UI Dashboard PRO React contexts
 import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from 'context';
@@ -40,7 +42,7 @@ import { useAuth } from 'hooks/useAuth';
 const sidenavRoleRoutes = {
   superadmin: sidenavRoutes,
   vendedor: sellerSidenavRoutes,
-  administrador: sellerSidenavRoutes,
+  admin: adminSidenavRoutes,
 };
 
 export default function App() {
@@ -143,8 +145,12 @@ export default function App() {
         <Route exact path={'/error-500'} element={<Error500 />} key={'error-500'} />
 
         {/* Private routes */}
-        <Route element={<RequireAuth allowedRoles={['vendedor', 'administrador', 'superadmin']} />}>
+        <Route element={<RequireAuth allowedRoles={['vendedor', 'admin', 'superadmin']} />}>
           {getRoutes(sellerRoutes)}
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={['admin', 'superadmin']} />}>
+          {getRoutes(adminRoutes)}
         </Route>
 
         <Route element={<RequireAuth allowedRoles={['superadmin']} />}>{getRoutes(routes)}</Route>

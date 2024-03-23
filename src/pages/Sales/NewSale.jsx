@@ -29,6 +29,7 @@ import { useAuth } from 'hooks/useAuth';
 import { useProducts } from 'hooks/useProducts';
 import { useUsers } from 'hooks/useUsers';
 import { usePaymentMethods } from 'hooks/usePaymentMethods';
+import { useLocations } from 'hooks/useLocations';
 
 import ProductItem from './components/ProductItem';
 import { createSaleSchema } from './saleSchema';
@@ -52,6 +53,7 @@ const NewSale = () => {
   const { data: responseProducts } = useProducts({ active: true });
   const { data: responseUsers } = useUsers({ active: true });
   const { data: responsePaymentMethods } = usePaymentMethods({ active: true });
+  const { data: responseLocations } = useLocations({ active: true });
 
   const productItems = useMemo(() => {
     if (!responseProducts) return [];
@@ -198,6 +200,15 @@ const NewSale = () => {
       allowOutsideClick: false,
       reverseButtons: true,
       input: 'number',
+      inputValidator: (value) => {
+        if (!value) return 'Debe ingresar el precio';
+
+        if (isNaN(Number(value))) return 'Solo puede ingresar un número';
+
+        if (Number(value) < 10000) return 'El precio debe ser mayor o igual a $10.000';
+
+        if (value % 1 !== 0) return 'Solo puede ingresar números enteros sin decimales';
+      },
     });
 
     if (!result.isConfirmed) return;
@@ -239,13 +250,49 @@ const NewSale = () => {
     }));
   }, [responsePaymentMethods]);
 
+  const locationsList = useMemo(() => {
+    if (!responseLocations) return [];
+
+    return responseLocations.data.map((item) => ({
+      ...item,
+      value: item.id,
+      label: item.name,
+    }));
+  }, [responseLocations]);
+
   useEffect(() => {
+    setValue('saleState', {
+      value: 'PAGADA',
+      label: 'Pagada',
+    });
+
     if (!responseUsers) return;
 
     let seller = responseUsers.data.find((item) => item.id === user.id);
     seller = { ...seller, value: seller.id, label: `${seller.code} - ${seller.names}` };
 
     setValue('seller', seller);
+
+    if (!responseLocations) return;
+
+    let location = responseLocations.data.find((item) => item.id === user?.location?._id);
+
+    if (user?.role === 'superadmin' && !location) return;
+
+    if (!location) {
+      Swal.fire({
+        icon: 'info',
+        text: 'No es posible generar una venta porque el local del usuario aparece como inactivo',
+      }).then(() => {
+        navigate(-1);
+      });
+
+      return;
+    }
+
+    location = { ...location, value: location?.id, label: location?.name };
+
+    setValue('location', location);
   }, [responseUsers]);
 
   useEffect(() => {
@@ -297,22 +344,16 @@ const NewSale = () => {
                         required
                       />
                     </Grid>
-                    <Grid item xs={12} md={6} lg={4}>
-                      <SoftBox>
-                        <SoftBox display="flex" alignItems="center" mb={1}>
-                          <SoftTypography
-                            component="label"
-                            variant="caption"
-                            color="dark"
-                            fontSize="1rem"
-                            fontWeight="bold"
-                          >
-                            Local
-                          </SoftTypography>
-                        </SoftBox>
-
-                        <SoftInput value={user?.location?.name} disabled />
-                      </SoftBox>
+                    <Grid item xs={12} md={6} lg={4} sx={{ zIndex: 3 }}>
+                      <CustomSoftSelect
+                        label="Local"
+                        name={'location'}
+                        placeholder="Seleccione local"
+                        control={control}
+                        options={locationsList}
+                        isDisabled={isLoading || user?.role !== 'superadmin'}
+                        required
+                      />
                     </Grid>
                   </Grid>
 

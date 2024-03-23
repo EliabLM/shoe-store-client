@@ -18,9 +18,9 @@ export const useSalesService = () => {
     }
   };
 
-  const getAllSales = async ({ sale_status }) => {
+  const getAllSales = async ({ sale_status, sale_location, user_id, customer_id }) => {
     try {
-      const params = { sale_status };
+      const params = { sale_status, user_id, customer_id, sale_location };
       const response = await axiosInstance.get('/sales/get-sales', { params });
 
       return {
