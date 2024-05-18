@@ -20,77 +20,12 @@
   10. The `component` key is used to store the component of its route.
 */
 
-// Soft UI Dashboard PRO React layouts
-import Automotive from 'layouts/dashboards/automotive';
-import SmartHome from 'layouts/dashboards/smart-home';
-import CRM from 'layouts/dashboards/crm';
-import ProfileOverview from 'layouts/pages/profile/profile-overview';
-import Teams from 'layouts/pages/profile/teams';
-import AllProjects from 'layouts/pages/profile/all-projects';
-import Reports from 'layouts/pages/users/reports';
-import NewUser2 from 'layouts/pages/users/new-user';
-import Settings from 'layouts/pages/account/settings';
-import Billing from 'layouts/pages/account/billing';
-import Invoice from 'layouts/pages/account/invoice';
-import Security from 'layouts/pages/account/security';
-import General from 'layouts/pages/projects/general';
-import Timeline from 'layouts/pages/projects/timeline';
-import NewProject from 'layouts/pages/projects/new-project';
-import Widgets from 'layouts/pages/widgets';
-import Charts from 'layouts/pages/charts';
-import SweetAlerts from 'layouts/pages/sweet-alerts';
-import Notifications from 'layouts/pages/notifications';
-import PricingPage from 'layouts/pages/pricing-page';
-import Kanban from 'layouts/applications/kanban';
-import Wizard from 'layouts/applications/wizard';
-import DataTables from 'layouts/applications/data-tables';
-import Calendar from 'layouts/applications/calendar';
-import Analytics from 'layouts/applications/analytics';
-import Overview from 'layouts/ecommerce/overview';
-import NewProduct from 'layouts/ecommerce/products/new-product';
-import EditProduct from 'layouts/ecommerce/products/edit-product';
-import ProductPage from 'layouts/ecommerce/products/product-page';
-import ProductsList from 'layouts/ecommerce/products/products-list';
-import OrderList from 'layouts/ecommerce/orders/order-list';
-import OrderDetails from 'layouts/ecommerce/orders/order-details';
-import Referral from 'layouts/ecommerce/referral';
-import SignInBasic from 'layouts/authentication/sign-in/basic';
-import SignInCover from 'layouts/authentication/sign-in/cover';
-import SignInIllustration from 'layouts/authentication/sign-in/illustration';
-import SignUpBasic from 'layouts/authentication/sign-up/basic';
-import SignUpCover from 'layouts/authentication/sign-up/cover';
-import SignUpIllustration from 'layouts/authentication/sign-up/illustration';
-import ResetBasic from 'layouts/authentication/reset-password/basic';
-import ResetCover from 'layouts/authentication/reset-password/cover';
-import ResetIllustration from 'layouts/authentication/reset-password/illustration';
-import LockBasic from 'layouts/authentication/lock/basic';
-import LockCover from 'layouts/authentication/lock/cover';
-import LockIllustration from 'layouts/authentication/lock/illustration';
-import VerificationBasic from 'layouts/authentication/2-step-verification/basic';
-import VerificationCover from 'layouts/authentication/2-step-verification/cover';
-import VerificationIllustration from 'layouts/authentication/2-step-verification/illustration';
-import Error404 from 'layouts/authentication/error/404';
-import Error500 from 'layouts/authentication/error/500';
-
 // Soft UI Dashboard PRO React icons
 import Shop from 'examples/Icons/Shop';
-import Office from 'examples/Icons/Office';
-import SettingsIcon from 'examples/Icons/Settings';
-import Basket from 'examples/Icons/Basket';
-import Document from 'examples/Icons/Document';
 import GroupIcon from '@mui/icons-material/Group';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-
-// Pages
-import Sales from 'pages/Dashboards/Sales/Sales';
-import UsersList from 'pages/Modules/Users/UsersList';
-import NewUser from 'pages/Modules/Users/NewUser';
-import CreditorsList from 'pages/Modules/Creditors/CreditorsList';
-import NewCreditor from 'pages/Modules/Creditors/NewCreditor';
-import CreditsList from 'pages/Modules/Creditors/Credits/CreditsList';
-import NewCredit from 'pages/Modules/Creditors/Credits/NewCredit';
+import InventoryIcon from '@mui/icons-material/Inventory';
 
 const sidenavRoutes = [
   {
@@ -103,7 +38,6 @@ const sidenavRoutes = [
         name: 'Ventas',
         key: 'ventas',
         route: '/dashboards/ventas',
-        component: <Sales />,
       },
       // {
       //   name: 'Inventarios',
@@ -129,6 +63,32 @@ const sidenavRoutes = [
   { type: 'title', title: 'Módulos', key: 'modulos' },
   {
     type: 'collapse',
+    name: 'Ventas',
+    key: 'ventas',
+    icon: <AddShoppingCartIcon fontSize="10px" />,
+    collapse: [
+      {
+        name: 'Listado',
+        key: 'listado',
+        route: '/ventas/listado',
+      },
+    ],
+  },
+  {
+    type: 'collapse',
+    name: 'Inventario',
+    key: 'inventario',
+    icon: <InventoryIcon fontSize="10px" />,
+    collapse: [
+      {
+        name: 'Productos',
+        key: 'productos',
+        route: '/inventario/productos',
+      },
+    ],
+  },
+  {
+    type: 'collapse',
     name: 'Usuarios',
     key: 'usuarios',
     icon: <GroupIcon fontSize="10px" />,
@@ -137,13 +97,11 @@ const sidenavRoutes = [
         name: 'Lista de usuarios',
         key: 'lista-usuarios',
         route: '/usuarios/lista-usuarios',
-        component: <UsersList />,
       },
       {
         name: 'Nuevo usuario',
         key: 'nuevo-usuario',
         route: '/usuarios/nuevo-usuario',
-        component: <NewUser />,
       },
     ],
   },
@@ -216,19 +174,6 @@ const sidenavRoutes = [
         name: 'Métodos de pago',
         key: 'metodos-de-pago',
         route: '/parametrizacion/metodos-de-pago',
-      },
-    ],
-  },
-  {
-    type: 'collapse',
-    name: 'Ventas',
-    key: 'ventas',
-    icon: <AddShoppingCartIcon fontSize="10px" />,
-    collapse: [
-      {
-        name: 'Listado',
-        key: 'listado',
-        route: '/ventas/listado',
       },
     ],
   },

@@ -69,7 +69,7 @@ function Products() {
   const [dataTable, setDataTable] = useState({ columns, rows: [] });
 
   const editProduct = async (product) => {
-    navigate('/parametrizacion/editar-producto', { state: product });
+    navigate('/inventario/editar-producto', { state: product });
   };
 
   const toggleProductState = async (item) => {
@@ -137,7 +137,7 @@ function Products() {
               </SoftTypography> */}
             </SoftBox>
             <Stack spacing={1} direction="row">
-              <Link to="/parametrizacion/nuevo-producto">
+              <Link to="/inventario/nuevo-producto">
                 <SoftButton variant="gradient" color="dark" size="small">
                   + Nuevo producto
                 </SoftButton>

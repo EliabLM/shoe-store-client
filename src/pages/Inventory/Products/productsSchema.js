@@ -25,7 +25,7 @@ const categories = yup
       value: yup.string().required('Debe incluir al menos una categoría'),
     })
   )
-  .min(1);
+  .min(1, 'Debe incluir al menos una categoría');
 const stock = yup
   .number()
   .typeError('Debe ingresar un número')

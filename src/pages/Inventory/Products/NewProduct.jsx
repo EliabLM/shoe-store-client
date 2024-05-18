@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Card, CircularProgress, Grid, Stack } from '@mui/material';
@@ -23,16 +23,13 @@ import { useBrands } from 'hooks/useBrands';
 import { useCategories } from 'hooks/useCategories';
 import { useProductsService } from 'services/useProductsService';
 import { createProductSchema, PRODUCT_ENUM_NAMES } from './productsSchema';
-import { convertNumberToCurrency } from 'utils/formatNumber';
-import CustomSwitch from 'components/CustomSwitch/CustomSwitch';
 
-const EditProduct = () => {
+const NewProduct = () => {
   const navigate = useNavigate();
-  const { state } = useLocation();
 
   const { data: responseBrands } = useBrands({ active: true });
   const { data: responseCategories } = useCategories({ active: true });
-  const { updateProduct, deleteProduct } = useProductsService();
+  const { createProduct } = useProductsService();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -41,19 +38,11 @@ const EditProduct = () => {
     handleSubmit,
     control,
     formState: { errors },
-    setValue,
   } = useForm({
     criteriaMode: 'firstError',
     mode: 'all',
     reValidateMode: 'onChange',
     resolver: yupResolver(createProductSchema),
-    defaultValues: {
-      name: state.name,
-      stock: state.stock,
-      description: state.description,
-      price: convertNumberToCurrency(state.price),
-      active: state.active,
-    },
   });
 
   const onSubmit = async (data) => {
@@ -61,22 +50,20 @@ const EditProduct = () => {
       setIsLoading(true);
 
       const body = {
-        id: state.id,
         name: data.name,
         description: data.description,
-        brand: data.brand.value,
-        categories: data.categories.map((item) => item.value),
+        brand: data.brand.id,
+        categories: data.categories.map((item) => item.id),
         price: convertCurrencyToNumber(data.price),
-        stock: state.stock,
-        active: data.active,
+        stock: data.stock,
       };
 
-      const response = await updateProduct({ body });
+      const response = await createProduct({ body });
 
       if (
         !validateResponse(
           response,
-          'Ha ocurrido un error actualizando el producto, por favor intente nuevamente.'
+          'Ha ocurrido un error registrando el producto, por favor intente nuevamente.'
         )
       )
         return;
@@ -85,41 +72,13 @@ const EditProduct = () => {
         icon: 'success',
         text: response.message,
       }).then(() => {
-        navigate('/parametrizacion/productos');
+        navigate('/invetario/productos');
       });
     } catch (error) {
       console.error('🚀 ~ onSubmit ~ error:', error);
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleDeleteProduct = async () => {
-    const { isConfirmed } = await Swal.fire({
-      icon: 'warning',
-      text: '¿Esta seguro de eliminar este producto?',
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: 'Cancelar',
-      showCancelButton: true,
-      showConfirmButton: true,
-      reverseButtons: true,
-      showLoaderOnConfirm: true,
-      showCloseButton: true,
-      allowOutsideClick: false,
-      preConfirm: async () => {
-        const response = await deleteProduct({ productId: state._id });
-        validateResponse(response, 'Ha ocurrido un error eliminando el producto');
-      },
-    });
-
-    if (!isConfirmed) return;
-
-    Swal.fire({
-      icon: 'success',
-      text: 'Producto eliminado exitosamente',
-    }).then(() => {
-      navigate(-1);
-    });
   };
 
   const categoriesList = useMemo(() => {
@@ -134,16 +93,6 @@ const EditProduct = () => {
     return responseBrands?.data.map((item) => ({ ...item, value: item.id, label: item.name }));
   }, [responseBrands]);
 
-  useEffect(() => {
-    if (!state) return navigate(-1);
-
-    const brand = { label: state?.brand?.name, value: state?.brand?._id };
-    const categories = state?.categories?.map((item) => ({ label: item.name, value: item._id }));
-
-    setValue(PRODUCT_ENUM_NAMES.brand, brand);
-    setValue(PRODUCT_ENUM_NAMES.categories, categories);
-  }, [state]);
-
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -154,7 +103,7 @@ const EditProduct = () => {
               <SoftBox display="flex" justifyContent="space-between" alignItems="flex-start" p={3}>
                 <SoftBox lineHeight={1}>
                   <SoftTypography variant="h4" fontWeight="medium">
-                    Editar producto
+                    Nuevo producto
                   </SoftTypography>
                   {/* <SoftTypography variant="button" fontWeight="regular" color="text">
                 A lightweight, extendable, dependency-free javascript HTML table plugin.
@@ -206,7 +155,8 @@ const EditProduct = () => {
                       name={PRODUCT_ENUM_NAMES.stock}
                       register={register}
                       errors={errors}
-                      disabled
+                      disabled={isLoading}
+                      required
                     />
                   </Grid>
                   <Grid item xs={12} md={8}>
@@ -231,27 +181,9 @@ const EditProduct = () => {
                       required
                     />
                   </Grid>
-                  <Grid item xs={12} md={6}>
-                    <CustomSwitch
-                      label="Estado"
-                      name={PRODUCT_ENUM_NAMES.active}
-                      control={control}
-                      disabled={isLoading}
-                    />
-                  </Grid>
                 </Grid>
 
                 <SoftBox mt={4} mb={1} gap={1} display="flex" justifyContent="flex-end">
-                  <SoftButton
-                    type="button"
-                    variant="gradient"
-                    color="error"
-                    sx={{ marginRight: 'auto' }}
-                    disabled={isLoading}
-                    onClick={handleDeleteProduct}
-                  >
-                    Eliminar
-                  </SoftButton>
                   <Stack spacing={1} direction="row">
                     <SoftButton
                       type="button"
@@ -269,7 +201,7 @@ const EditProduct = () => {
                         <CircularProgress size={20} color="white" />
                       </>
                     ) : (
-                      'Editar'
+                      'Crear'
                     )}
                   </SoftButton>
                 </SoftBox>
@@ -284,4 +216,4 @@ const EditProduct = () => {
   );
 };
 
-export default EditProduct;
+export default NewProduct;

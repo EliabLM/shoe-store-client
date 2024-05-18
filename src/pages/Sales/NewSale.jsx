@@ -266,6 +266,11 @@ const NewSale = () => {
       label: 'Pagada',
     });
 
+    const paymentMethod = paymentMethodsList.filter((item) => item.label === 'efectivo')?.[0];
+    if (paymentMethod) {
+      setValue('paymentMethod', paymentMethod);
+    }
+
     if (!responseUsers) return;
 
     let seller = responseUsers.data.find((item) => item.id === user.id);
@@ -293,7 +298,7 @@ const NewSale = () => {
     location = { ...location, value: location?.id, label: location?.name };
 
     setValue('location', location);
-  }, [responseUsers]);
+  }, [responseUsers, responsePaymentMethods]);
 
   useEffect(() => {
     if (selectedProducts.length <= 0) return;

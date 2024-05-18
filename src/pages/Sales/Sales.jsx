@@ -55,7 +55,7 @@ const columns = [
     accessor: 'registration_date',
     Cell: ({ value }) => {
       // eslint-disable-next-line quotes
-      const date = parse(value, "yyyy-MM-dd'T'HH:mm:ss.SSSX", new Date());
+      const date = parse(value?.split('T')?.[0], 'yyyy-MM-dd', new Date());
       return format(date, 'dd/MM/yyyy');
     },
   },
